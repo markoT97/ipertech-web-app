@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 
 namespace IpertechCompany.DbContext
 {
-    class DbContext : IDbContext
+    public class DbContext : IDbContext
     {
         public string ConnectionString { get; set; }
         public SqlConnection Connection { get; set; }

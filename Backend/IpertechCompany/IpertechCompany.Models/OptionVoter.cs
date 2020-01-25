@@ -5,7 +5,7 @@ using IpertechCompany.Models.Validation;
 
 namespace IpertechCompany.Models
 {
-    class OptionVoter : IValidation
+    public class OptionVoter : IValidation
     {
         public Guid UserId { get; set; }
         public Guid PollId { get; set; }

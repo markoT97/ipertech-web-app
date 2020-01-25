@@ -5,7 +5,7 @@ using IpertechCompany.Models.Validation;
 
 namespace IpertechCompany.Models
 {
-    class Notification : IValidation
+    public class Notification : IValidation
     {
         public Guid NotificationId { get; set; }
         public Guid NotificationTypeId { get; set; }

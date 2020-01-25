@@ -5,7 +5,7 @@ using IpertechCompany.Models.Validation;
 
 namespace IpertechCompany.Models
 {
-    class User : IValidation
+    public class User : IValidation
     {
         public Guid UserId { get; set; }
         public Guid UserContractId { get; set; }

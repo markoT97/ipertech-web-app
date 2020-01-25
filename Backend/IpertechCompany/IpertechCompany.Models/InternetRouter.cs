@@ -6,7 +6,7 @@ using IpertechCompany.Models.Validation;
 
 namespace IpertechCompany.Models
 {
-    class InternetRouter : IValidation
+    public class InternetRouter : IValidation
     {
         public Guid InternetRouterId { get; set; }
         public string Name { get; set; }

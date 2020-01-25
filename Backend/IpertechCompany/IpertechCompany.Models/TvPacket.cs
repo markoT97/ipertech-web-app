@@ -5,7 +5,7 @@ using IpertechCompany.Models.Validation;
 
 namespace IpertechCompany.Models
 {
-    class TvPacket : IValidation
+    public class TvPacket : IValidation
     {
         public Guid TvPacketId { get; set; }
         public string Name { get; set; }

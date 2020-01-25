@@ -6,7 +6,7 @@ using IpertechCompany.Models.Validation;
 
 namespace IpertechCompany.Models
 {
-    class TvChannel : IValidation
+    public class TvChannel : IValidation
     {
         public Guid TvChannelId { get; set; }
         public string Name { get; set; }
