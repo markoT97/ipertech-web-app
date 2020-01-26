@@ -5,7 +5,7 @@ using IpertechCompany.Models;
 
 namespace IpertechCompany.IRepositories
 {
-    interface IPhonePacketRepository
+    public interface IPhonePacketRepository
     {
         IEnumerable<PhonePacket> GetAll();
         PhonePacket Insert(PhonePacket phonePacket);

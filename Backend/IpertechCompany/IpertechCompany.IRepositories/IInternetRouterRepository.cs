@@ -5,7 +5,7 @@ using IpertechCompany.Models;
 
 namespace IpertechCompany.IRepositories
 {
-    interface IInternetRouterRepository
+    public interface IInternetRouterRepository
     {
         InternetRouter Get(Guid internetRouterId);
         InternetRouter Insert(InternetRouter internetRouter);

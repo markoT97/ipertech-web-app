@@ -5,7 +5,7 @@ using IpertechCompany.Models;
 
 namespace IpertechCompany.IRepositories
 {
-    interface IInternetPacketRepository
+    public interface IInternetPacketRepository
     {
         IEnumerable<InternetPacket> GetAll();
         InternetPacket Insert(InternetPacket internetPacket);

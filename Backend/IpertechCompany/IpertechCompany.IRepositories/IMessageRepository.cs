@@ -5,7 +5,7 @@ using IpertechCompany.Models;
 
 namespace IpertechCompany.IRepositories
 {
-    interface IMessageRepository
+    public interface IMessageRepository
     {
         Message Get(Guid messageId);
         Message Insert(Message message);

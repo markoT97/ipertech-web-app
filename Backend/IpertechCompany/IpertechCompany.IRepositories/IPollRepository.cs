@@ -5,7 +5,7 @@ using IpertechCompany.Models;
 
 namespace IpertechCompany.IRepositories
 {
-    interface IPollRepository
+    public interface IPollRepository
     {
         Poll Get(Guid pollId);
         Poll Insert(Poll poll);

@@ -5,7 +5,7 @@ using IpertechCompany.Models;
 
 namespace IpertechCompany.IRepositories
 {
-    interface INotificationTypeRepository
+    public interface INotificationTypeRepository
     {
         NotificationType Insert(NotificationType notificationType);
         void Update(NotificationType notificationType);

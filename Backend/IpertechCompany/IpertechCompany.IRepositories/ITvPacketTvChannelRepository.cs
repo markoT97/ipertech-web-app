@@ -5,7 +5,7 @@ using IpertechCompany.Models;
 
 namespace IpertechCompany.IRepositories
 {
-    interface ITvPacketTvChannelRepository
+    public interface ITvPacketTvChannelRepository
     {
         IEnumerable<TvChannel> Get(Guid tvPacketId);
         TvPacketTvChannel Insert(TvPacketTvChannel tvPacketTvChannel);

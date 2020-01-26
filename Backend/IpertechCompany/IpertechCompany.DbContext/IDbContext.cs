@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IpertechCompany.DbContext
 {
-    interface IDbContext
+    public interface IDbContext
     {
         IDbConnection Connect();
     }

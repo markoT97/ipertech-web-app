@@ -5,7 +5,7 @@ using System.Text;
 
 namespace IpertechCompany.IRepositories
 {
-    interface INotificationRepository
+    public interface INotificationRepository
     {
         IEnumerable<Notification> Get(Guid notificationTypeId);
         Notification Insert(Notification notification);

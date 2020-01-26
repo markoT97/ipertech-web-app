@@ -5,7 +5,7 @@ using IpertechCompany.Models;
 
 namespace IpertechCompany.IRepositories
 {
-    interface IUserContractRepository
+    public interface IUserContractRepository
     {
         IEnumerable<UserContract> GetAll();
         UserContract Insert(UserContract userContract);

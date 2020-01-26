@@ -5,7 +5,7 @@ using IpertechCompany.Models;
 
 namespace IpertechCompany.IRepositories
 {
-    interface IOptionVoterRepository
+    public interface IOptionVoterRepository
     {
         int Get(Guid pollOptionId);
         OptionVoter Insert(OptionVoter optionVoter);

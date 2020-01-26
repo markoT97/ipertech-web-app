@@ -5,7 +5,7 @@ using IpertechCompany.Models;
 
 namespace IpertechCompany.IRepositories
 {
-    interface ITvPacketRepository
+    public interface ITvPacketRepository
     {
         IEnumerable<TvPacket> GetAll();
         TvPacket Insert(TvPacket tvPacket);

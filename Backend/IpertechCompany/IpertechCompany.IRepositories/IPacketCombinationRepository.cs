@@ -5,7 +5,7 @@ using IpertechCompany.Models;
 
 namespace IpertechCompany.IRepositories
 {
-    interface IPacketCombinationRepository
+    public interface IPacketCombinationRepository
     {
         IEnumerable<PacketCombination> GetAll();
         PacketCombination Insert(PacketCombination packetCombination);

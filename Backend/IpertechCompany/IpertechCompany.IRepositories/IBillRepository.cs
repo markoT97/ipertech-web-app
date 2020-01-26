@@ -5,7 +5,7 @@ using IpertechCompany.Models;
 
 namespace IpertechCompany.IRepositories
 {
-    interface IBillRepository
+    public interface IBillRepository
     {
         IEnumerable<Bill> Get(Guid userContractId);
         Bill Insert(Bill bill);

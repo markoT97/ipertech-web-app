@@ -5,7 +5,7 @@ using IpertechCompany.Models;
 
 namespace IpertechCompany.IRepositories
 {
-    interface IUserRepository
+    public interface IUserRepository
     {
         IEnumerable<User> GetAll();
         User Get(Guid userId);
