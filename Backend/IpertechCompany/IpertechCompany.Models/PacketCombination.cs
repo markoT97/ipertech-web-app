@@ -11,8 +11,8 @@ namespace IpertechCompany.Models
         public string Name { get; set; }
         public Guid InternetPacketId { get; set; }
         public Guid InternetRouterId { get; set; }
-        public Guid TvPacketId { get; set; }
-        public Guid PhonePacketId { get; set; }
+        public Guid? TvPacketId { get; set; }
+        public Guid? PhonePacketId { get; set; }
 
         public PacketCombination()
         {
