@@ -10,6 +10,6 @@ namespace IpertechCompany.IRepositories
         IEnumerable<InternetPacket> GetAll();
         InternetPacket Insert(InternetPacket internetPacket);
         void Update(InternetPacket internetPacket);
-        bool Delete(Guid internetPacketId);
+        bool Delete(Guid internetPacketId, Guid internetRouterId);
     }
 }
