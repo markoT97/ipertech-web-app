@@ -11,6 +11,7 @@ namespace IpertechCompany.Models
         public Guid NotificationTypeId { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
+        public DateTime CreatedAt { get; set; }
         public string ImageLocation { get; set; }
 
         public Notification()
