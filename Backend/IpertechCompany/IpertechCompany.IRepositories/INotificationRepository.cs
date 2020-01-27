@@ -10,6 +10,6 @@ namespace IpertechCompany.IRepositories
         IEnumerable<Notification> Get(Guid notificationTypeId);
         Notification Insert(Notification notification);
         void Update(Notification notification);
-        bool Delete(Guid notificationId);
+        bool Delete(Guid notificationId, Guid notificationTypeId);
     }
 }
