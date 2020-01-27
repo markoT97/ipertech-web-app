@@ -10,7 +10,7 @@ namespace IpertechCompany.Models
         public Guid MessageId { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
-        public DateTime Timestamp { get; set; }
+        public DateTime CreatedAt { get; set; }
         public string Category { get; set; }
 
         public Message()
@@ -18,12 +18,12 @@ namespace IpertechCompany.Models
 
         }
 
-        public Message(Guid messageId, string title, string content, DateTime timestamp, string category)
+        public Message(Guid messageId, string title, string content, DateTime createdAt, string category)
         {
             MessageId = messageId;
             Title = title;
             Content = content;
-            Timestamp = timestamp;
+            CreatedAt = createdAt;
             Category = category;
 
         }
