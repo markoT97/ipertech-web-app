@@ -9,7 +9,6 @@ namespace IpertechCompany.IRepositories
     {
         Message Get(Guid userId);
         UserMessage Insert(UserMessage userMessage);
-        void Update(UserMessage userMessage);
         bool Delete(UserMessage userMessage);
     }
 }
