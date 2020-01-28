@@ -9,7 +9,6 @@ namespace IpertechCompany.IRepositories
     {
         IEnumerable<TvChannel> Get(Guid tvPacketId);
         TvPacketTvChannel Insert(TvPacketTvChannel tvPacketTvChannel);
-        void Update(TvPacketTvChannel tvPacketTvChannel);
         bool Delete(TvPacketTvChannel tvPacketTvChannel);
     }
 }
