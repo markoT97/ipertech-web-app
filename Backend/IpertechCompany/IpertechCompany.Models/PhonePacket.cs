@@ -14,7 +14,7 @@ namespace IpertechCompany.Models
 
         public PhonePacket()
         {
-
+            PhonePacketId = Guid.NewGuid();
         }
 
         public PhonePacket(Guid phonePacketId, string name, int freeMinutes, decimal price)

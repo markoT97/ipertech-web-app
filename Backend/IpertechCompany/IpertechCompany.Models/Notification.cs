@@ -16,7 +16,7 @@ namespace IpertechCompany.Models
 
         public Notification()
         {
-
+            NotificationId = Guid.NewGuid();
         }
 
         public Notification(Guid notificationId, Guid notificationTypeId, string title, string content, string imageLocation)

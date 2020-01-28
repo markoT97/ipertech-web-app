@@ -14,7 +14,7 @@ namespace IpertechCompany.Models
 
         public InternetRouter()
         {
-
+            InternetRouterId = Guid.NewGuid();
         }
 
         public InternetRouter(Guid internetRouterId, string name, string imageLocation)

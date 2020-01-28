@@ -13,7 +13,7 @@ namespace IpertechCompany.Models
 
         public Poll()
         {
-
+            PollId = Guid.NewGuid();
         }
 
         public Poll(Guid pollId, string question, int numberOfVoters)

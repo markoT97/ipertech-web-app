@@ -16,7 +16,7 @@ namespace IpertechCompany.Models
 
         public PacketCombination()
         {
-
+            PacketCombinationId = Guid.NewGuid();
         }
 
         public PacketCombination(Guid packetCombinationId, string name, Guid internetPacketId, Guid tvPacketId,

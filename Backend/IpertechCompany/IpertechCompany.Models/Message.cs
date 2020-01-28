@@ -15,7 +15,7 @@ namespace IpertechCompany.Models
 
         public Message()
         {
-
+            MessageId = Guid.NewGuid();
         }
 
         public Message(Guid messageId, string title, string content, DateTime createdAt, string category)

@@ -15,7 +15,7 @@ namespace IpertechCompany.Models
 
         public InternetPacket()
         {
-
+            InternetPacketId = Guid.NewGuid();
         }
 
         public InternetPacket(Guid internetPacketId, Guid internetRouterId, string name, string speed, decimal price)
