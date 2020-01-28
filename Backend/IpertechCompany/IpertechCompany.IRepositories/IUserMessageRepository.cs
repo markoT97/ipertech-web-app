@@ -8,7 +8,7 @@ namespace IpertechCompany.IRepositories
     public interface IUserMessageRepository
     {
         Message Get(Guid userId);
-        Message Insert(UserMessage userMessage);
+        UserMessage Insert(UserMessage userMessage);
         void Update(UserMessage userMessage);
         bool Delete(UserMessage userMessage);
     }
