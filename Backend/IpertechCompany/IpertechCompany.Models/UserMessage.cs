@@ -8,28 +8,28 @@ namespace IpertechCompany.Models
 {
     public class UserMessage : IValidation
     {
-        public Guid UserId { get; set; }
-        public Guid MessageId { get; set; }
+        public User User { get; set; }
+        public Message Message { get; set; }
 
         public UserMessage()
         {
 
         }
 
-        public UserMessage(Guid userId, Guid messageId)
+        public UserMessage(User user, Message message)
         {
-            UserId = userId;
-            MessageId = messageId;
+            User = user;
+            Message = message;
         }
 
         public override string ToString()
         {
-            return UserId + ", " + MessageId;
+            return User + ", " + Message;
         }
 
         public bool IsValid()
         {
-            if (!(!UserId.Equals(null) && !MessageId.Equals(null)))
+            if (!(!User.Equals(null) && !Message.Equals(null)))
             {
                 return false;
             }

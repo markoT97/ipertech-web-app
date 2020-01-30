@@ -7,28 +7,28 @@ namespace IpertechCompany.Models
 {
     public class TvPacketTvChannel : IValidation
     {
-        public Guid TvPacketId { get; set; }
-        public Guid TvChannelId { get; set; }
+        public TvPacket TvPacket { get; set; }
+        public TvChannel TvChannel { get; set; }
 
         public TvPacketTvChannel()
         {
 
         }
 
-        public TvPacketTvChannel(Guid tvPacketId, Guid tvChannelId)
+        public TvPacketTvChannel(TvPacket tvPacket, TvChannel tvChannel)
         {
-            TvPacketId = tvPacketId;
-            TvChannelId = tvChannelId;
+            TvPacket = tvPacket;
+            TvChannel = tvChannel;
         }
 
         public override string ToString()
         {
-            return TvPacketId + ", " + TvChannelId;
+            return TvPacket + ", " + TvChannel;
         }
 
         public bool IsValid()
         {
-            if (!(!TvPacketId.Equals(null) && !TvChannelId.Equals(null)))
+            if (!(!TvPacket.Equals(null) && !TvChannel.Equals(null)))
             {
                 return false;
             }

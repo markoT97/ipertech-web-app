@@ -9,34 +9,33 @@ namespace IpertechCompany.Models
     {
         public Guid PacketCombinationId { get; set; }
         public string Name { get; set; }
-        public Guid InternetPacketId { get; set; }
-        public Guid InternetRouterId { get; set; }
-        public Guid? TvPacketId { get; set; }
-        public Guid? PhonePacketId { get; set; }
+        public InternetPacket InternetPacket { get; set; }
+        public TvPacket TvPacket { get; set; }
+        public PhonePacket PhonePacket { get; set; }
 
         public PacketCombination()
         {
             PacketCombinationId = Guid.NewGuid();
         }
 
-        public PacketCombination(Guid packetCombinationId, string name, Guid internetPacketId, Guid tvPacketId,
-            Guid phonePacketId)
+        public PacketCombination(Guid packetCombinationId, string name, InternetPacket internetPacket, TvPacket tvPacket,
+            PhonePacket phonePacket)
         {
             PacketCombinationId = packetCombinationId;
             Name = name;
-            InternetPacketId = internetPacketId;
-            TvPacketId = tvPacketId;
-            PhonePacketId = phonePacketId;
+            InternetPacket = internetPacket;
+            TvPacket = tvPacket;
+            PhonePacket = phonePacket;
         }
 
         public override string ToString()
         {
-            return PacketCombinationId + ", " + Name + ", " + InternetPacketId + ", " + TvPacketId + ", " + PhonePacketId;
+            return PacketCombinationId + ", " + Name + ", " + InternetPacket + ", " + TvPacket + ", " + PhonePacket;
         }
 
         public bool IsValid()
         {
-            if (!(!PacketCombinationId.Equals(null) && Name != null && !InternetPacketId.Equals(null)))
+            if (!(!PacketCombinationId.Equals(null) && Name != null && !InternetPacket.Equals(null)))
             {
                 return false;
             }

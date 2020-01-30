@@ -8,7 +8,7 @@ namespace IpertechCompany.Models
     public class PollOption : IValidation
     {
         public Guid PollOptionId { get; set; }
-        public Guid PollId { get; set; }
+        public Poll Poll { get; set; }
         public string AnswerText { get; set; }
 
         public PollOption()
@@ -16,21 +16,21 @@ namespace IpertechCompany.Models
             PollOptionId = Guid.NewGuid();
         }
 
-        public PollOption(Guid pollOptionId, Guid pollId, string answerText)
+        public PollOption(Guid pollOptionId, Poll poll, string answerText)
         {
             PollOptionId = pollOptionId;
-            PollId = pollId;
+            Poll = poll;
             AnswerText = answerText;
         }
 
         public override string ToString()
         {
-            return PollOptionId + ", " + PollId + ", " + AnswerText;
+            return PollOptionId + ", " + Poll + ", " + AnswerText;
         }
 
         public bool IsValid()
         {
-            if (!(!PollOptionId.Equals(null) && !PollId.Equals(null) && AnswerText != null))
+            if (!(!PollOptionId.Equals(null) && !Poll.Equals(null) && AnswerText != null))
             {
                 return false;
             }
