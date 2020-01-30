@@ -1,7 +1,0 @@
-D:\Marko\Projekti\onion-architecture-web-app-with-r-db\ipertech-web-app\Backend\IpertechCompany\IpertechCompany.DbRepositories\bin\Debug\netstandard2.0\IpertechCompany.DbContext.dll
-D:\Marko\Projekti\onion-architecture-web-app-with-r-db\ipertech-web-app\Backend\IpertechCompany\IpertechCompany.DbRepositories\bin\Debug\netstandard2.0\IpertechCompany.IRepositories.dll
-D:\Marko\Projekti\onion-architecture-web-app-with-r-db\ipertech-web-app\Backend\IpertechCompany\IpertechCompany.DbRepositories\bin\Debug\netstandard2.0\IpertechCompany.Models.dll
-D:\Marko\Projekti\onion-architecture-web-app-with-r-db\ipertech-web-app\Backend\IpertechCompany\IpertechCompany.DbRepositories\obj\Debug\netstandard2.0\IpertechCompany.DbRepositories.csprojAssemblyReference.cache
-D:\Marko\Projekti\onion-architecture-web-app-with-r-db\ipertech-web-app\Backend\IpertechCompany\IpertechCompany.DbRepositories\obj\Debug\netstandard2.0\IpertechCompany.DbRepositories.csproj.CoreCompileInputs.cache
-D:\Marko\Projekti\onion-architecture-web-app-with-r-db\ipertech-web-app\Backend\IpertechCompany\IpertechCompany.DbRepositories\obj\Debug\netstandard2.0\IpertechCompany.DbRepositories.AssemblyInfoInputs.cache
-D:\Marko\Projekti\onion-architecture-web-app-with-r-db\ipertech-web-app\Backend\IpertechCompany\IpertechCompany.DbRepositories\obj\Debug\netstandard2.0\IpertechCompany.DbRepositories.AssemblyInfo.cs
