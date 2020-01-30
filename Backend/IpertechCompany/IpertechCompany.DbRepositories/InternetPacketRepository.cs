@@ -44,8 +44,13 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT * FROM packets.InternetPacket";
-                return connection.Query<InternetPacket>(query);
+                const string query = "SELECT [ip].InternetPacketID, [ip].Name, [ip].Speed, [ip].Price, ir.* FROM packets.InternetPacket [ip]" +
+                                     " INNER JOIN packets.InternetRouter ir ON [ip].InternetRouterID = ir.InternetRouterID";
+                return connection.Query<InternetPacket, InternetRouter, InternetPacket>(query, (internet, router) =>
+                    {
+                        internet.InternetRouter = router;
+                        return internet;
+                    }, splitOn: "InternetRouterID");
             }
         }
 
@@ -60,7 +65,7 @@ namespace IpertechCompany.DbRepositories
                                    " OUTPUT INSERTED.InternetPacketID" +
                                    " VALUES(@InternetRouterID, @Name, @Speed, @Price)";
                     command.CommandText = query;
-                    command.Parameters.Add("@InternetRouterID", SqlDbType.UniqueIdentifier).Value = internetPacket.InternetRouterId;
+                    command.Parameters.Add("@InternetRouterID", SqlDbType.UniqueIdentifier).Value = internetPacket.InternetRouter.InternetRouterId;
                     command.Parameters.Add("@Name", SqlDbType.NVarChar, 50).Value = internetPacket.Name;
                     command.Parameters.Add("@Speed", SqlDbType.VarChar, 100).Value = internetPacket.Speed;
                     command.Parameters.Add("@Price", SqlDbType.Decimal, 10).Value = internetPacket.Price;
@@ -84,7 +89,7 @@ namespace IpertechCompany.DbRepositories
 
                     command.CommandText = query;
                     command.Parameters.Add("@InternetPacketID", SqlDbType.UniqueIdentifier).Value = internetPacket.InternetPacketId;
-                    command.Parameters.Add("@InternetRouterID", SqlDbType.Date).Value = internetPacket.InternetRouterId;
+                    command.Parameters.Add("@InternetRouterID", SqlDbType.Date).Value = internetPacket.InternetRouter.InternetRouterId;
                     command.Parameters.Add("@Name", SqlDbType.NVarChar, 50).Value = internetPacket.Name;
                     command.Parameters.Add("@Speed", SqlDbType.VarChar, 100).Value = internetPacket.Speed;
                     command.Parameters.Add("@Price", SqlDbType.Decimal, 10).Value = internetPacket.Price;

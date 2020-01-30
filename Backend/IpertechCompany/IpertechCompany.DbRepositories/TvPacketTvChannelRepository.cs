@@ -29,8 +29,8 @@ namespace IpertechCompany.DbRepositories
                     const string query = "DELETE FROM packets.TvPacketTvChannel" +
                                          " WHERE TvPacketID = @TvPacketID AND TvChannelID = @TvChannelID";
                     command.CommandText = query;
-                    command.Parameters.AddWithValue("@TvChannelID", SqlDbType.UniqueIdentifier).Value = tvPacketTvChannel.TvChannelId;
-                    command.Parameters.AddWithValue("@TvPacketID", SqlDbType.UniqueIdentifier).Value = tvPacketTvChannel.TvPacketId;
+                    command.Parameters.AddWithValue("@TvChannelID", SqlDbType.UniqueIdentifier).Value = tvPacketTvChannel.TvChannel.TvChannelId;
+                    command.Parameters.AddWithValue("@TvPacketID", SqlDbType.UniqueIdentifier).Value = tvPacketTvChannel.TvPacket.TvPacketId;
 
                     connection.Open();
                     rowsAffected = command.ExecuteNonQuery();
@@ -43,9 +43,16 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT * FROM packets.TvPacketTvChannel" +
-                                     " WHERE TvPacketID = @TvPacketID";
-                return connection.Query<TvChannel>(query, new { TvPacketID = tvPacketId });
+                const string query = "SELECT tc.*" +
+                                     " FROM packets.TvPacketTvChannel tptc" +
+                                     " INNER JOIN packets.TvPacket tp ON tptc.TvPacketID = tp.TvPacketID" +
+                                     " INNER JOIN packets.TvChannel tc ON tptc.TvChannelID = tc.TvChannelID" +
+                                     " WHERE tptc.TvPacketID = @TvPacketID";
+                return connection.Query<TvPacketTvChannel, TvPacket, TvChannel, TvChannel>(query, (tvPacketTvChannel, tvPacket, tvChannel) =>
+                {
+                    tvChannel.TvChannelId = tvPacketTvChannel.TvChannel.TvChannelId;
+                    return tvChannel;
+                }, splitOn: "TvPacketID, TvChannelID", param: new { TvPacketID = tvPacketId });
             }
         }
 
@@ -60,8 +67,8 @@ namespace IpertechCompany.DbRepositories
                                          " OUTPUT INSERTED.TvChannelID" +
                                          " VALUES(@TvPacketID, @TvChannelID)";
                     command.CommandText = query;
-                    command.Parameters.Add("@TvPacketID", SqlDbType.UniqueIdentifier).Value = tvPacketTvChannel.TvPacketId;
-                    command.Parameters.Add("@TvChannelID", SqlDbType.UniqueIdentifier).Value = tvPacketTvChannel.TvChannelId;
+                    command.Parameters.Add("@TvPacketID", SqlDbType.UniqueIdentifier).Value = tvPacketTvChannel.TvPacket.TvPacketId;
+                    command.Parameters.Add("@TvChannelID", SqlDbType.UniqueIdentifier).Value = tvPacketTvChannel.TvChannel.TvChannelId;
 
                     connection.Open();
                     command.ExecuteNonQuery();

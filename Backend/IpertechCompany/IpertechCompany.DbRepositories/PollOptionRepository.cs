@@ -42,9 +42,14 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT * FROM useractions.PollOption" +
-                                     " WHERE PollOptionID = @PollOptionID";
-                return connection.Query<PollOption>(query, new { PollOptionID = pollId });
+                const string query = "SELECT p.*, po.AnswerText FROM useractions.PollOption po" +
+                                     " INNER JOIN useractions.Poll p ON po.PollID = p.PollID" +
+                                     " WHERE po.PollOptionID = @PollOptionID";
+                return connection.Query<PollOption, Poll, PollOption>(query, (pollOption, poll) =>
+                    {
+                        pollOption.Poll = poll;
+                        return pollOption;
+                    }, splitOn: "PollID", param: new { PollOptionID = pollId });
             }
         }
 
@@ -59,7 +64,7 @@ namespace IpertechCompany.DbRepositories
                                          " OUTPUT INSERTED.PollOptionID" +
                                          " VALUES(@PollID, @AnswerText)";
                     command.CommandText = query;
-                    command.Parameters.Add("@PollID", SqlDbType.UniqueIdentifier).Value = pollOption.PollId;
+                    command.Parameters.Add("@PollID", SqlDbType.UniqueIdentifier).Value = pollOption.Poll.PollId;
                     command.Parameters.Add("@AnswerText", SqlDbType.NVarChar, 50).Value = pollOption.AnswerText;
 
                     connection.Open();
@@ -78,7 +83,7 @@ namespace IpertechCompany.DbRepositories
                     const string query = "UPDATE useractions.PollOption SET PollID = @PollID, AnswerText = @AnswerText" +
                                         " WHERE PollOptionID = @PollOptionID";
                     command.CommandText = query;
-                    command.Parameters.Add("@PollID", SqlDbType.UniqueIdentifier).Value = pollOption.PollId;
+                    command.Parameters.Add("@PollID", SqlDbType.UniqueIdentifier).Value = pollOption.Poll.PollId;
                     command.Parameters.Add("@AnswerText", SqlDbType.NVarChar, 50).Value = pollOption.AnswerText;
                     command.Parameters.Add("@PollOptionID", SqlDbType.UniqueIdentifier).Value = pollOption.PollOptionId;
 

@@ -42,8 +42,18 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT * FROM packets.PacketCombination";
-                return connection.Query<PacketCombination>(query);
+                const string query = "SELECT pc.PacketCombinationID, pc.Name, [ip].*, tp.*, ph.*" + 
+                " FROM packets.PacketCombination pc" +
+                " INNER JOIN packets.InternetPacket [ip] ON pc.InternetPacketID = [ip].InternetPacketID" +
+                " LEFT JOIN packets.TvPacket tp ON pc.TvPacketID = tp.TvPacketID " +
+                " LEFT JOIN packets.PhonePacket ph ON pc.PhonePacketID = ph.PhonePacketID";
+                return connection.Query<PacketCombination, InternetPacket, TvPacket, PhonePacket, PacketCombination>(query,
+                    (packet, internet, tv, phone) => {
+                        packet.InternetPacket = internet;
+                        packet.TvPacket = tv;
+                        packet.PhonePacket = phone;
+                        return packet;
+                    }, splitOn: "InternetPacketID, TvPacketID, PhonePacketID");
             }
         }
 
@@ -59,10 +69,10 @@ namespace IpertechCompany.DbRepositories
                                          " VALUES(@Name, @InternetPacketID, @InternetRouterID, @TvPacketID, @PhonePacketID)";
                     command.CommandText = query;
                     command.Parameters.Add("@Name", SqlDbType.NVarChar, 50).Value = packetCombination.Name;
-                    command.Parameters.Add("@InternetPacketID", SqlDbType.UniqueIdentifier).Value = packetCombination.InternetPacketId;
-                    command.Parameters.Add("@InternetRouterID", SqlDbType.UniqueIdentifier).Value = packetCombination.InternetRouterId;
-                    command.Parameters.Add("@TvPacketID", SqlDbType.UniqueIdentifier).Value = (object)packetCombination.TvPacketId ?? DBNull.Value;
-                    command.Parameters.Add("@PhonePacketID", SqlDbType.UniqueIdentifier).Value = (object)packetCombination.PhonePacketId ?? DBNull.Value;
+                    command.Parameters.Add("@InternetPacketID", SqlDbType.UniqueIdentifier).Value = packetCombination.InternetPacket.InternetPacketId;
+                    command.Parameters.Add("@InternetRouterID", SqlDbType.UniqueIdentifier).Value = packetCombination.InternetPacket.InternetRouter.InternetRouterId;
+                    command.Parameters.Add("@TvPacketID", SqlDbType.UniqueIdentifier).Value = (object)packetCombination.TvPacket.TvPacketId ?? DBNull.Value;
+                    command.Parameters.Add("@PhonePacketID", SqlDbType.UniqueIdentifier).Value = (object)packetCombination.PhonePacket.PhonePacketId ?? DBNull.Value;
 
                     connection.Open();
                     insertedPacketCombination.PacketCombinationId = Guid.Parse(command.ExecuteScalar().ToString());
@@ -82,10 +92,10 @@ namespace IpertechCompany.DbRepositories
                                          " WHERE PacketCombinationID = @PacketCombinationID";
                     command.CommandText = query;
                     command.Parameters.Add("@Name", SqlDbType.NVarChar, 50).Value = packetCombination.Name;
-                    command.Parameters.Add("@InternetPacketID", SqlDbType.UniqueIdentifier).Value = packetCombination.InternetPacketId;
-                    command.Parameters.Add("@InternetRouterID", SqlDbType.UniqueIdentifier).Value = packetCombination.InternetRouterId;
-                    command.Parameters.Add("@TvPacketID", SqlDbType.UniqueIdentifier).Value = (object)packetCombination.TvPacketId ?? DBNull.Value;
-                    command.Parameters.Add("@PhonePacketID", SqlDbType.UniqueIdentifier).Value = (object)packetCombination.PhonePacketId ?? DBNull.Value;
+                    command.Parameters.Add("@InternetPacketID", SqlDbType.UniqueIdentifier).Value = packetCombination.InternetPacket.InternetPacketId;
+                    command.Parameters.Add("@InternetRouterID", SqlDbType.UniqueIdentifier).Value = packetCombination.InternetPacket.InternetRouter.InternetRouterId;
+                    command.Parameters.Add("@TvPacketID", SqlDbType.UniqueIdentifier).Value = (object)packetCombination.TvPacket.TvPacketId ?? DBNull.Value;
+                    command.Parameters.Add("@PhonePacketID", SqlDbType.UniqueIdentifier).Value = (object)packetCombination.PhonePacket.PhonePacketId ?? DBNull.Value;
                     command.Parameters.Add("@PacketCombinationID", SqlDbType.UniqueIdentifier).Value = packetCombination.PacketCombinationId;
 
                     connection.Open();
