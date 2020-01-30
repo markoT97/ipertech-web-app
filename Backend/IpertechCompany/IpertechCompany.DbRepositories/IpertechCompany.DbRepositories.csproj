@@ -9,7 +9,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <ProjectReference Include="..\IpertechCompany.DbContext\IpertechCompany.DbContext.csproj" />
+    <ProjectReference Include="..\IpertechCompany.DbContext\IpertechCompany.DbConnection.csproj" />
     <ProjectReference Include="..\IpertechCompany.IRepositories\IpertechCompany.IRepositories.csproj" />
   </ItemGroup>
 

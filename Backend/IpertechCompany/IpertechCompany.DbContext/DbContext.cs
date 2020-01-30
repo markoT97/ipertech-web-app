@@ -3,7 +3,7 @@ using System.Collections.Specialized;
 using System.Data;
 using System.Data.SqlClient;
 
-namespace IpertechCompany.DbContext
+namespace IpertechCompany.DbConnection
 {
     public class DbContext : IDbContext
     {

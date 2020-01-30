@@ -5,7 +5,7 @@ using System.Data.SqlClient;
 using System.Runtime.CompilerServices;
 using System.Text;
 using Dapper;
-using IpertechCompany.DbContext;
+using IpertechCompany.DbConnection;
 using IpertechCompany.IRepositories;
 using IpertechCompany.Models;
 
