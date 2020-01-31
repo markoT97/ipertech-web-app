@@ -16,12 +16,12 @@ namespace IpertechCompany.Models
 
         public TvChannel()
         {
-            TvChannelId = Guid.NewGuid();
+            
         }
 
         public TvChannel(Guid tvChannelId, string name, string imageLocation, int positionNumber, bool tvBackwards)
         {
-            TvChannelId = tvChannelId;
+            TvChannelId = tvChannelId.Equals(Guid.Empty) ? Guid.NewGuid() : tvChannelId;
             Name = name;
             ImageLocation = imageLocation;
             PositionNumber = positionNumber;

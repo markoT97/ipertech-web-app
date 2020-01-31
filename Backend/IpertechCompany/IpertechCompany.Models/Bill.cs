@@ -20,12 +20,12 @@ namespace IpertechCompany.Models
 
         public Bill()
         {
-            BillId = Guid.NewGuid();
+            
         }
 
         public Bill(Guid billId, Guid userContractId, DateTime startDate, DateTime endDate, string callNum, string accOfRecipient, bool isPaid, decimal price, string currency)
         {
-            BillId = billId;
+            BillId = billId.Equals(Guid.Empty) ? Guid.NewGuid() : billId;
             UserContractId = userContractId;
             StartDate = startDate;
             EndDate = endDate;

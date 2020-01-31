@@ -14,12 +14,12 @@ namespace IpertechCompany.Models
 
         public InternetRouter()
         {
-            InternetRouterId = Guid.NewGuid();
+
         }
 
         public InternetRouter(Guid internetRouterId, string name, string imageLocation)
         {
-            InternetRouterId = internetRouterId;
+            InternetRouterId = internetRouterId.Equals(Guid.Empty) ? Guid.NewGuid() : internetRouterId;
             Name = name;
             ImageLocation = imageLocation;
         }

@@ -15,17 +15,16 @@ namespace IpertechCompany.Models
 
         public Message()
         {
-            MessageId = Guid.NewGuid();
+         
         }
 
         public Message(Guid messageId, string title, string content, DateTime createdAt, string category)
         {
-            MessageId = messageId;
+            MessageId = messageId.Equals(Guid.Empty) ? Guid.NewGuid() : messageId;
             Title = title;
             Content = content;
             CreatedAt = createdAt;
             Category = category;
-
         }
         public bool IsValid()
         {

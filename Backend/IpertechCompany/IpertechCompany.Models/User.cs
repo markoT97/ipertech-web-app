@@ -20,13 +20,13 @@ namespace IpertechCompany.Models
 
         public User()
         {
-            UserId = Guid.NewGuid();
+            
         }
 
         public User(Guid userId, Guid userContractId, string role, string firstName, string lastName, string gender, string email, string phoneNumber, string password
          , string imageLocation)
         {
-            UserId = userId;
+            UserId = userId.Equals(Guid.Empty) ? Guid.NewGuid() : userId;
             UserContractId = userContractId;
             Role = role;
             FirstName = firstName;

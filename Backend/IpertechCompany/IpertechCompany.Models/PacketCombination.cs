@@ -15,13 +15,13 @@ namespace IpertechCompany.Models
 
         public PacketCombination()
         {
-            PacketCombinationId = Guid.NewGuid();
+            
         }
 
         public PacketCombination(Guid packetCombinationId, string name, InternetPacket internetPacket, TvPacket tvPacket,
             PhonePacket phonePacket)
         {
-            PacketCombinationId = packetCombinationId;
+            PacketCombinationId = packetCombinationId.Equals(Guid.Empty) ? Guid.NewGuid() : packetCombinationId;
             Name = name;
             InternetPacket = internetPacket;
             TvPacket = tvPacket;

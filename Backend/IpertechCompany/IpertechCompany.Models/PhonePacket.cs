@@ -14,12 +14,12 @@ namespace IpertechCompany.Models
 
         public PhonePacket()
         {
-            PhonePacketId = Guid.NewGuid();
+            
         }
 
         public PhonePacket(Guid phonePacketId, string name, int freeMinutes, decimal price)
         {
-            PhonePacketId = phonePacketId;
+            PhonePacketId = phonePacketId.Equals(Guid.Empty) ? Guid.NewGuid() : phonePacketId;
             Name = name;
             FreeMinutes = freeMinutes;
             Price = price;

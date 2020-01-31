@@ -13,12 +13,12 @@ namespace IpertechCompany.Models
 
         public UserContract()
         {
-            UserContractId = Guid.NewGuid();
+            
         }
 
         public UserContract(Guid userContractId, Guid packetCombinationId, int contractDurationMonths)
         {
-            UserContractId = userContractId;
+            UserContractId = userContractId.Equals(Guid.Empty) ? Guid.NewGuid() : userContractId;
             PacketCombinationId = packetCombinationId;
             ContractDurationMonths = contractDurationMonths;
         }
