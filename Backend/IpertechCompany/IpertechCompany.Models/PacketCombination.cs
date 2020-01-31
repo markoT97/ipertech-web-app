@@ -18,8 +18,8 @@ namespace IpertechCompany.Models
             
         }
 
-        public PacketCombination(Guid packetCombinationId, string name, InternetPacket internetPacket, TvPacket tvPacket,
-            PhonePacket phonePacket)
+        public PacketCombination(Guid packetCombinationId, string name, InternetPacket internetPacket, TvPacket tvPacket = null,
+            PhonePacket phonePacket = null)
         {
             PacketCombinationId = packetCombinationId.Equals(Guid.Empty) ? Guid.NewGuid() : packetCombinationId;
             Name = name;

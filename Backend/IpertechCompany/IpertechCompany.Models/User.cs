@@ -23,8 +23,8 @@ namespace IpertechCompany.Models
             
         }
 
-        public User(Guid userId, Guid userContractId, string role, string firstName, string lastName, string gender, string email, string phoneNumber, string password
-         , string imageLocation)
+        public User(Guid userId, Guid userContractId, string role = null, string firstName = null, string lastName = null, string gender = null, string email = null, string phoneNumber = null, string password = null
+         , string imageLocation = null)
         {
             UserId = userId.Equals(Guid.Empty) ? Guid.NewGuid() : userId;
             UserContractId = userContractId;

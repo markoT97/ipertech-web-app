@@ -17,7 +17,7 @@ namespace IpertechCompany.Models
 
         }
 
-        public InternetRouter(Guid internetRouterId, string name, string imageLocation)
+        public InternetRouter(Guid internetRouterId, string name = null, string imageLocation = null)
         {
             InternetRouterId = internetRouterId.Equals(Guid.Empty) ? Guid.NewGuid() : internetRouterId;
             Name = name;

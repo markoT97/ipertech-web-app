@@ -16,7 +16,7 @@ namespace IpertechCompany.Models
             
         }
 
-        public Poll(Guid pollId, string question, int numberOfVoters)
+        public Poll(Guid pollId, string question = null, int numberOfVoters = 0)
         {
             PollId = pollId.Equals(Guid.Empty) ? Guid.NewGuid() : pollId;
             Question = question;

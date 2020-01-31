@@ -16,7 +16,7 @@ namespace IpertechCompany.Models
             
         }
 
-        public TvPacket(Guid tvPacketId, string name, decimal price)
+        public TvPacket(Guid tvPacketId, string name = null, decimal price = 0)
         {
             TvPacketId = tvPacketId.Equals(Guid.Empty) ? Guid.NewGuid() : tvPacketId;
             Name = name;
