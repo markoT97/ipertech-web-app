@@ -25,6 +25,7 @@ namespace IpertechCompany.Models
             NotificationTypeId = notificationTypeId;
             Title = title;
             Content = content;
+            CreatedAt = DateTime.UtcNow;
             ImageLocation = imageLocation;
         }
 

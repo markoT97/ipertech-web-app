@@ -23,6 +23,7 @@ namespace IpertechCompany.Models
             MessageId = messageId.Equals(Guid.Empty) ? Guid.NewGuid() : messageId;
             Title = title;
             Content = content;
+            CreatedAt = DateTime.UtcNow;
             Category = category;
         }
         public bool IsValid()
