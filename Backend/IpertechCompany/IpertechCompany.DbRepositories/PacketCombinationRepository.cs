@@ -64,15 +64,16 @@ namespace IpertechCompany.DbRepositories
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
-                    const string query = "INSERT INTO packets.PacketCombination (Name, InternetPacketID, InternetRouterID, TvPacketID, PhonePacketID)" +
+                    const string query = "INSERT INTO packets.PacketCombination (PacketCombinationID, Name, InternetPacketID, InternetRouterID, TvPacketID, PhonePacketID)" +
                                          " OUTPUT INSERTED.PacketCombinationID" +
-                                         " VALUES(@Name, @InternetPacketID, @InternetRouterID, @TvPacketID, @PhonePacketID)";
+                                         " VALUES(@PacketCombinationID, @Name, @InternetPacketID, @InternetRouterID, @TvPacketID, @PhonePacketID)";
                     command.CommandText = query;
+                    command.Parameters.Add("@PacketCombinationID", SqlDbType.UniqueIdentifier).Value = packetCombination.PacketCombinationId;
                     command.Parameters.Add("@Name", SqlDbType.NVarChar, 50).Value = packetCombination.Name;
                     command.Parameters.Add("@InternetPacketID", SqlDbType.UniqueIdentifier).Value = packetCombination.InternetPacket.InternetPacketId;
                     command.Parameters.Add("@InternetRouterID", SqlDbType.UniqueIdentifier).Value = packetCombination.InternetPacket.InternetRouter.InternetRouterId;
-                    command.Parameters.Add("@TvPacketID", SqlDbType.UniqueIdentifier).Value = (object)packetCombination.TvPacket.TvPacketId ?? DBNull.Value;
-                    command.Parameters.Add("@PhonePacketID", SqlDbType.UniqueIdentifier).Value = (object)packetCombination.PhonePacket.PhonePacketId ?? DBNull.Value;
+                    command.Parameters.Add("@TvPacketID", SqlDbType.UniqueIdentifier).Value = packetCombination.TvPacket?.TvPacketId ?? (object)DBNull.Value;
+                    command.Parameters.Add("@PhonePacketID", SqlDbType.UniqueIdentifier).Value = packetCombination.PhonePacket?.PhonePacketId ?? (object)DBNull.Value;
 
                     connection.Open();
                     insertedPacketCombination.PacketCombinationId = Guid.Parse(command.ExecuteScalar().ToString());
@@ -88,14 +89,14 @@ namespace IpertechCompany.DbRepositories
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
                     const string query = "UPDATE packets.PacketCombination SET Name = @Name, InternetPacketID = @InternetPacketID," +
-                                         " InternetRouterID = @InternetRouterID, TvPacketID = @TvPacketID , PhonePacketID = @PhonePacketID)" +
+                                         " InternetRouterID = @InternetRouterID, TvPacketID = @TvPacketID , PhonePacketID = @PhonePacketID" +
                                          " WHERE PacketCombinationID = @PacketCombinationID";
                     command.CommandText = query;
                     command.Parameters.Add("@Name", SqlDbType.NVarChar, 50).Value = packetCombination.Name;
                     command.Parameters.Add("@InternetPacketID", SqlDbType.UniqueIdentifier).Value = packetCombination.InternetPacket.InternetPacketId;
                     command.Parameters.Add("@InternetRouterID", SqlDbType.UniqueIdentifier).Value = packetCombination.InternetPacket.InternetRouter.InternetRouterId;
-                    command.Parameters.Add("@TvPacketID", SqlDbType.UniqueIdentifier).Value = (object)packetCombination.TvPacket.TvPacketId ?? DBNull.Value;
-                    command.Parameters.Add("@PhonePacketID", SqlDbType.UniqueIdentifier).Value = (object)packetCombination.PhonePacket.PhonePacketId ?? DBNull.Value;
+                    command.Parameters.Add("@TvPacketID", SqlDbType.UniqueIdentifier).Value = packetCombination.TvPacket?.TvPacketId ?? (object)DBNull.Value;
+                    command.Parameters.Add("@PhonePacketID", SqlDbType.UniqueIdentifier).Value = packetCombination.PhonePacket?.PhonePacketId ?? (object)DBNull.Value;
                     command.Parameters.Add("@PacketCombinationID", SqlDbType.UniqueIdentifier).Value = packetCombination.PacketCombinationId;
 
                     connection.Open();

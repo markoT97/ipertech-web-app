@@ -55,10 +55,11 @@ namespace IpertechCompany.DbRepositories
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
-                    const string query = "INSERT INTO packets.InternetRouter (Name, ImageLocation)" +
+                    const string query = "INSERT INTO packets.InternetRouter (InternetRouterID, Name, ImageLocation)" +
                                          " OUTPUT INSERTED.InternetRouterID" +
                                          " VALUES(@InternetRouterID, @Name, @ImageLocation)";
                     command.CommandText = query;
+                    command.Parameters.Add("@InternetRouterID", SqlDbType.UniqueIdentifier).Value = internetRouter.InternetRouterId;
                     command.Parameters.Add("@Name", SqlDbType.VarChar, 50).Value = internetRouter.Name;
                     command.Parameters.Add("@ImageLocation", SqlDbType.NVarChar, 200).Value = (object)internetRouter.ImageLocation ?? DBNull.Value;
 

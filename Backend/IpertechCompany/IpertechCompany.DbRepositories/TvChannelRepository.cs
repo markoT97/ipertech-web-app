@@ -54,10 +54,11 @@ namespace IpertechCompany.DbRepositories
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
-                    const string query = "INSERT INTO packets.TvChannel (Name, ImageLocation, PositionNumber, TvBackwards)" +
+                    const string query = "INSERT INTO packets.TvChannel (TvChannelID, Name, ImageLocation, PositionNumber, TvBackwards)" +
                                          " OUTPUT INSERTED.TvChannelID" +
-                                         " VALUES(@Name, @ImageLocation, @PositionNumber, @TvBackwards)";
+                                         " VALUES(@TvChannelID, @Name, @ImageLocation, @PositionNumber, @TvBackwards)";
                     command.CommandText = query;
+                    command.Parameters.Add("@TvChannelID", SqlDbType.UniqueIdentifier).Value = tvChannel.TvChannelId;
                     command.Parameters.Add("@Name", SqlDbType.NVarChar, 50).Value = tvChannel.Name;
                     command.Parameters.Add("@ImageLocation", SqlDbType.NVarChar, 200).Value = tvChannel.ImageLocation;
                     command.Parameters.Add("@PositionNumber", SqlDbType.Int).Value = tvChannel.PositionNumber;

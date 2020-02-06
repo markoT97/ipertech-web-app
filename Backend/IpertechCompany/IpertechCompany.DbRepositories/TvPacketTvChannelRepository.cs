@@ -48,11 +48,7 @@ namespace IpertechCompany.DbRepositories
                                      " INNER JOIN packets.TvPacket tp ON tptc.TvPacketID = tp.TvPacketID" +
                                      " INNER JOIN packets.TvChannel tc ON tptc.TvChannelID = tc.TvChannelID" +
                                      " WHERE tptc.TvPacketID = @TvPacketID";
-                return connection.Query<TvPacketTvChannel, TvPacket, TvChannel, TvChannel>(query, (tvPacketTvChannel, tvPacket, tvChannel) =>
-                {
-                    tvChannel.TvChannelId = tvPacketTvChannel.TvChannel.TvChannelId;
-                    return tvChannel;
-                }, splitOn: "TvPacketID, TvChannelID", param: new { TvPacketID = tvPacketId });
+                return connection.Query<TvChannel>(query, new { TvPacketID = tvPacketId });
             }
         }
 

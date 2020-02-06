@@ -47,12 +47,8 @@ namespace IpertechCompany.DbRepositories
                                      " FROM useractions.UserMessage um" +
                                      " INNER JOIN useractions.[User] u ON um.UserID = u.UserID" +
                                      " INNER JOIN useractions.Message m ON um.MessageID = m.MessageID" +
-                                     " WHERE UserID = @UserID";
-                return connection.Query<UserMessage, User, Message, Message>(query, (userMessage, user, message) =>
-                    {
-                        message.MessageId = userMessage.Message.MessageId;
-                        return message;
-                    }, splitOn: "UserID, MessageID");
+                                     " WHERE um.UserID = @UserID";
+                return connection.Query<Message>(query, new { UserID = userId });
             }
         }
 

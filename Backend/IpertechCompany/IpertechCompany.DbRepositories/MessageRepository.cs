@@ -55,13 +55,14 @@ namespace IpertechCompany.DbRepositories
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
-                    const string query = "INSERT INTO useractions.Message (Title, Content, CreatedAt, Category)" +
+                    const string query = "INSERT INTO useractions.Message (MessageID, Title, Content, CreatedAt, Category)" +
                                          " OUTPUT INSERTED.MessageID" +
                                          " VALUES(@MessageID, @Title, @Content, @CreatedAt, @Category)";
                     command.CommandText = query;
+                    command.Parameters.Add("@MessageID", SqlDbType.UniqueIdentifier).Value = message.MessageId;
                     command.Parameters.Add("@Title", SqlDbType.NVarChar, 30).Value = message.Title;
                     command.Parameters.Add("@Content", SqlDbType.NVarChar, 200).Value = message.Content;
-                    command.Parameters.Add("@CreatedAt", SqlDbType.DateTime).Value = message.CreatedAt;
+                    command.Parameters.Add("@CreatedAt", SqlDbType.DateTime).Value = DateTime.UtcNow;
                     command.Parameters.Add("@Category", SqlDbType.VarChar, 50).Value = message.Category;
 
                     connection.Open();
@@ -78,12 +79,12 @@ namespace IpertechCompany.DbRepositories
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
                     const string query = "UPDATE useractions.Message" +
-                                         " SET Title = @Title, Content = @Content, CreatedAt = @CreatedAt, Category = @Category)" +
+                                         " SET Title = @Title, Content = @Content, CreatedAt = @CreatedAt, Category = @Category" +
                                          " WHERE MessageID = @MessageID";
                     command.CommandText = query;
                     command.Parameters.Add("@Title", SqlDbType.NVarChar, 30).Value = message.Title;
                     command.Parameters.Add("@Content", SqlDbType.NVarChar, 200).Value = message.Content;
-                    command.Parameters.Add("@CreatedAt", SqlDbType.VarChar, 50).Value = message.CreatedAt;
+                    command.Parameters.Add("@CreatedAt", SqlDbType.DateTime, 50).Value = DateTime.UtcNow;
                     command.Parameters.Add("@Category", SqlDbType.VarChar, 50).Value = message.Category;
                     command.Parameters.Add("@MessageID", SqlDbType.UniqueIdentifier).Value = message.MessageId;
 

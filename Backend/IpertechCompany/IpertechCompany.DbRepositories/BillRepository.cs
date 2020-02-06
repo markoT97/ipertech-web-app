@@ -55,10 +55,11 @@ namespace IpertechCompany.DbRepositories
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
-                    const string query = "INSERT INTO useractions.Bill (UserContractID, StartDate, EndDate, CallNum, AccOfRecipient, IsPaid, Price, Currency)" +
+                    const string query = "INSERT INTO useractions.Bill (BillID, UserContractID, StartDate, EndDate, CallNum, AccOfRecipient, IsPaid, Price, Currency)" +
                         " OUTPUT INSERTED.BillID" +
-                        " VALUES(@UserContractID, @StartDate, @EndDate, @CallNum, @AccOfRecipient, @IsPaid, @Price, @Currency)";
+                        " VALUES(@BillID, @UserContractID, @StartDate, @EndDate, @CallNum, @AccOfRecipient, @IsPaid, @Price, @Currency)";
                     command.CommandText = query;
+                    command.Parameters.Add("@BillID", SqlDbType.UniqueIdentifier).Value = bill.BillId;
                     command.Parameters.Add("@UserContractID", SqlDbType.UniqueIdentifier).Value = bill.UserContractId;
                     command.Parameters.Add("@StartDate", SqlDbType.Date).Value = bill.StartDate;
                     command.Parameters.Add("@EndDate", SqlDbType.Date).Value = bill.EndDate;
@@ -82,7 +83,7 @@ namespace IpertechCompany.DbRepositories
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
                     const string query = "UPDATE useractions.Bill SET UserContractID = @UserContractID, StartDate = @StartDate, EndDate = @EndDate," +
-                        " CallNum = @CallNum, AccOfRecipient = @AccOfRecipient, IsPaid = @IsPaid, Price = @Price, Currency = @Currency)" +
+                        " CallNum = @CallNum, AccOfRecipient = @AccOfRecipient, IsPaid = @IsPaid, Price = @Price, Currency = @Currency" +
                         " WHERE BillID = @BillID";
   
                     command.CommandText = query;
@@ -94,7 +95,6 @@ namespace IpertechCompany.DbRepositories
                     command.Parameters.Add("@IsPaid", SqlDbType.Bit).Value = bill.IsPaid;
                     command.Parameters.Add("@Price", SqlDbType.Decimal, 10).Value = bill.Price;
                     command.Parameters.Add("@Currency", SqlDbType.VarChar, 5).Value = bill.Currency;
-                    command.Parameters.Add("@UserContractID", SqlDbType.UniqueIdentifier).Value = bill.UserContractId;
                     command.Parameters.Add("@BillID", SqlDbType.UniqueIdentifier).Value = bill.BillId;
 
                     connection.Open();

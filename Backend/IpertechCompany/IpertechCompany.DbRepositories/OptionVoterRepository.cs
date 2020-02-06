@@ -37,9 +37,10 @@ namespace IpertechCompany.DbRepositories
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
-                    const string query = "INSERT INTO useractions.OptionVoter (PollOptionID, UserID)" +
+                    const string query = "INSERT INTO useractions.OptionVoter (PollID, PollOptionID, UserID)" +
                                          " VALUES(@PollID, @PollOptionID, @UserID)";
                     command.CommandText = query;
+                    command.Parameters.Add("@PollID", SqlDbType.UniqueIdentifier).Value = optionVoter.PollId;
                     command.Parameters.Add("@PollOptionID", SqlDbType.UniqueIdentifier).Value = optionVoter.PollOptionId;
                     command.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = optionVoter.UserId;
 

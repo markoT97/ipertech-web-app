@@ -56,10 +56,11 @@ namespace IpertechCompany.DbRepositories
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
-                    const string query = "INSERT INTO notifications.Notification (NotificationTypeID, Title, Content, CreatedAt, ImageLocation)" +
+                    const string query = "INSERT INTO notifications.Notification (NotificationID, NotificationTypeID, Title, Content, CreatedAt, ImageLocation)" +
                                          " OUTPUT INSERTED.NotificationID" +
-                                         " VALUES(@NotificationTypeID, @Title, @Content, @CreatedAt, @ImageLocation)";
+                                         " VALUES(@NotificationID, @NotificationTypeID, @Title, @Content, @CreatedAt, @ImageLocation)";
                     command.CommandText = query;
+                    command.Parameters.Add("@NotificationID", SqlDbType.UniqueIdentifier).Value = notification.NotificationId;
                     command.Parameters.Add("@NotificationTypeID", SqlDbType.UniqueIdentifier).Value = notification.NotificationTypeId;
                     command.Parameters.Add("@Title", SqlDbType.NVarChar, 50).Value = notification.Title;
                     command.Parameters.Add("@Content", SqlDbType.NVarChar, 500).Value = (object)notification.Content ?? DBNull.Value;
@@ -80,7 +81,7 @@ namespace IpertechCompany.DbRepositories
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
                     const string query = "UPDATE notifications.Notification SET NotificationTypeID = @NotificationTypeID, Title = @Title," +
-                                         " Content = @Content, CreatedAt = @CreatedAt, ImageLocation = @ImageLocation)" +
+                                         " Content = @Content, CreatedAt = @CreatedAt, ImageLocation = @ImageLocation" +
                                          " WHERE NotificationID = @NotificationID";
                     command.CommandText = query;
                     command.Parameters.Add("@NotificationTypeID", SqlDbType.UniqueIdentifier).Value = notification.NotificationTypeId;

@@ -54,10 +54,11 @@ namespace IpertechCompany.DbRepositories
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
-                    const string query = "INSERT INTO packets.PhonePacket (Name, FreeMinutes, Price)" +
+                    const string query = "INSERT INTO packets.PhonePacket (PhonePacketID, Name, FreeMinutes, Price)" +
                                          " OUTPUT INSERTED.PhonePacketID" +
-                                         " VALUES(@Name, @FreeMinutes, @Price)";
+                                         " VALUES(@PhonePacketID, @Name, @FreeMinutes, @Price)";
                     command.CommandText = query;
+                    command.Parameters.Add("@PhonePacketID", SqlDbType.UniqueIdentifier).Value = phonePacket.PhonePacketId;
                     command.Parameters.Add("@Name", SqlDbType.NVarChar, 50).Value = phonePacket.Name;
                     command.Parameters.Add("@FreeMinutes", SqlDbType.Int).Value = phonePacket.FreeMinutes;
                     command.Parameters.Add("@Price", SqlDbType.Decimal, 10).Value = phonePacket.Price;
@@ -75,7 +76,7 @@ namespace IpertechCompany.DbRepositories
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
-                    const string query = "UPDATE packets.PhonePacket SET Name = @Name, FreeMinutes = @FreeMinutes, Price = @Price)" +
+                    const string query = "UPDATE packets.PhonePacket SET Name = @Name, FreeMinutes = @FreeMinutes, Price = @Price" +
                                          " WHERE PhonePacketID = @PhonePacketID";
                     command.CommandText = query;
                     command.Parameters.Add("@Name", SqlDbType.NVarChar, 50).Value = phonePacket.Name;

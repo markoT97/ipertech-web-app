@@ -26,7 +26,7 @@ namespace IpertechCompany.DbRepositories
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
-                    const string query = "DELETE FROM useractions.User" +
+                    const string query = "DELETE FROM useractions.[User]" +
                                          " WHERE UserID = @UserID";
                     command.CommandText = query;
                     command.Parameters.AddWithValue("@UserID", SqlDbType.UniqueIdentifier).Value = userId;
@@ -42,7 +42,7 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT * FROM useractions.User" +
+                const string query = "SELECT * FROM useractions.[User]" +
                                      " WHERE UserID = @UserID";
                 return connection.QuerySingleOrDefault<User>(query, new { UserID = userId });
             }
@@ -52,7 +52,7 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT * FROM useractions.User";
+                const string query = "SELECT * FROM useractions.[User]";
                 return connection.Query<User>(query);
             }
         }
@@ -64,13 +64,14 @@ namespace IpertechCompany.DbRepositories
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
-                    const string query = "INSERT INTO useractions.User (UserContractID, Role, FirstName, LastName, Gender, Email," +
+                    const string query = "INSERT INTO useractions.[User] (UserID, UserContractID, Role, FirstName, LastName, Gender, Email," +
                                          " PhoneNumber, Password, ImageLocation)" +
                                          " OUTPUT INSERTED.UserID" +
-                                         " VALUES(@UserContractID, @Role, @FirstName, @LastName," +
+                                         " VALUES(@UserID, @UserContractID, @Role, @FirstName, @LastName," +
                                          " @Gender, @Email, @PhoneNumber, @Password, @ImageLocation)";
                     command.CommandText = query;
-                    command.Parameters.Add("@UserContractID", SqlDbType.UniqueIdentifier).Value = user.UserContractId;
+                    command.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = user.UserId;
+                    command.Parameters.Add("@UserContractID", SqlDbType.UniqueIdentifier).Value = user.UserContract.UserContractId;
                     command.Parameters.Add("@Role", SqlDbType.VarChar, 30).Value = user.Role;
                     command.Parameters.Add("@FirstName", SqlDbType.NVarChar, 50).Value = user.FirstName;
                     command.Parameters.Add("@LastName", SqlDbType.NVarChar, 50).Value = user.LastName;
@@ -93,12 +94,12 @@ namespace IpertechCompany.DbRepositories
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
-                    const string query = "UPDATE useractions.User SET UserContractID = @UserContractID, Role = @Role, " +
+                    const string query = "UPDATE useractions.[User] SET UserContractID = @UserContractID, Role = @Role, " +
                                          "FirstName = @FirstName, LastName = @LastName, Gender = @Gender, Email = @Email," +
-                                         " PhoneNumber  = @PhoneNumber, Password = @PhoneNumber, ImageLocation = @ImageLocation" +
+                                         " PhoneNumber  = @PhoneNumber, Password = @Password, ImageLocation = @ImageLocation" +
                                          " WHERE UserID = @UserID";
                     command.CommandText = query;
-                    command.Parameters.Add("@UserContractID", SqlDbType.UniqueIdentifier).Value = user.UserContractId;
+                    command.Parameters.Add("@UserContractID", SqlDbType.UniqueIdentifier).Value = user.UserContract.UserContractId;
                     command.Parameters.Add("@Role", SqlDbType.VarChar, 30).Value = user.Role;
                     command.Parameters.Add("@FirstName", SqlDbType.NVarChar, 50).Value = user.FirstName;
                     command.Parameters.Add("@LastName", SqlDbType.NVarChar, 50).Value = user.LastName;

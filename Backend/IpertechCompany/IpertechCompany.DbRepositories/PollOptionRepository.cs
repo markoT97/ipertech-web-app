@@ -42,14 +42,14 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT p.*, po.AnswerText FROM useractions.PollOption po" +
+                const string query = "SELECT po.PollOptionID, po.AnswerText, p.* FROM useractions.PollOption po" +
                                      " INNER JOIN useractions.Poll p ON po.PollID = p.PollID" +
-                                     " WHERE po.PollOptionID = @PollOptionID";
+                                     " WHERE po.PollID = @PollID";
                 return connection.Query<PollOption, Poll, PollOption>(query, (pollOption, poll) =>
                     {
                         pollOption.Poll = poll;
                         return pollOption;
-                    }, splitOn: "PollID", param: new { PollOptionID = pollId });
+                    }, splitOn: "PollID", param: new { PollID = pollId });
             }
         }
 
@@ -60,10 +60,11 @@ namespace IpertechCompany.DbRepositories
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
-                    const string query = "INSERT INTO useractions.PollOption (PollID, AnswerText)" +
+                    const string query = "INSERT INTO useractions.PollOption (PollOptionID, PollID, AnswerText)" +
                                          " OUTPUT INSERTED.PollOptionID" +
-                                         " VALUES(@PollID, @AnswerText)";
+                                         " VALUES(@PollOptionID, @PollID, @AnswerText)";
                     command.CommandText = query;
+                    command.Parameters.Add("@PollOptionID", SqlDbType.UniqueIdentifier).Value = pollOption.PollOptionId;
                     command.Parameters.Add("@PollID", SqlDbType.UniqueIdentifier).Value = pollOption.Poll.PollId;
                     command.Parameters.Add("@AnswerText", SqlDbType.NVarChar, 50).Value = pollOption.AnswerText;
 

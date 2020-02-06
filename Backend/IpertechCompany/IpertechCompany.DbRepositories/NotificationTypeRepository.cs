@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
 using System.Text;
+using Dapper;
 using IpertechCompany.DbConnection;
 using IpertechCompany.IRepositories;
 using IpertechCompany.Models;
@@ -37,6 +38,15 @@ namespace IpertechCompany.DbRepositories
             return (rowsAffected > 0);
         }
 
+        public IEnumerable<NotificationType> GetAll()
+        {
+            using (var connection = _dbContext.Connect())
+            {
+                const string query = "SELECT * FROM notifications.NotificationType";
+                return connection.Query<NotificationType>(query);
+            }
+        }
+
         public NotificationType Insert(NotificationType notificationType)
         {
             var insertedNotificationType = new NotificationType();
@@ -44,10 +54,11 @@ namespace IpertechCompany.DbRepositories
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
-                    const string query = "INSERT INTO notifications.NotificationType (Name, ImageWidth, ImageHeight)" +
+                    const string query = "INSERT INTO notifications.NotificationType (NotificationTypeID, Name, ImageWidth, ImageHeight)" +
                                          " OUTPUT INSERTED.NotificationTypeID" +
-                                         " VALUES(, @Name, @ImageWidth @ImageHeight)";
+                                         " VALUES(@NotificationTypeID, @Name, @ImageWidth, @ImageHeight)";
                     command.CommandText = query;
+                    command.Parameters.Add("@NotificationTypeID", SqlDbType.UniqueIdentifier).Value = notificationType.NotificationTypeId;
                     command.Parameters.Add("@Name", SqlDbType.NVarChar, 50).Value = notificationType.Name;
                     command.Parameters.Add("@ImageWidth", SqlDbType.Int).Value = notificationType.ImageWidth;
                     command.Parameters.Add("@ImageHeight", SqlDbType.Int).Value = notificationType.ImageHeight;
@@ -65,8 +76,8 @@ namespace IpertechCompany.DbRepositories
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
-                    const string query = "UPDATE notifications.NotificationType SET Name = @Name, ImageWidth = @ImageWidth, ImageHeight = ImageHeight" +
-                                         " WHERE";
+                    const string query = "UPDATE notifications.NotificationType SET Name = @Name, ImageWidth = @ImageWidth, ImageHeight = @ImageHeight" +
+                                         " WHERE NotificationTypeID = @NotificationTypeID";
                     command.CommandText = query;
                     command.Parameters.Add("@Name", SqlDbType.NVarChar, 50).Value = notificationType.Name;
                     command.Parameters.Add("@ImageWidth", SqlDbType.Int).Value = notificationType.ImageWidth;

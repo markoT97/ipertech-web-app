@@ -56,10 +56,11 @@ namespace IpertechCompany.DbRepositories
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
-                    const string query = "INSERT INTO useractions.Poll (Question)" +
+                    const string query = "INSERT INTO useractions.Poll (PollID, Question)" +
                                          " OUTPUT INSERTED.PollID" +
-                                         " VALUES(@Question)";
+                                         " VALUES(@PollID, @Question)";
                     command.CommandText = query;
+                    command.Parameters.Add("@PollID", SqlDbType.UniqueIdentifier).Value = poll.PollId;
                     command.Parameters.Add("@Question", SqlDbType.NVarChar, 400).Value = poll.Question;
 
                     connection.Open();
@@ -78,10 +79,11 @@ namespace IpertechCompany.DbRepositories
                     const string query = "UPDATE useractions.Poll SET Question = @Question" +
                                          " WHERE PollID = @PollID";
                     command.CommandText = query;
+                    command.Parameters.Add("@Question", SqlDbType.NVarChar, 400).Value = poll.Question;
                     command.Parameters.Add("@PollID", SqlDbType.UniqueIdentifier).Value = poll.PollId;
 
                     connection.Open();
-                    poll.PollId = Guid.Parse(command.ExecuteScalar().ToString());
+                    command.ExecuteNonQuery();
                 }
             }
         }

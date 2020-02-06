@@ -54,11 +54,12 @@ namespace IpertechCompany.DbRepositories
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
-                    const string query = "INSERT INTO useractions.UserContract (PacketCombinationID, ContractDurationMonths)" +
+                    const string query = "INSERT INTO useractions.UserContract (UserContractID, PacketCombinationID, ContractDurationMonths)" +
                                          " OUTPUT INSERTED.UserContractID" +
-                                         " VALUES(@PacketCombinationID, @ContractDurationMonths)";
+                                         " VALUES(@UserContractID, @PacketCombinationID, @ContractDurationMonths)";
                     command.CommandText = query;
-                    command.Parameters.Add("@PacketCombinationID", SqlDbType.UniqueIdentifier).Value = userContract.PacketCombinationId;
+                    command.Parameters.Add("@UserContractID", SqlDbType.UniqueIdentifier).Value = userContract.UserContractId;
+                    command.Parameters.Add("@PacketCombinationID", SqlDbType.UniqueIdentifier).Value = userContract.PacketCombination.PacketCombinationId;
                     command.Parameters.Add("@ContractDurationMonths", SqlDbType.Int).Value = userContract.ContractDurationMonths;
 
                     connection.Open();
@@ -75,10 +76,10 @@ namespace IpertechCompany.DbRepositories
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
                     const string query = "UPDATE useractions.UserContract SET PacketCombinationID = @PacketCombinationID, " +
-                                         "ContractDurationMonths = @ContractDurationMonths)" +
+                                         "ContractDurationMonths = @ContractDurationMonths" +
                                          " WHERE UserContractID = @UserContractID";
                     command.CommandText = query;
-                    command.Parameters.Add("@PacketCombinationID", SqlDbType.UniqueIdentifier).Value = userContract.PacketCombinationId;
+                    command.Parameters.Add("@PacketCombinationID", SqlDbType.UniqueIdentifier).Value = userContract.PacketCombination.PacketCombinationId;
                     command.Parameters.Add("@ContractDurationMonths", SqlDbType.Int).Value = userContract.ContractDurationMonths;
                     command.Parameters.Add("@UserContractID", SqlDbType.UniqueIdentifier).Value = userContract.UserContractId;
 

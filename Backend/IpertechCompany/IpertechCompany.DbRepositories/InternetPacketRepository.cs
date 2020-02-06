@@ -89,7 +89,7 @@ namespace IpertechCompany.DbRepositories
 
                     command.CommandText = query;
                     command.Parameters.Add("@InternetPacketID", SqlDbType.UniqueIdentifier).Value = internetPacket.InternetPacketId;
-                    command.Parameters.Add("@InternetRouterID", SqlDbType.Date).Value = internetPacket.InternetRouter.InternetRouterId;
+                    command.Parameters.Add("@InternetRouterID", SqlDbType.UniqueIdentifier).Value = internetPacket.InternetRouter.InternetRouterId;
                     command.Parameters.Add("@Name", SqlDbType.NVarChar, 50).Value = internetPacket.Name;
                     command.Parameters.Add("@Speed", SqlDbType.VarChar, 100).Value = internetPacket.Speed;
                     command.Parameters.Add("@Price", SqlDbType.Decimal, 10).Value = internetPacket.Price;
