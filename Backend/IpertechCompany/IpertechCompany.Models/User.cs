@@ -8,7 +8,7 @@ namespace IpertechCompany.Models
     public class User : IValidation
     {
         public Guid UserId { get; set; }
-        public Guid UserContractId { get; set; }
+        public UserContract UserContract { get; set; }
         public string Role { get; set; }
         public string FirstName { get; set; }
         public string LastName { get; set; }
@@ -23,11 +23,11 @@ namespace IpertechCompany.Models
             
         }
 
-        public User(Guid userId, Guid userContractId, string role = null, string firstName = null, string lastName = null, string gender = null, string email = null, string phoneNumber = null, string password = null
+        public User(Guid userId, UserContract userContract = null, string role = null, string firstName = null, string lastName = null, string gender = null, string email = null, string phoneNumber = null, string password = null
          , string imageLocation = null)
         {
             UserId = userId.Equals(Guid.Empty) ? Guid.NewGuid() : userId;
-            UserContractId = userContractId;
+            UserContract = userContract;
             Role = role;
             FirstName = firstName;
             LastName = lastName;
@@ -41,13 +41,13 @@ namespace IpertechCompany.Models
 
         public override string ToString()
         {
-            return UserId + ", " + UserContractId + ", " + Role + ", " + FirstName + ", " + LastName + ", " + Gender + ", " + Email + ", " + PhoneNumber + ", " + Password + ", " + ImageLocation;
+            return UserId + ", " + UserContract + ", " + Role + ", " + FirstName + ", " + LastName + ", " + Gender + ", " + Email + ", " + PhoneNumber + ", " + Password + ", " + ImageLocation;
         }
 
         public bool IsValid()
         {
 
-            if (!(!UserId.Equals(null) && !UserContractId.Equals(null) && Role != null && FirstName != null &&
+            if (!(!UserId.Equals(null) && !UserContract.Equals(null) && Role != null && FirstName != null &&
                   LastName != null && Email != null && Password != null))
             {
                 return false;
