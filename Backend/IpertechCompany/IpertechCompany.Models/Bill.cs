@@ -9,7 +9,7 @@ namespace IpertechCompany.Models
     public class Bill : IValidation
     {
         public Guid BillId { get; set; }
-        public Guid UserContractId { get; set; }
+        public UserContract UserContract { get; set; }
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public string CallNum { get; set; }
@@ -23,10 +23,10 @@ namespace IpertechCompany.Models
             
         }
 
-        public Bill(Guid billId, Guid userContractId, string callNum, string accOfRecipient, bool isPaid, decimal price, string currency)
+        public Bill(Guid billId, UserContract userContract = null, string callNum = null, string accOfRecipient = null, bool isPaid = false, decimal price = 0, string currency = null)
         {
             BillId = billId.Equals(Guid.Empty) ? Guid.NewGuid() : billId;
-            UserContractId = userContractId;
+            UserContract = userContract;
             StartDate = DateTime.UtcNow;
             EndDate = StartDate.AddDays(30);
             CallNum = callNum;
@@ -38,12 +38,12 @@ namespace IpertechCompany.Models
 
         public override string ToString()
         {
-            return BillId + ", " + UserContractId + ", " + StartDate + ", " + EndDate + ", " + CallNum + ", " + AccOfRecipient + ", " + IsPaid + ", " + Price + ", " + Currency;
+            return BillId + ", " + UserContract + ", " + StartDate + ", " + EndDate + ", " + CallNum + ", " + AccOfRecipient + ", " + IsPaid + ", " + Price + ", " + Currency;
         }
 
         public bool IsValid()
         {
-            if (!(!BillId.Equals(null) && !UserContractId.Equals(null) && !StartDate.Equals(null) &&
+            if (!(!BillId.Equals(null) && !UserContract.Equals(null) && !StartDate.Equals(null) &&
                   !EndDate.Equals(null) && CallNum != null && AccOfRecipient != null && Price != 0 && Currency != null))
             {
                 return false;

@@ -60,7 +60,7 @@ namespace IpertechCompany.DbRepositories
                         " VALUES(@BillID, @UserContractID, @StartDate, @EndDate, @CallNum, @AccOfRecipient, @IsPaid, @Price, @Currency)";
                     command.CommandText = query;
                     command.Parameters.Add("@BillID", SqlDbType.UniqueIdentifier).Value = bill.BillId;
-                    command.Parameters.Add("@UserContractID", SqlDbType.UniqueIdentifier).Value = bill.UserContractId;
+                    command.Parameters.Add("@UserContractID", SqlDbType.UniqueIdentifier).Value = bill.UserContract.UserContractId;
                     command.Parameters.Add("@StartDate", SqlDbType.Date).Value = bill.StartDate;
                     command.Parameters.Add("@EndDate", SqlDbType.Date).Value = bill.EndDate;
                     command.Parameters.Add("@CallNum", SqlDbType.VarChar, 50).Value = bill.CallNum;
@@ -87,7 +87,7 @@ namespace IpertechCompany.DbRepositories
                         " WHERE BillID = @BillID";
   
                     command.CommandText = query;
-                    command.Parameters.Add("@UserContractID", SqlDbType.UniqueIdentifier).Value = bill.UserContractId;
+                    command.Parameters.Add("@UserContractID", SqlDbType.UniqueIdentifier).Value = bill.UserContract.UserContractId;
                     command.Parameters.Add("@StartDate", SqlDbType.Date).Value = bill.StartDate;
                     command.Parameters.Add("@EndDate", SqlDbType.Date).Value = bill.EndDate;
                     command.Parameters.Add("@CallNum", SqlDbType.VarChar, 50).Value = bill.CallNum;
