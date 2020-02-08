@@ -38,7 +38,7 @@ namespace IpertechCompany.Tests.Repositories
         }
 
         [Test]
-        public void Insert_NullObject_ThrowsException()
+        public void Insert_NullObject_ExpectsException()
         {
             Assert.Throws<NullReferenceException>(() => _notificationTypeRepository.Insert(null));
         }
