@@ -20,7 +20,7 @@ namespace IpertechCompany.Models
 
         public Bill()
         {
-            
+            UserContract = new UserContract();
         }
 
         public Bill(Guid billId, UserContract userContract = null, string callNum = null, string accOfRecipient = null, bool isPaid = false, decimal price = 0, string currency = null)

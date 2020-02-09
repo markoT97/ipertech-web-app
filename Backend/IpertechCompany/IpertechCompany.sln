@@ -15,6 +15,8 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IpertechCompany.Tests", "Ip
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IpertechCompany.IServices", "IpertechCompany.IServices\IpertechCompany.IServices.csproj", "{8F27BA23-C850-4B2E-9B8D-78FBBE485DFA}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IpertechCompany.Services", "IpertechCompany.Services\IpertechCompany.Services.csproj", "{94FA1188-7DEA-4782-9AF6-BC18F4DB311A}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -45,6 +47,10 @@ Global
 		{8F27BA23-C850-4B2E-9B8D-78FBBE485DFA}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8F27BA23-C850-4B2E-9B8D-78FBBE485DFA}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8F27BA23-C850-4B2E-9B8D-78FBBE485DFA}.Release|Any CPU.Build.0 = Release|Any CPU
+		{94FA1188-7DEA-4782-9AF6-BC18F4DB311A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{94FA1188-7DEA-4782-9AF6-BC18F4DB311A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{94FA1188-7DEA-4782-9AF6-BC18F4DB311A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{94FA1188-7DEA-4782-9AF6-BC18F4DB311A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

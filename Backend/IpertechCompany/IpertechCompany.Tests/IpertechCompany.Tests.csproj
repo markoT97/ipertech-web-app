@@ -7,6 +7,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <PackageReference Include="NSubstitute" Version="4.2.1" />
     <PackageReference Include="nunit" Version="3.12.0" />
     <PackageReference Include="NUnit3TestAdapter" Version="3.10.0" />
     <PackageReference Include="Microsoft.NET.Test.Sdk" Version="15.8.0" />
@@ -16,6 +17,8 @@
   <ItemGroup>
     <ProjectReference Include="..\IpertechCompany.DbRepositories\IpertechCompany.DbRepositories.csproj" />
     <ProjectReference Include="..\IpertechCompany.IRepositories\IpertechCompany.IRepositories.csproj" />
+    <ProjectReference Include="..\IpertechCompany.IServices\IpertechCompany.IServices.csproj" />
+    <ProjectReference Include="..\IpertechCompany.Services\IpertechCompany.Services.csproj" />
   </ItemGroup>
 
 </Project>
