@@ -8,8 +8,8 @@ namespace IpertechCompany.IServices
     public interface IInternetPacketService
     {
         IEnumerable<InternetPacket> GetAllInternetPackets();
-        InternetPacket CreateInternetPacket();
-        void UpdateBill(Bill bill);
-        bool DeleteBill(Guid billId);
+        InternetPacket CreateInternetPacket(InternetPacket internetPacket);
+        void UpdateInternetPacket(InternetPacket internetPacket);
+        bool DeleteInternetPacket(Guid internetPacketId, Guid internetRouterId);
     }
 }
