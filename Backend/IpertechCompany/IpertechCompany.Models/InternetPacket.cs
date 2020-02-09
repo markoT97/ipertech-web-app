@@ -15,7 +15,7 @@ namespace IpertechCompany.Models
 
         public InternetPacket()
         {
-
+            InternetRouter = new InternetRouter();
         }
 
         public InternetPacket(Guid internetPacketId, InternetRouter internetRouter, string name = null, string speed = null, decimal price = 0)

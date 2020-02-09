@@ -5,6 +5,7 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\IpertechCompany.DbContext\IpertechCompany.DbConnection.csproj" />
     <ProjectReference Include="..\IpertechCompany.IRepositories\IpertechCompany.IRepositories.csproj" />
     <ProjectReference Include="..\IpertechCompany.IServices\IpertechCompany.IServices.csproj" />
   </ItemGroup>
