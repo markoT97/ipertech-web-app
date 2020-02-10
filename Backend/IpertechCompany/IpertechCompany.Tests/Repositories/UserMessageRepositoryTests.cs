@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using IpertechCompany.DbConnection;
+﻿using IpertechCompany.DbConnection;
 using IpertechCompany.DbRepositories;
 using IpertechCompany.IRepositories;
 using IpertechCompany.Models;
 using NUnit.Framework;
+using System;
+using System.Linq;
 
 namespace IpertechCompany.Tests.Repositories
 {
@@ -27,7 +25,7 @@ namespace IpertechCompany.Tests.Repositories
         {
             Assert.AreEqual(1, _userMessageRepository.Get(Guid.Parse("8F10E3A8-5B61-42F0-B00A-243F0FA2D228")).Count());
         }
-        
+
         [Test]
         public void GetByUserId_WithoutExistingUserMessage_ReturnsEmptyList()
         {

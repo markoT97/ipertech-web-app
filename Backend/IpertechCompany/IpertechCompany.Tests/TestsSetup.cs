@@ -1,10 +1,10 @@
-﻿using System;
+﻿using IpertechCompany.DbConnection;
+using NUnit.Framework;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Text;
 using System.Text.RegularExpressions;
-using IpertechCompany.DbConnection;
-using NUnit.Framework;
 
 namespace IpertechCompany.Tests
 {

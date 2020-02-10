@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-using System.Collections.Specialized;
-using System.Data;
+﻿using System.Data;
 using System.Data.SqlClient;
 
 namespace IpertechCompany.DbConnection

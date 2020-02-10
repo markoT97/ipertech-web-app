@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using IpertechCompany.Models;
+﻿using IpertechCompany.Models;
+using System;
 
 namespace IpertechCompany.IRepositories
 {

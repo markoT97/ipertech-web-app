@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using IpertechCompany.Models.Validation;
+﻿using IpertechCompany.Models.Validation;
+using System;
 
 namespace IpertechCompany.Models
 {
@@ -15,7 +13,7 @@ namespace IpertechCompany.Models
 
         public Message()
         {
-         
+
         }
 
         public Message(Guid messageId, string title = null, string content = null, string category = null)

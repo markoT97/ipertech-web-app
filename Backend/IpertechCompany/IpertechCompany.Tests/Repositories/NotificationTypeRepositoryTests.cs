@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using IpertechCompany.DbConnection;
+﻿using IpertechCompany.DbConnection;
 using IpertechCompany.DbRepositories;
 using IpertechCompany.IRepositories;
 using IpertechCompany.Models;
 using NUnit.Framework;
+using System;
+using System.Linq;
 
 namespace IpertechCompany.Tests.Repositories
 {

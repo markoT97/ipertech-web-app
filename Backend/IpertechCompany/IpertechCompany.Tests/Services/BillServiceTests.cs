@@ -1,17 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using IpertechCompany.DbConnection;
-using IpertechCompany.DbRepositories;
-using IpertechCompany.IRepositories;
+﻿using IpertechCompany.IRepositories;
 using IpertechCompany.IServices;
 using IpertechCompany.Models;
 using IpertechCompany.Services;
 using NSubstitute;
 using NSubstitute.ExceptionExtensions;
-using NSubstitute.ReturnsExtensions;
 using NUnit.Framework;
+using System;
+using System.Collections.Generic;
+using System.Linq;
 
 namespace IpertechCompany.Tests.Services
 {

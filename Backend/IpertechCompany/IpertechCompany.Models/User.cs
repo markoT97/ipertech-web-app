@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using IpertechCompany.Models.Validation;
+﻿using IpertechCompany.Models.Validation;
+using System;
 
 namespace IpertechCompany.Models
 {
@@ -20,7 +18,7 @@ namespace IpertechCompany.Models
 
         public User()
         {
-            
+
         }
 
         public User(Guid userId, UserContract userContract = null, string role = null, string firstName = null, string lastName = null, string gender = null, string email = null, string phoneNumber = null, string password = null

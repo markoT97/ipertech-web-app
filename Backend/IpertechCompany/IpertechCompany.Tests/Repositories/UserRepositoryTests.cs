@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using IpertechCompany.DbConnection;
+﻿using IpertechCompany.DbConnection;
 using IpertechCompany.DbRepositories;
 using IpertechCompany.IRepositories;
 using IpertechCompany.Models;
 using NUnit.Framework;
+using System;
+using System.Linq;
 
 namespace IpertechCompany.Tests.Repositories
 {
@@ -21,7 +19,7 @@ namespace IpertechCompany.Tests.Repositories
             _dbContext = new DbContext("Data Source=DESKTOP-883AG4N\\SQLEXPRESS;Initial Catalog=IpertechCompany;Integrated Security=True");
             _userRepository = new UserRepository(_dbContext);
         }
-        
+
 
         [Test]
         public void GetAll_WithData_ReturnsListOfTwoUsers()
@@ -34,7 +32,7 @@ namespace IpertechCompany.Tests.Repositories
         {
             Assert.AreEqual("User", _userRepository.Get(Guid.Parse("8F10E3A8-5B61-42F0-B00A-243F0FA2D228")).Role);
         }
-        
+
         [Test]
         public void GetById_WithoutExistingUser_ReturnsNull()
         {

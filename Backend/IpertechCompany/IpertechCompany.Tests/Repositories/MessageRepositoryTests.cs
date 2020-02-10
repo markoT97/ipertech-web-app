@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using IpertechCompany.DbConnection;
+﻿using IpertechCompany.DbConnection;
 using IpertechCompany.DbRepositories;
 using IpertechCompany.IRepositories;
 using IpertechCompany.Models;
 using NUnit.Framework;
+using System;
 
 namespace IpertechCompany.Tests.Repositories
 {
@@ -26,7 +24,7 @@ namespace IpertechCompany.Tests.Repositories
         {
             Assert.AreEqual("Ruter je bez signala", _messageRepository.Get(Guid.Parse("C8D6F372-06F8-40EE-8BC8-A1DFBFDC56FC")).Title);
         }
-        
+
         [Test]
         public void GetById_WithoutExistingId_ReturnsNull()
         {

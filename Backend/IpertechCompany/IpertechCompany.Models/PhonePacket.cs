@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using IpertechCompany.Models.Validation;
+﻿using IpertechCompany.Models.Validation;
+using System;
 
 namespace IpertechCompany.Models
 {
@@ -14,7 +12,7 @@ namespace IpertechCompany.Models
 
         public PhonePacket()
         {
-            
+
         }
 
         public PhonePacket(Guid phonePacketId, string name, int freeMinutes, decimal price)

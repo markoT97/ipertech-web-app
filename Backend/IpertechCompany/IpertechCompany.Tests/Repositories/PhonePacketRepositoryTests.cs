@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using IpertechCompany.DbConnection;
+﻿using IpertechCompany.DbConnection;
 using IpertechCompany.DbRepositories;
 using IpertechCompany.IRepositories;
 using IpertechCompany.Models;
 using NUnit.Framework;
+using System;
+using System.Linq;
 
 namespace IpertechCompany.Tests.Repositories
 {
@@ -21,7 +19,7 @@ namespace IpertechCompany.Tests.Repositories
             _dbContext = new DbContext("Data Source=DESKTOP-883AG4N\\SQLEXPRESS;Initial Catalog=IpertechCompany;Integrated Security=True");
             _phonePacketRepository = new PhonePacketRepository(_dbContext);
         }
-        
+
 
         [Test]
         public void GetAll_WithData_ReturnsListOfThreePhonePackets()

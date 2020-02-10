@@ -1,7 +1,6 @@
-﻿using System;
+﻿using IpertechCompany.Models;
+using System;
 using System.Collections.Generic;
-using System.Text;
-using IpertechCompany.Models;
 
 namespace IpertechCompany.IServices
 {

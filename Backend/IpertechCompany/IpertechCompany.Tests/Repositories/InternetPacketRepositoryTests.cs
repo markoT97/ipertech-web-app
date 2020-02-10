@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using IpertechCompany.DbConnection;
+﻿using IpertechCompany.DbConnection;
 using IpertechCompany.DbRepositories;
 using IpertechCompany.IRepositories;
 using IpertechCompany.Models;
 using NUnit.Framework;
+using System;
+using System.Linq;
 
 namespace IpertechCompany.Tests.Repositories
 {
@@ -32,7 +30,7 @@ namespace IpertechCompany.Tests.Repositories
         public void Insert_WithRequiredFields_ReturnsListWithFourInternetPackets()
         {
             var internetPacket = new InternetPacket(new Guid(), new InternetRouter(new Guid("59659676-8043-49FC-804D-1621650838C7")), "Insert", "", 0);
-            
+
             _internetPacketRepository.Insert(internetPacket);
             Assert.AreEqual(4, _internetPacketRepository.GetAll().Count());
         }
@@ -47,7 +45,7 @@ namespace IpertechCompany.Tests.Repositories
         public void Update_WithRequiredFields_ReturnsInternetPacket()
         {
             var internetPacket = new InternetPacket(Guid.Parse("D6435400-1891-4D54-B023-B62371A40C8E"), new InternetRouter(Guid.Parse("59659676-8043-49FC-804D-1621650838C7")), "Update", "", 0);
-            
+
             _internetPacketRepository.Update(internetPacket);
             var updatedInternetPacket = _internetPacketRepository
                 .GetAll().Single(ip => ip.Name == internetPacket.Name);

@@ -1,5 +1,5 @@
-﻿using System;
-using IpertechCompany.Models.Validation;
+﻿using IpertechCompany.Models.Validation;
+using System;
 
 namespace IpertechCompany.Models
 {
@@ -12,7 +12,7 @@ namespace IpertechCompany.Models
 
         public NotificationType()
         {
-            
+
         }
 
         public NotificationType(Guid notificationTypeId, string name = null, int imageWidth = 0, int imageHeight = 0)

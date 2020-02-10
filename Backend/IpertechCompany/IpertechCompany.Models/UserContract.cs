@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using IpertechCompany.Models.Validation;
+﻿using IpertechCompany.Models.Validation;
+using System;
 
 namespace IpertechCompany.Models
 {
@@ -13,7 +11,7 @@ namespace IpertechCompany.Models
 
         public UserContract()
         {
-            
+
         }
 
         public UserContract(Guid userContractId, PacketCombination packetCombination = null, int contractDurationMonths = 0)

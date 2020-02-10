@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using IpertechCompany.DbConnection;
+﻿using IpertechCompany.DbConnection;
 using IpertechCompany.DbRepositories;
 using IpertechCompany.IRepositories;
 using IpertechCompany.Models;
 using NUnit.Framework;
+using System;
+using System.Linq;
 
 namespace IpertechCompany.Tests.Repositories
 {
@@ -27,7 +25,7 @@ namespace IpertechCompany.Tests.Repositories
         {
             Assert.AreEqual(21, _tvPacketTvChannelRepository.Get(Guid.Parse("6FC42F38-929A-4CD2-BE56-5F96246D19C3")).Count());
         }
-        
+
         [Test]
         public void GetByTvPacketId_WithoutExistingTvPacketId_ReturnsEmptyList()
         {

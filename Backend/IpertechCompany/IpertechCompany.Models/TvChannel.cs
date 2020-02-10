@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Net.Mime;
-using System.Text;
-using IpertechCompany.Models.Validation;
+﻿using IpertechCompany.Models.Validation;
+using System;
 
 namespace IpertechCompany.Models
 {
@@ -16,7 +13,7 @@ namespace IpertechCompany.Models
 
         public TvChannel()
         {
-            
+
         }
 
         public TvChannel(Guid tvChannelId, string name = null, string imageLocation = null, int positionNumber = 0, bool tvBackwards = false)

@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using IpertechCompany.DbConnection;
+﻿using IpertechCompany.DbConnection;
 using IpertechCompany.DbRepositories;
 using IpertechCompany.IRepositories;
 using IpertechCompany.Models;
 using NUnit.Framework;
+using System;
 
 namespace IpertechCompany.Tests.Repositories
 {
@@ -26,7 +24,7 @@ namespace IpertechCompany.Tests.Repositories
         {
             Assert.AreEqual(1, _optionVoterRepository.Get(Guid.Parse("F12F569D-2E94-4B29-B121-AB3DBF3CB24A")));
         }
-        
+
         [Test]
         public void GetById_WithoutExistingId_ReturnsNull()
         {

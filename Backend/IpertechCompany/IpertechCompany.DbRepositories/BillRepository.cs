@@ -1,12 +1,11 @@
-﻿using IpertechCompany.DbConnection;
+﻿using Dapper;
+using IpertechCompany.DbConnection;
 using IpertechCompany.IRepositories;
 using IpertechCompany.Models;
 using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Text;
-using Dapper;
 
 namespace IpertechCompany.DbRepositories
 {
@@ -85,7 +84,7 @@ namespace IpertechCompany.DbRepositories
                     const string query = "UPDATE useractions.Bill SET UserContractID = @UserContractID, StartDate = @StartDate, EndDate = @EndDate," +
                         " CallNum = @CallNum, AccOfRecipient = @AccOfRecipient, IsPaid = @IsPaid, Price = @Price, Currency = @Currency" +
                         " WHERE BillID = @BillID";
-  
+
                     command.CommandText = query;
                     command.Parameters.Add("@UserContractID", SqlDbType.UniqueIdentifier).Value = bill.UserContract.UserContractId;
                     command.Parameters.Add("@StartDate", SqlDbType.Date).Value = bill.StartDate;

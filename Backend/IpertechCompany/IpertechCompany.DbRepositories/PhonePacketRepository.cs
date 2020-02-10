@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Text;
-using Dapper;
+﻿using Dapper;
 using IpertechCompany.DbConnection;
 using IpertechCompany.IRepositories;
 using IpertechCompany.Models;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace IpertechCompany.DbRepositories
 {

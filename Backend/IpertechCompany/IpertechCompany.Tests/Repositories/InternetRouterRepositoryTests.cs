@@ -1,11 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using IpertechCompany.DbConnection;
+﻿using IpertechCompany.DbConnection;
 using IpertechCompany.DbRepositories;
 using IpertechCompany.IRepositories;
 using IpertechCompany.Models;
 using NUnit.Framework;
+using System;
 
 namespace IpertechCompany.Tests.Repositories
 {
@@ -79,4 +77,3 @@ namespace IpertechCompany.Tests.Repositories
         }
     }
 }
-

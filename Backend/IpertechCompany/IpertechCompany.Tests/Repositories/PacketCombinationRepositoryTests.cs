@@ -1,16 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data.SqlClient;
-using System.Diagnostics;
-using System.IO;
-using System.Linq;
-using System.Text;
-using System.Text.RegularExpressions;
-using IpertechCompany.DbConnection;
+﻿using IpertechCompany.DbConnection;
 using IpertechCompany.DbRepositories;
 using IpertechCompany.IRepositories;
 using IpertechCompany.Models;
 using NUnit.Framework;
+using System;
+using System.Linq;
 
 namespace IpertechCompany.Tests.Repositories
 {
@@ -25,7 +19,7 @@ namespace IpertechCompany.Tests.Repositories
             _dbContext = new DbContext("Data Source=DESKTOP-883AG4N\\SQLEXPRESS;Initial Catalog=IpertechCompany;Integrated Security=True");
             _packetCombinationRepository = new PacketCombinationRepository(_dbContext);
         }
-        
+
 
         [Test]
         public void GetAll_WithData_ReturnsListOfThreePacketCombinations()

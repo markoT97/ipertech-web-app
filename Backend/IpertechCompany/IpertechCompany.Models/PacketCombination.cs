@@ -1,7 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using IpertechCompany.Models.Validation;
+﻿using IpertechCompany.Models.Validation;
+using System;
 
 namespace IpertechCompany.Models
 {
@@ -15,7 +13,7 @@ namespace IpertechCompany.Models
 
         public PacketCombination()
         {
-            
+
         }
 
         public PacketCombination(Guid packetCombinationId, InternetPacket internetPacket = null, string name = null, TvPacket tvPacket = null,

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Text;
-using Dapper;
+﻿using Dapper;
 using IpertechCompany.DbConnection;
 using IpertechCompany.IRepositories;
 using IpertechCompany.Models;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace IpertechCompany.DbRepositories
 {
@@ -42,13 +41,14 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT pc.PacketCombinationID, pc.Name, [ip].*, tp.*, ph.*" + 
+                const string query = "SELECT pc.PacketCombinationID, pc.Name, [ip].*, tp.*, ph.*" +
                 " FROM packets.PacketCombination pc" +
                 " INNER JOIN packets.InternetPacket [ip] ON pc.InternetPacketID = [ip].InternetPacketID" +
                 " LEFT JOIN packets.TvPacket tp ON pc.TvPacketID = tp.TvPacketID " +
                 " LEFT JOIN packets.PhonePacket ph ON pc.PhonePacketID = ph.PhonePacketID";
                 return connection.Query<PacketCombination, InternetPacket, TvPacket, PhonePacket, PacketCombination>(query,
-                    (packet, internet, tv, phone) => {
+                    (packet, internet, tv, phone) =>
+                    {
                         packet.InternetPacket = internet;
                         packet.TvPacket = tv;
                         packet.PhonePacket = phone;
