@@ -1,14 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-using IpertechCompany.Models.Validation;
+﻿using IpertechCompany.Models.Validation;
+using System;
 
 namespace IpertechCompany.Models
 {
     public class Notification : IValidation
     {
         public Guid NotificationId { get; set; }
-        public Guid NotificationTypeId { get; set; }
+        public NotificationType NotificationType { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -16,13 +14,13 @@ namespace IpertechCompany.Models
 
         public Notification()
         {
-            
+            NotificationType = new NotificationType();
         }
 
-        public Notification(Guid notificationId, Guid notificationTypeId, string title, string content, string imageLocation)
+        public Notification(Guid notificationId, NotificationType notificationType = null, string title = null, string content = null, string imageLocation = null)
         {
             NotificationId = notificationId.Equals(Guid.Empty) ? Guid.NewGuid() : notificationId;
-            NotificationTypeId = notificationTypeId;
+            NotificationType = notificationType;
             Title = title;
             Content = content;
             CreatedAt = DateTime.UtcNow;
@@ -31,12 +29,12 @@ namespace IpertechCompany.Models
 
         public override string ToString()
         {
-            return NotificationId + ", " + NotificationTypeId + ", " + Title + ", " + Content + ", " + ImageLocation;
+            return NotificationId + ", " + NotificationType + ", " + Title + ", " + Content + ", " + ImageLocation;
         }
 
         public bool IsValid()
         {
-            if (!(!NotificationId.Equals(null) && !NotificationTypeId.Equals(null) && Title != null &&
+            if (!(!NotificationId.Equals(null) && !NotificationType.Equals(null) && Title != null &&
                   ImageLocation != null))
             {
                 return false;

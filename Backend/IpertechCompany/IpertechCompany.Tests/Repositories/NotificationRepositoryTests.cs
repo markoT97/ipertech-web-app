@@ -1,12 +1,10 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using IpertechCompany.DbConnection;
+﻿using IpertechCompany.DbConnection;
 using IpertechCompany.DbRepositories;
 using IpertechCompany.IRepositories;
 using IpertechCompany.Models;
 using NUnit.Framework;
+using System;
+using System.Linq;
 
 namespace IpertechCompany.Tests.Repositories
 {
@@ -27,7 +25,7 @@ namespace IpertechCompany.Tests.Repositories
         {
             Assert.AreEqual(5, _notificationRepository.Get(Guid.Parse("9FBA9021-1A99-47F6-ABC7-C132C3AC7A0E")).Count());
         }
-        
+
         [Test]
         public void GetByNotificationTypeId_WithoutExistingNotificationType_ReturnsEmptyList()
         {
@@ -37,10 +35,10 @@ namespace IpertechCompany.Tests.Repositories
         [Test]
         public void Insert_WithRequiredFields_ReturnsNotification()
         {
-            var notification = new Notification(Guid.NewGuid(), Guid.Parse("9FBA9021-1A99-47F6-ABC7-C132C3AC7A0E"), "Insert Title", "Insert Content", "Insert Location");
+            var notification = new Notification(Guid.NewGuid(), new NotificationType(Guid.Parse("9FBA9021-1A99-47F6-ABC7-C132C3AC7A0E")), "Insert Title", "Insert Content", "Insert Location");
 
             _notificationRepository.Insert(notification);
-            Assert.AreEqual(notification.Title, _notificationRepository.Get(notification.NotificationTypeId).First(n => n.NotificationId == notification.NotificationId).Title);
+            Assert.AreEqual(notification.Title, _notificationRepository.Get(notification.NotificationType.NotificationTypeId).First(n => n.NotificationId == notification.NotificationId).Title);
         }
 
         [Test]
@@ -52,10 +50,10 @@ namespace IpertechCompany.Tests.Repositories
         [Test]
         public void Update_WithRequiredFields_ReturnsNotification()
         {
-            var notification = new Notification(Guid.Parse("F6AFCC3E-DD34-421B-8573-23695441F910"), Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850"), "Update Title", "Update Content", "Update Location");
+            var notification = new Notification(Guid.Parse("F6AFCC3E-DD34-421B-8573-23695441F910"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Update Title", "Update Content", "Update Location");
 
             _notificationRepository.Update(notification);
-            var updatedNotification = _notificationRepository.Get(notification.NotificationTypeId)
+            var updatedNotification = _notificationRepository.Get(notification.NotificationType.NotificationTypeId)
                 .First(n => n.NotificationId == notification.NotificationId);
 
             Assert.AreEqual(notification.Title, updatedNotification.Title);

@@ -1,12 +1,11 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Data.SqlClient;
-using System.Text;
-using Dapper;
+﻿using Dapper;
 using IpertechCompany.DbConnection;
 using IpertechCompany.IRepositories;
 using IpertechCompany.Models;
+using System;
+using System.Collections.Generic;
+using System.Data;
+using System.Data.SqlClient;
 
 namespace IpertechCompany.DbRepositories
 {
@@ -61,7 +60,7 @@ namespace IpertechCompany.DbRepositories
                                          " VALUES(@NotificationID, @NotificationTypeID, @Title, @Content, @CreatedAt, @ImageLocation)";
                     command.CommandText = query;
                     command.Parameters.Add("@NotificationID", SqlDbType.UniqueIdentifier).Value = notification.NotificationId;
-                    command.Parameters.Add("@NotificationTypeID", SqlDbType.UniqueIdentifier).Value = notification.NotificationTypeId;
+                    command.Parameters.Add("@NotificationTypeID", SqlDbType.UniqueIdentifier).Value = notification.NotificationType.NotificationTypeId;
                     command.Parameters.Add("@Title", SqlDbType.NVarChar, 50).Value = notification.Title;
                     command.Parameters.Add("@Content", SqlDbType.NVarChar, 500).Value = (object)notification.Content ?? DBNull.Value;
                     command.Parameters.Add("@CreatedAt", SqlDbType.DateTime).Value = notification.CreatedAt;
@@ -84,7 +83,7 @@ namespace IpertechCompany.DbRepositories
                                          " Content = @Content, CreatedAt = @CreatedAt, ImageLocation = @ImageLocation" +
                                          " WHERE NotificationID = @NotificationID";
                     command.CommandText = query;
-                    command.Parameters.Add("@NotificationTypeID", SqlDbType.UniqueIdentifier).Value = notification.NotificationTypeId;
+                    command.Parameters.Add("@NotificationTypeID", SqlDbType.UniqueIdentifier).Value = notification.NotificationType.NotificationTypeId;
                     command.Parameters.Add("@Title", SqlDbType.NVarChar, 50).Value = notification.Title;
                     command.Parameters.Add("@Content", SqlDbType.NVarChar, 500).Value = (object)notification.Content ?? DBNull.Value;
                     command.Parameters.Add("@CreatedAt", SqlDbType.DateTime).Value = notification.CreatedAt;

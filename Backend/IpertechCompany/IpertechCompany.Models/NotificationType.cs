@@ -15,7 +15,7 @@ namespace IpertechCompany.Models
             
         }
 
-        public NotificationType(Guid notificationTypeId, string name, int imageWidth, int imageHeight)
+        public NotificationType(Guid notificationTypeId, string name = null, int imageWidth = 0, int imageHeight = 0)
         {
             NotificationTypeId = notificationTypeId.Equals(Guid.Empty) ? Guid.NewGuid() : notificationTypeId;
             Name = name;
