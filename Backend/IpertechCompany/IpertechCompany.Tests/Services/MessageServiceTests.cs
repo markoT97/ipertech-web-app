@@ -100,7 +100,7 @@ namespace IpertechCompany.Tests.Services
         }
 
         [Test]
-        public void GetMessageByMessageId_WithoutData_ReturnsNullObject()
+        public void GetMessageByMessageId_WithoutData_ReturnsEmptyObject()
         {
             var messageId = Guid.Parse("C8D6F372-06F8-40EE-8BC8-A1DFBFDC56FC");
             _messageRepository.Get(messageId)

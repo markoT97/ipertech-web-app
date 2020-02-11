@@ -98,14 +98,14 @@ namespace IpertechCompany.Tests.Services
         }
 
         [Test]
-        public void GetNotificationByNotificationTypeId_WithoutData_ReturnsNullObject()
+        public void GetNotificationByNotificationTypeId_WithoutData_ReturnsEmptyList()
         {
             var notificationTypeId = Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850");
             _notificationRepository.Get(notificationTypeId)
                 .Returns(new List<Notification>());
 
-            var returnedNotification = _notificationService.GetByNotificationTypeId(notificationTypeId);
-            Assert.AreEqual(0, returnedNotification.Count());
+            var returnedNotifications = _notificationService.GetByNotificationTypeId(notificationTypeId);
+            Assert.AreEqual(0, returnedNotifications.Count());
         }
 
         [Test]

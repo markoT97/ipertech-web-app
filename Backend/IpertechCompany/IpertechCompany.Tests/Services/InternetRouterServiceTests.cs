@@ -100,7 +100,7 @@ namespace IpertechCompany.Tests.Services
         }
 
         [Test]
-        public void GetInternetRouterByInternetRouterId_WithoutData_ReturnsNullObject()
+        public void GetInternetRouterByInternetRouterId_WithoutData_ReturnsEmptyObject()
         {
             var internetRouterId = Guid.Parse("59659676-8043-49FC-804D-1621650838C7");
             _internetRouterRepository.Get(internetRouterId)
