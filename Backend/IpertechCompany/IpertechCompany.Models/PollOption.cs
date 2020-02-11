@@ -11,7 +11,7 @@ namespace IpertechCompany.Models
 
         public PollOption()
         {
-
+            Poll = new Poll();
         }
 
         public PollOption(Guid pollOptionId, Poll poll = null, string answerText = null)
