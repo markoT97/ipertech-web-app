@@ -32,7 +32,7 @@ namespace IpertechCompany.Models
 
         public bool IsValid()
         {
-            if (!(!InternetPacketId.Equals(null) && !InternetRouter.Equals(null) && Name != null && Speed != null &&
+            if (!(!InternetPacketId.Equals(Guid.Empty) && !InternetRouter.Equals(null) && Name != null && Speed != null &&
                   Price != 0))
             {
                 return false;

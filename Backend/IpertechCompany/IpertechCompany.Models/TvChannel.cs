@@ -32,7 +32,7 @@ namespace IpertechCompany.Models
 
         public bool IsValid()
         {
-            if (!(!TvChannelId.Equals(null) && Name != null && PositionNumber != 0))
+            if (!(!TvChannelId.Equals(Guid.Empty) && Name != null && PositionNumber != 0))
             {
                 return false;
             }

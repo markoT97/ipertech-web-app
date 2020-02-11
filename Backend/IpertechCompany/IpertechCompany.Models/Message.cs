@@ -26,7 +26,7 @@ namespace IpertechCompany.Models
         }
         public bool IsValid()
         {
-            if (!(!MessageId.Equals(null) && Title != null && Content != null && !CreatedAt.Equals(null) &&
+            if (!(!MessageId.Equals(Guid.Empty) && Title != null && Content != null && !CreatedAt.Equals(null) &&
                   Category != null))
             {
                 return false;

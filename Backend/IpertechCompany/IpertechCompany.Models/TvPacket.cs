@@ -28,7 +28,7 @@ namespace IpertechCompany.Models
 
         public bool IsValid()
         {
-            if (!(!TvPacketId.Equals(null) && Name != null && Price != 0))
+            if (!(!TvPacketId.Equals(Guid.Empty) && Name != null && Price != 0))
             {
                 return false;
             }

@@ -45,7 +45,7 @@ namespace IpertechCompany.Models
         public bool IsValid()
         {
 
-            if (!(!UserId.Equals(null) && !UserContract.Equals(null) && Role != null && FirstName != null &&
+            if (!(!UserId.Equals(Guid.Empty) && !UserContract.Equals(null) && Role != null && FirstName != null &&
                   LastName != null && Email != null && Password != null))
             {
                 return false;

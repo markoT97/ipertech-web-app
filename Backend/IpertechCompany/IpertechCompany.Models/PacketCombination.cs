@@ -33,7 +33,7 @@ namespace IpertechCompany.Models
 
         public bool IsValid()
         {
-            if (!(!PacketCombinationId.Equals(null) && Name != null && !InternetPacket.Equals(null)))
+            if (!(!PacketCombinationId.Equals(Guid.Empty) && Name != null && !InternetPacket.Equals(null)))
             {
                 return false;
             }

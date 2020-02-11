@@ -28,7 +28,7 @@ namespace IpertechCompany.Models
 
         public bool IsValid()
         {
-            if (!(!InternetRouterId.Equals(null) && Name != null))
+            if (!(!InternetRouterId.Equals(Guid.Empty) && Name != null))
             {
                 return false;
             }

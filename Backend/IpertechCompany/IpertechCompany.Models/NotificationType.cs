@@ -29,7 +29,7 @@ namespace IpertechCompany.Models
         }
         public bool IsValid()
         {
-            if (!(!NotificationTypeId.Equals(null) && Name != null && ImageWidth != 0 && ImageHeight != 0))
+            if (!(!NotificationTypeId.Equals(Guid.Empty) && Name != null && ImageWidth != 0 && ImageHeight != 0))
             {
                 return false;
             }

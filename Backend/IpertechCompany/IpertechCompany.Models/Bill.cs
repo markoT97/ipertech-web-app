@@ -40,7 +40,7 @@ namespace IpertechCompany.Models
 
         public bool IsValid()
         {
-            if (!(!BillId.Equals(null) && !UserContract.Equals(null) && !StartDate.Equals(null) &&
+            if (!(!BillId.Equals(Guid.Empty) && !UserContract.Equals(null) && !StartDate.Equals(null) &&
                   !EndDate.Equals(null) && CallNum != null && AccOfRecipient != null && Price != 0 && Currency != null))
             {
                 return false;

@@ -34,7 +34,7 @@ namespace IpertechCompany.Models
 
         public bool IsValid()
         {
-            if (!(!NotificationId.Equals(null) && !NotificationType.Equals(null) && Title != null &&
+            if (!(!NotificationId.Equals(Guid.Empty) && !NotificationType.Equals(null) && Title != null &&
                   ImageLocation != null))
             {
                 return false;

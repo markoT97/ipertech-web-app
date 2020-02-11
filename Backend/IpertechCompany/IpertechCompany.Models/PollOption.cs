@@ -28,7 +28,7 @@ namespace IpertechCompany.Models
 
         public bool IsValid()
         {
-            if (!(!PollOptionId.Equals(null) && !Poll.Equals(null) && AnswerText != null))
+            if (!(!PollOptionId.Equals(Guid.Empty) && !Poll.Equals(null) && AnswerText != null))
             {
                 return false;
             }

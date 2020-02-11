@@ -28,7 +28,7 @@ namespace IpertechCompany.Models
 
         public bool IsValid()
         {
-            if (!(!UserContractId.Equals(null) && !PacketCombination.Equals(null) && ContractDurationMonths != 0))
+            if (!(!UserContractId.Equals(Guid.Empty) && !PacketCombination.Equals(null) && ContractDurationMonths != 0))
             {
                 return false;
             }
