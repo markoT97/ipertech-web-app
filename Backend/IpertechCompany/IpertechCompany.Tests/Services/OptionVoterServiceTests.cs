@@ -45,7 +45,7 @@ namespace IpertechCompany.Tests.Services
         [Test]
         public void CreateOptionVoter_WithRequiredFields_ReturnsOptionVoter()
         {
-            var optionVoter = new OptionVoter(Guid.Parse("8D613A6B-AEF0-4B15-95F4-3BB5039F47DE"), Guid.Parse("C764F6A5-84CC-4CAB-ACE4-B2AF703196C2"));
+            var optionVoter = new OptionVoter(Guid.Parse("8D613A6B-AEF0-4B15-95F4-3BB5039F47DE"), Guid.Parse("C764F6A5-84CC-4CAB-ACE4-B2AF703196C2"), Guid.Parse("F12F569D-2E94-4B29-B121-AB3DBF3CB24A"));
             _optionVoterRepository.Insert(optionVoter).Returns(optionVoter);
 
             var returnedOptionVoter = _optionVoterService.CreateOptionVoter(optionVoter);
