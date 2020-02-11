@@ -45,7 +45,7 @@ namespace IpertechCompany.Tests.Services
         [Test]
         public void CreateNotification_WithRequiredFields_ReturnsNotification()
         {
-            var notification = new Notification(Guid.Parse("F6AFCC3E-DD34-421B-8573-23695441F910"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "www/notifications/prom-1.png"); ;
+            var notification = new Notification(Guid.Parse("F6AFCC3E-DD34-421B-8573-23695441F910"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "www/notifications/prom-1.png");
             _notificationRepository.Insert(notification).Returns(notification);
 
             var returnedNotification = _notificationService.CreateNotification(notification);
