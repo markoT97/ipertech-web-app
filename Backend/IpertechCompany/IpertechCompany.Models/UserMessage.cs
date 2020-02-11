@@ -1,4 +1,5 @@
 ﻿using IpertechCompany.Models.Validation;
+using System;
 
 namespace IpertechCompany.Models
 {
@@ -9,7 +10,8 @@ namespace IpertechCompany.Models
 
         public UserMessage()
         {
-
+            User = new User();
+            Message = new Message();
         }
 
         public UserMessage(User user, Message message)
@@ -25,7 +27,7 @@ namespace IpertechCompany.Models
 
         public bool IsValid()
         {
-            if (!(!User.Equals(null) && !Message.Equals(null)))
+            if (!(!User.UserId.Equals(Guid.Empty) && !Message.MessageId.Equals(Guid.Empty)))
             {
                 return false;
             }
