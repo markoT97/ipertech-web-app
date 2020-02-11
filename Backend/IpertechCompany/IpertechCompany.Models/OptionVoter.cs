@@ -14,7 +14,7 @@ namespace IpertechCompany.Models
 
         }
 
-        public OptionVoter(Guid userId, Guid pollId, Guid pollOptionId)
+        public OptionVoter(Guid userId, Guid pollId = new Guid(), Guid pollOptionId = new Guid())
         {
             UserId = userId;
             PollId = pollId;
@@ -28,7 +28,7 @@ namespace IpertechCompany.Models
 
         public bool IsValid()
         {
-            if (!(!UserId.Equals(null) && !PollId.Equals(null) & !PollOptionId.Equals(null)))
+            if (!(!UserId.Equals(Guid.Empty) && !PollId.Equals(Guid.Empty) & !PollOptionId.Equals(Guid.Empty)))
             {
                 return false;
             }
