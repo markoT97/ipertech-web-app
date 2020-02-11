@@ -30,7 +30,7 @@ namespace IpertechCompany.Models
 
         public bool IsValid()
         {
-            if (!(!PhonePacketId.Equals(Guid.Empty) && Name != null && FreeMinutes != 0 && Price != 0))
+            if (!(!PhonePacketId.Equals(Guid.Empty) && Name != null && FreeMinutes >= 0 && Price != 0))
             {
                 return false;
             }
