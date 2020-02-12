@@ -1,15 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using AutoMapper;
+using IpertechCompany.DbConnection;
+using IpertechCompany.DbRepositories;
+using IpertechCompany.IRepositories;
+using IpertechCompany.IServices;
+using IpertechCompany.Services;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
-using Microsoft.Extensions.Logging;
-using Microsoft.Extensions.Options;
 
 namespace IpertechCompany.WebAPI
 {
@@ -25,7 +24,11 @@ namespace IpertechCompany.WebAPI
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+            services.AddAutoMapper(typeof(Startup));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddScoped<IDbContext, DbContext>(db => new DbContext(Configuration["ConnectionString"]));
+            services.AddScoped<INotificationTypeRepository, NotificationTypeRepository>();
+            services.AddScoped<INotificationTypeService, NotificationTypeService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

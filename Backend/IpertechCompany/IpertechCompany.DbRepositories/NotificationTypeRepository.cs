@@ -48,7 +48,7 @@ namespace IpertechCompany.DbRepositories
 
         public NotificationType Insert(NotificationType notificationType)
         {
-            var insertedNotificationType = new NotificationType();
+            var insertedNotificationType = notificationType;
             using (var connection = _dbContext.Connect())
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
