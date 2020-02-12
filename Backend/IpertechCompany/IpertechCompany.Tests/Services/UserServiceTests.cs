@@ -6,6 +6,7 @@ using NSubstitute;
 using NUnit.Framework;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
 using System.Linq;
 
 namespace IpertechCompany.Tests.Services
@@ -50,6 +51,25 @@ namespace IpertechCompany.Tests.Services
         }
 
         [Test]
+        public void LoginUser_NullObject_ExpectsException()
+        {
+            Assert.Throws<ArgumentNullException>(() => _userService.LoginUser(null, null));
+        }
+
+        [Test]
+        public void LoginUser_WithRequiredFields_ReturnsToken()
+        {
+            var user = new User(Guid.Parse("8F10E3A8-5B61-42F0-B00A-243F0FA2D228"), new UserContract(Guid.Parse("E352D17F-E719-40F1-B1AE-660510F3DBC4")), "User", "Steva", "Ðubre", "Muški", "steva@gmail.com", "3455666", "123@@", "www/users/steva.png");
+
+            _userRepository.Get(user.Email, user.Password).Returns(user);
+
+            var token = _userService.LoginUser(user.Email, user.Password);
+            var deserializedToken = new JwtSecurityToken(token);
+
+            Assert.AreEqual(user.Role, deserializedToken.Claims.Single(c => c.Type == "role").Value);
+        }
+
+        [Test]
         public void UpdateUser_NullObject_ExpectsException()
         {
             Assert.Throws<ArgumentNullException>(() => _userService.UpdateUser(null));
@@ -91,9 +111,9 @@ namespace IpertechCompany.Tests.Services
             var users = new List<User>()
             {
                 new User(Guid.Parse("8F10E3A8-5B61-42F0-B00A-243F0FA2D228"), new UserContract(Guid.Parse("E352D17F-E719-40F1-B1AE-660510F3DBC4")), "User", "Steva", "Ðubre", "Muški", "steva@gmail.com", "3455666", "123@@", "www/users/steva.png"),
-                new User(Guid.Parse("8D613A6B-AEF0-4B15-95F4-3BB5039F47DE"), new UserContract(Guid.Parse("2E97AAA3-E364-4C32-BC4C-1895FF066492")), "User", "Marko", "Trickovic", "Muški", "steva@gmail.com", "094857575", "123@@", "www/users/marko.png"),
-                new User(Guid.Parse("BAA27786-50D0-4568-95FA-67703D38BEAB"), new UserContract(Guid.Parse("E352D17F-E719-40F1-B1AE-660510F3DBC4")), "User", "Petar", "Petrovic", "Muški", "steva@gmail.com", "04453566", "123@@", "www/users/pera.png"),
-                new User(Guid.Parse("38214F65-4001-4200-8621-FF240A2FF4C7"), null, "Admin", "Zdravko", "Herbiko", "Muški", "steva@gmail.com", "05433545", "123@@", "www/users/cole.png")
+                new User(Guid.Parse("8D613A6B-AEF0-4B15-95F4-3BB5039F47DE"), new UserContract(Guid.Parse("2E97AAA3-E364-4C32-BC4C-1895FF066492")), "User", "Marko", "Trickovic", "Muški", "marko@gmail.com", "094857575", "123@@", "www/users/marko.png"),
+                new User(Guid.Parse("BAA27786-50D0-4568-95FA-67703D38BEAB"), new UserContract(Guid.Parse("E352D17F-E719-40F1-B1AE-660510F3DBC4")), "User", "Petar", "Petrovic", "Muški", "pera@gmail.com", "04453566", "123@@", "www/users/pera.png"),
+                new User(Guid.Parse("38214F65-4001-4200-8621-FF240A2FF4C7"), null, "Admin", "Zdravko", "Herbiko", "Muški", "zdravko@gmail.com", "05433545", "123@@", "www/users/cole.png")
             };
             var userId = Guid.Parse("8F10E3A8-5B61-42F0-B00A-243F0FA2D228");
             _userRepository.Get(userId)

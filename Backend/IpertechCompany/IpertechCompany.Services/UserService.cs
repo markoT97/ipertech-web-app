@@ -1,8 +1,12 @@
 ﻿using IpertechCompany.IRepositories;
 using IpertechCompany.IServices;
 using IpertechCompany.Models;
+using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
+using System.IdentityModel.Tokens.Jwt;
+using System.Security.Claims;
+using System.Text;
 
 namespace IpertechCompany.Services
 {
@@ -43,6 +47,40 @@ namespace IpertechCompany.Services
         public User GetByUserId(Guid userId)
         {
             return _userRepository.Get(userId);
+        }
+
+        public string LoginUser(string email, string password)
+        {
+            if (!(email != null && password != null))
+            {
+                throw new ArgumentNullException("user", "Parameter is null.");
+            }
+
+            var user = _userRepository.Get(email, password);
+
+            if (!(user != null))
+            {
+                throw new InvalidOperationException("Specified user does not exists.");
+            }
+
+            var secretCode = "fds6743129hvf89ry42bvfe29ggb59y4hbg948943bufr89b48ibg94";
+            var tokenHandler = new JwtSecurityTokenHandler();
+
+            var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretCode)), "HS256");
+
+            var header = new JwtHeader(signingCredentials);
+
+            var claims = new List<Claim>()
+            {
+                new Claim("email", user.Email),
+                new Claim("role", user.Role)
+            };
+            var dateTimeNow = DateTime.Now;
+            var tokenExpirationMinutes = 30;
+            var payload = new JwtPayload(null, null, claims, dateTimeNow, dateTimeNow.AddMinutes(tokenExpirationMinutes));
+
+            var token = new JwtSecurityToken(header, payload);
+            return tokenHandler.WriteToken(token);
         }
 
         public void UpdateUser(User user)

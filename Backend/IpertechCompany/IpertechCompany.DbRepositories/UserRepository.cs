@@ -47,6 +47,16 @@ namespace IpertechCompany.DbRepositories
             }
         }
 
+        public User Get(string email, string password)
+        {
+            using (var connection = _dbContext.Connect())
+            {
+                const string query = "SELECT * FROM useractions.[User]" +
+                                     " WHERE Email = @Email AND Password = @Password";
+                return connection.QuerySingleOrDefault<User>(query, new { Email = email, Password = password });
+            }
+        }
+
         public IEnumerable<User> GetAll()
         {
             using (var connection = _dbContext.Connect())

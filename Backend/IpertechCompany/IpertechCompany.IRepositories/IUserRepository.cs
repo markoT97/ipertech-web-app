@@ -8,6 +8,7 @@ namespace IpertechCompany.IRepositories
     {
         IEnumerable<User> GetAll();
         User Get(Guid userId);
+        User Get(string email, string password);
         User Insert(User user);
         void Update(User user);
         bool Delete(Guid userId);
