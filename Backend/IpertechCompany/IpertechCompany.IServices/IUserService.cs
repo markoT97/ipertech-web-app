@@ -9,7 +9,7 @@ namespace IpertechCompany.IServices
         IEnumerable<User> GetAllUsers();
         User GetByUserId(Guid userId);
         User CreateUser(User user);
-        string LoginUser(string email, string password);
+        string LoginUser(UserLogin userLogin);
         void UpdateUser(User user);
         bool DeleteUser(Guid userId);
     }

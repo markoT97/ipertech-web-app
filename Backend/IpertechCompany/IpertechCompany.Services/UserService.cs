@@ -49,14 +49,14 @@ namespace IpertechCompany.Services
             return _userRepository.Get(userId);
         }
 
-        public string LoginUser(string email, string password)
+        public string LoginUser(UserLogin userLogin)
         {
-            if (!(email != null && password != null))
+            if (!(userLogin != null))
             {
                 throw new ArgumentNullException("user", "Parameter is null.");
             }
 
-            var user = _userRepository.Get(email, password);
+            var user = _userRepository.Get(userLogin);
 
             if (!(user != null))
             {

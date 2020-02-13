@@ -27,8 +27,12 @@ namespace IpertechCompany.WebAPI
             services.AddAutoMapper(typeof(Startup));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddScoped<IDbContext, DbContext>(db => new DbContext(Configuration["ConnectionString"]));
+
             services.AddScoped<INotificationTypeRepository, NotificationTypeRepository>();
             services.AddScoped<INotificationTypeService, NotificationTypeService>();
+
+            services.AddScoped<IUserRepository, UserRepository>();
+            services.AddScoped<IUserService, UserService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

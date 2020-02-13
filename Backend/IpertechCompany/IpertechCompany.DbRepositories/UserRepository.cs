@@ -42,31 +42,21 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT u.UserID, u.[Role], u.FirstName, u.LastName, u.Gender, u.Email, u.PhoneNumber, u.[Password],                       u.ImageLocation, uc.*" +
-                                    " FROM useractions.[User] u" +
-                                    " INNER JOIN useractions.UserContract uc ON u.UserContractID = uc.UserContractID" +
+                const string query = "SELECT *" +
+                                    " FROM useractions.[User] " +
                                     " WHERE UserID = @UserID";
-                return connection.Query<User, UserContract, User>(query, (user, userContract) =>
-                {
-                    user.UserContract = userContract;
-                    return user;
-                }, new { UserID = userId }).SingleOrDefault();
+                return connection.Query<User>(query, new { UserID = userId }).SingleOrDefault();
             }
         }
 
-        public User Get(string email, string password)
+        public User Get(UserLogin userLogin)
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT u.UserID, u.[Role], u.FirstName, u.LastName, u.Gender, u.Email, u.PhoneNumber, u.[Password],                       u.ImageLocation, uc.*" +
-                                    " FROM useractions.[User] u" +
-                                    " INNER JOIN useractions.UserContract uc ON u.UserContractID = uc.UserContractID" +
+                const string query = "SELECT *" +
+                                    " FROM useractions.[User] " +
                                     " WHERE Email = @Email AND Password = @Password";
-                return connection.Query<User, UserContract, User>(query, (user, userContract) =>
-                {
-                    user.UserContract = userContract;
-                    return user;
-                }, new { Email = email, Password = password }).SingleOrDefault();
+                return connection.QuerySingleOrDefault<User>(query, new { userLogin.Email, userLogin.Password });
             }
         }
 
@@ -87,7 +77,7 @@ namespace IpertechCompany.DbRepositories
 
         public User Insert(User user)
         {
-            var insertedUser = new User();
+            var insertedUser = user;
             using (var connection = _dbContext.Connect())
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
@@ -103,11 +93,11 @@ namespace IpertechCompany.DbRepositories
                     command.Parameters.Add("@Role", SqlDbType.VarChar, 30).Value = user.Role;
                     command.Parameters.Add("@FirstName", SqlDbType.NVarChar, 50).Value = user.FirstName;
                     command.Parameters.Add("@LastName", SqlDbType.NVarChar, 50).Value = user.LastName;
-                    command.Parameters.Add("@Gender", SqlDbType.NVarChar, 20).Value = user.Gender;
+                    command.Parameters.Add("@Gender", SqlDbType.NVarChar, 20).Value = (object)user.Gender ?? DBNull.Value;
                     command.Parameters.Add("@Email", SqlDbType.VarChar, 50).Value = user.Email;
                     command.Parameters.Add("@PhoneNumber", SqlDbType.VarChar, 50).Value = user.PhoneNumber;
                     command.Parameters.Add("@Password", SqlDbType.VarChar, 50).Value = user.Password;
-                    command.Parameters.Add("@ImageLocation", SqlDbType.NVarChar, 200).Value = user.ImageLocation;
+                    command.Parameters.Add("@ImageLocation", SqlDbType.NVarChar, 200).Value = (object)user.ImageLocation ?? DBNull.Value;
 
                     connection.Open();
                     insertedUser.UserId = Guid.Parse(command.ExecuteScalar().ToString());
@@ -132,10 +122,10 @@ namespace IpertechCompany.DbRepositories
                     command.Parameters.Add("@FirstName", SqlDbType.NVarChar, 50).Value = user.FirstName;
                     command.Parameters.Add("@LastName", SqlDbType.NVarChar, 50).Value = user.LastName;
                     command.Parameters.Add("@Gender", SqlDbType.NVarChar, 20).Value = user.Gender;
-                    command.Parameters.Add("@Email", SqlDbType.VarChar, 50).Value = user.Email;
+                    command.Parameters.Add("@Email", SqlDbType.VarChar, 50).Value = (object)user.Email ?? DBNull.Value;
                     command.Parameters.Add("@PhoneNumber", SqlDbType.VarChar, 50).Value = user.PhoneNumber;
                     command.Parameters.Add("@Password", SqlDbType.VarChar, 50).Value = user.Password;
-                    command.Parameters.Add("@ImageLocation", SqlDbType.NVarChar, 200).Value = user.ImageLocation;
+                    command.Parameters.Add("@ImageLocation", SqlDbType.NVarChar, 200).Value = (object)user.ImageLocation ?? DBNull.Value;
                     command.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = user.UserId;
 
                     connection.Open();

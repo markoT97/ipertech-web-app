@@ -9,6 +9,8 @@ namespace IpertechCompany.WebAPI.AutoMapper
         public AutoMapperProfile()
         {
             CreateMap<NotificationType, NotificationTypeViewModel>().ReverseMap();
+            CreateMap<User, UserViewModel>().ReverseMap();
+            CreateMap<UserLogin, UserLoginViewModel>().ReverseMap();
         }
     }
 }
