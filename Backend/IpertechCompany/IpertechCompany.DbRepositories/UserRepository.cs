@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace IpertechCompany.DbRepositories
 {
@@ -41,9 +42,15 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT * FROM useractions.[User]" +
-                                     " WHERE UserID = @UserID";
-                return connection.QuerySingleOrDefault<User>(query, new { UserID = userId });
+                const string query = "SELECT u.UserID, u.[Role], u.FirstName, u.LastName, u.Gender, u.Email, u.PhoneNumber, u.[Password],                       u.ImageLocation, uc.*" +
+                                    " FROM useractions.[User] u" +
+                                    " INNER JOIN useractions.UserContract uc ON u.UserContractID = uc.UserContractID" +
+                                    " WHERE UserID = @UserID";
+                return connection.Query<User, UserContract, User>(query, (user, userContract) =>
+                {
+                    user.UserContract = userContract;
+                    return user;
+                }, new { UserID = userId }).SingleOrDefault();
             }
         }
 
@@ -51,9 +58,15 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT * FROM useractions.[User]" +
-                                     " WHERE Email = @Email AND Password = @Password";
-                return connection.QuerySingleOrDefault<User>(query, new { Email = email, Password = password });
+                const string query = "SELECT u.UserID, u.[Role], u.FirstName, u.LastName, u.Gender, u.Email, u.PhoneNumber, u.[Password],                       u.ImageLocation, uc.*" +
+                                    " FROM useractions.[User] u" +
+                                    " INNER JOIN useractions.UserContract uc ON u.UserContractID = uc.UserContractID" +
+                                    " WHERE Email = @Email AND Password = @Password";
+                return connection.Query<User, UserContract, User>(query, (user, userContract) =>
+                {
+                    user.UserContract = userContract;
+                    return user;
+                }, new { Email = email, Password = password }).SingleOrDefault();
             }
         }
 
@@ -61,8 +74,14 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT * FROM useractions.[User]";
-                return connection.Query<User>(query);
+                const string query = "SELECT u.UserID, u.[Role], u.FirstName, u.LastName, u.Gender, u.Email, u.PhoneNumber, u.[Password],                       u.ImageLocation, uc.*" +
+                                    " FROM useractions.[User] u" +
+                                    " INNER JOIN useractions.UserContract uc ON u.UserContractID = uc.UserContractID";
+                return connection.Query<User, UserContract, User>(query, (user, userContract) =>
+                {
+                    user.UserContract = userContract;
+                    return user;
+                }, splitOn: "UserContractID");
             }
         }
 
