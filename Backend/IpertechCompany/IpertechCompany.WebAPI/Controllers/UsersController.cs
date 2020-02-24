@@ -6,6 +6,7 @@ using IpertechCompany.IServices;
 using IpertechCompany.Models;
 using IpertechCompany.Services;
 using IpertechCompany.WebAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
@@ -28,12 +29,14 @@ namespace IpertechCompany.WebAPI.Controllers
             _mapper = mapper;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult GetAllUser()
         {
             return Ok(_userService.GetAllUsers().Select(user => _mapper.Map<UserViewModel>(user)));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         [Route("{id}")]
         public IActionResult GetUserById(Guid id)
@@ -41,6 +44,7 @@ namespace IpertechCompany.WebAPI.Controllers
             return Ok(_userService.GetByUserId(id));
         }
 
+        [AllowAnonymous]
         [HttpGet]
         [Route("login")]
         public IActionResult LoginUser(UserLoginViewModel userLoginViewModel)
@@ -48,6 +52,7 @@ namespace IpertechCompany.WebAPI.Controllers
             return Ok(_userService.LoginUser(_mapper.Map<UserLogin>(userLoginViewModel)));
         }
 
+        [AllowAnonymous]
         [HttpPost]
         public IActionResult RegisterUser(UserViewModel user)
         {
@@ -56,6 +61,7 @@ namespace IpertechCompany.WebAPI.Controllers
             return CreatedAtAction(nameof(GetUserById), new { id = insertedUser.UserId }, insertedUser);
         }
 
+        [Authorize(Roles = "User")]
         [HttpPut]
         public IActionResult UpdateUser(UserViewModel user)
         {
@@ -64,6 +70,7 @@ namespace IpertechCompany.WebAPI.Controllers
             return Accepted(user);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("{id}")]
         public IActionResult DeleteUser(Guid id)

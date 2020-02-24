@@ -6,6 +6,7 @@ using IpertechCompany.IServices;
 using IpertechCompany.Models;
 using IpertechCompany.Services;
 using IpertechCompany.WebAPI.Models;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
 using System.Linq;
@@ -27,12 +28,14 @@ namespace IpertechCompany.WebAPI.Controllers
             _mapper = mapper;
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpGet]
         public IActionResult GetAllNotificationTypes()
         {
             return Ok(_notificationTypeService.GetAllNotificationTypes().Select(notificationType => _mapper.Map<NotificationTypeViewModel>(notificationType)));
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult InsertNotificationType(NotificationTypeViewModel notificationType)
         {
@@ -41,7 +44,7 @@ namespace IpertechCompany.WebAPI.Controllers
             return CreatedAtAction(nameof(GetAllNotificationTypes), new { id = insertedNotificationType.NotificationTypeId }, insertedNotificationType);
         }
 
-        [HttpPut]
+        [Authorize(Roles = "Admin")]
         public IActionResult UpdateNotificationType(NotificationTypeViewModel notificationType)
         {
             _notificationTypeService.UpdateNotificationType(_mapper.Map<NotificationType>(notificationType));
@@ -49,6 +52,7 @@ namespace IpertechCompany.WebAPI.Controllers
             return Accepted(notificationType);
         }
 
+        [Authorize(Roles = "Admin")]
         [HttpDelete]
         [Route("{id}")]
         public IActionResult DeleteNotificationType(Guid id)
