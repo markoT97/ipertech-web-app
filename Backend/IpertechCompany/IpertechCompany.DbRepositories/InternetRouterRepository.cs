@@ -48,7 +48,7 @@ namespace IpertechCompany.DbRepositories
 
         public InternetRouter Insert(InternetRouter internetRouter)
         {
-            var insertedInternetRouter = new InternetRouter();
+            var insertedInternetRouter = internetRouter;
             using (var connection = _dbContext.Connect())
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
