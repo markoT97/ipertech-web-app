@@ -41,7 +41,7 @@ namespace IpertechCompany.WebAPI.Controllers
         [Route("{id}")]
         public IActionResult GetUserById(Guid id)
         {
-            return Ok(_userService.GetByUserId(id));
+            return Ok(_mapper.Map<UserViewModel>(_userService.GetByUserId(id)));
         }
 
         [AllowAnonymous]
