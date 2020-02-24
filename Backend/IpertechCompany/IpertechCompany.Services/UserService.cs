@@ -1,6 +1,7 @@
 ﻿using IpertechCompany.IRepositories;
 using IpertechCompany.IServices;
 using IpertechCompany.Models;
+using Microsoft.Extensions.Configuration;
 using Microsoft.IdentityModel.Tokens;
 using System;
 using System.Collections.Generic;
@@ -13,10 +14,12 @@ namespace IpertechCompany.Services
     public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
+        private readonly IConfiguration _configuration;
 
-        public UserService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository, IConfiguration configuration)
         {
             _userRepository = userRepository;
+            _configuration = configuration;
         }
 
         public User CreateUser(User user)
@@ -63,7 +66,7 @@ namespace IpertechCompany.Services
                 throw new InvalidOperationException("Specified user does not exists.");
             }
 
-            var secretCode = "fds6743129hvf89ry42bvfe29ggb59y4hbg948943bufr89b48ibg94";
+            var secretCode = _configuration["Secret"];
             var tokenHandler = new JwtSecurityTokenHandler();
 
             var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretCode)), "HS256");

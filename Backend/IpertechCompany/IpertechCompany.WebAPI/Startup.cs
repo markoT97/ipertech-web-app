@@ -27,6 +27,7 @@ namespace IpertechCompany.WebAPI
             services.AddAutoMapper(typeof(Startup));
             services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
             services.AddScoped<IDbContext, DbContext>(db => new DbContext(Configuration["ConnectionString"]));
+            services.AddSingleton(Configuration);
 
             services.AddScoped<INotificationTypeRepository, NotificationTypeRepository>();
             services.AddScoped<INotificationTypeService, NotificationTypeService>();

@@ -7,6 +7,7 @@ using IpertechCompany.Models;
 using IpertechCompany.Services;
 using IpertechCompany.WebAPI.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.Extensions.Configuration;
 using System;
 using System.Linq;
 
@@ -20,10 +21,10 @@ namespace IpertechCompany.WebAPI.Controllers
         private readonly IUserService _userService;
         private readonly IMapper _mapper;
 
-        public UsersController(IDbContext dbContext, IUserRepository userRepository, IUserService userService, IMapper mapper)
+        public UsersController(IDbContext dbContext, IUserRepository userRepository, IUserService userService, IConfiguration configuration, IMapper mapper)
         {
             _userRepository = new UserRepository(dbContext);
-            _userService = new UserService(_userRepository);
+            _userService = new UserService(_userRepository, configuration);
             _mapper = mapper;
         }
 
