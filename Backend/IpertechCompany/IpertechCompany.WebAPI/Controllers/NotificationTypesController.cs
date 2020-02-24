@@ -39,7 +39,7 @@ namespace IpertechCompany.WebAPI.Controllers
         [HttpPost]
         public IActionResult InsertNotificationType(NotificationTypeViewModel notificationType)
         {
-            NotificationTypeViewModel insertedNotificationType = _mapper.Map<NotificationTypeViewModel>(_mapper.Map<NotificationType>(notificationType));
+            NotificationTypeViewModel insertedNotificationType = _mapper.Map<NotificationTypeViewModel>(_notificationTypeService.CreateNotificationType(_mapper.Map<NotificationType>(notificationType)));
 
             return CreatedAtAction(nameof(GetAllNotificationTypes), new { id = insertedNotificationType.NotificationTypeId }, insertedNotificationType);
         }
