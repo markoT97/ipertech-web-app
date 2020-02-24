@@ -35,6 +35,9 @@ namespace IpertechCompany.WebAPI
             services.AddScoped<INotificationTypeRepository, NotificationTypeRepository>();
             services.AddScoped<INotificationTypeService, NotificationTypeService>();
 
+            services.AddScoped<INotificationRepository, NotificationRepository>();
+            services.AddScoped<INotificationService, NotificationService>();
+
             services.AddScoped<IUserRepository, UserRepository>();
             services.AddScoped<IUserService, UserService>();
 

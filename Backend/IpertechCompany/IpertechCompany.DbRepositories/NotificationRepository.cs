@@ -42,15 +42,20 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT * FROM notifications.Notification" +
-                                     " WHERE NotificationTypeID = @NotificationTypeID";
-                return connection.Query<Notification>(query, new { NotificationTypeID = notificationTypeId });
+                const string query = "SELECT * FROM notifications.Notification n" +
+                                     " INNER JOIN notifications.NotificationType nt ON n.NotificationTypeID = nt.NotificationTypeID" +
+                                     " WHERE n.NotificationTypeID = @NotificationTypeID";
+                return connection.Query<Notification, NotificationType, Notification>(query, (notification, notificationType) =>
+                {
+                    notification.NotificationType = notificationType;
+                    return notification;
+                }, splitOn: "NotificationTypeID", param: new { NotificationTypeID = notificationTypeId });
             }
         }
 
         public Notification Insert(Notification notification)
         {
-            var insertedNotification = new Notification();
+            var insertedNotification = notification;
             using (var connection = _dbContext.Connect())
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
