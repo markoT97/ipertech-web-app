@@ -22,6 +22,7 @@ namespace IpertechCompany.WebAPI.AutoMapper
             CreateMap<UserContract, UserContractViewModel>().ReverseMap();
             CreateMap<Message, MessageViewModel>().ReverseMap();
             CreateMap<UserMessage, UserMessageViewModel>().ReverseMap();
+            CreateMap<Bill, BillViewModel>().ReverseMap();
         }
     }
 }

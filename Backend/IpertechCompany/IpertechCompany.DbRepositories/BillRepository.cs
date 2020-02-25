@@ -41,15 +41,20 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT * FROM useractions.Bill" +
-                    " WHERE UserContractID = @UserContractID";
-                return connection.Query<Bill>(query, new { UserContractId = userContractId });
+                const string query = "SELECT * FROM useractions.Bill b" +
+                                     " INNER JOIN useractions.UserContract uc ON b.UserContractID = uc.UserContractID" +
+                                     " WHERE b.UserContractID = @UserContractID";
+                return connection.Query<Bill, UserContract, Bill>(query, (bill, userContract) =>
+                {
+                    bill.UserContract = userContract;
+                    return bill;
+                }, splitOn: "UserContractID", param: new { UserContractId = userContractId });
             }
         }
 
         public Bill Insert(Bill bill)
         {
-            var insertedBill = new Bill();
+            var insertedBill = bill;
             using (var connection = _dbContext.Connect())
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
