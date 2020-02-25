@@ -1,4 +1,5 @@
 ﻿using IpertechCompany.Models.Validation;
+using System;
 
 namespace IpertechCompany.Models
 {
@@ -9,7 +10,8 @@ namespace IpertechCompany.Models
 
         public TvPacketTvChannel()
         {
-
+            TvPacket = new TvPacket();
+            TvChannel = new TvChannel();
         }
 
         public TvPacketTvChannel(TvPacket tvPacket, TvChannel tvChannel)
@@ -25,7 +27,7 @@ namespace IpertechCompany.Models
 
         public bool IsValid()
         {
-            if (!(!TvPacket.Equals(null) && !TvChannel.Equals(null)))
+            if (!(!TvPacket.TvPacketId.Equals(Guid.Empty) && !TvChannel.TvChannelId.Equals(Guid.Empty)))
             {
                 return false;
             }
