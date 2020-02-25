@@ -28,7 +28,7 @@ namespace IpertechCompany.WebAPI.Controllers
             _mapper = mapper;
         }
 
-        //[Authorize(Roles = "User")]
+        [Authorize(Roles = "User")]
         [HttpGet]
         [Route("{id}")]
         public IActionResult GetBillsByUserContractId(Guid id)
