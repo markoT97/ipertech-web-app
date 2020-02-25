@@ -20,6 +20,8 @@ namespace IpertechCompany.WebAPI.AutoMapper
             CreateMap<TvPacketTvChannel, TvPacketTvChannelViewModel>().ReverseMap();
             CreateMap<PacketCombination, PacketCombinationViewModel>().ReverseMap();
             CreateMap<UserContract, UserContractViewModel>().ReverseMap();
+            CreateMap<Message, MessageViewModel>().ReverseMap();
+            CreateMap<UserMessage, UserMessageViewModel>().ReverseMap();
         }
     }
 }
