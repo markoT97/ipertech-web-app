@@ -15,6 +15,7 @@ namespace IpertechCompany.WebAPI.AutoMapper
             CreateMap<InternetRouter, InternetRouterViewModel>().ReverseMap();
             CreateMap<InternetPacket, InternetPacketViewModel>().ReverseMap();
             CreateMap<PhonePacket, PhonePacketViewModel>().ReverseMap();
+            CreateMap<TvChannel, TvChannelViewModel>().ReverseMap();
         }
     }
 }

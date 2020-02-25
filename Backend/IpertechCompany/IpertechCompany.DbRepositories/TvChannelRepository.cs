@@ -48,7 +48,7 @@ namespace IpertechCompany.DbRepositories
 
         public TvChannel Insert(TvChannel tvChannel)
         {
-            var insertedTvChannel = new TvChannel();
+            var insertedTvChannel = tvChannel;
             using (var connection = _dbContext.Connect())
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
