@@ -24,6 +24,7 @@ namespace IpertechCompany.WebAPI.AutoMapper
             CreateMap<UserMessage, UserMessageViewModel>().ReverseMap();
             CreateMap<Bill, BillViewModel>().ReverseMap();
             CreateMap<Poll, PollViewModel>().ReverseMap();
+            CreateMap<PollOption, PollOptionViewModel>().ReverseMap();
         }
     }
 }
