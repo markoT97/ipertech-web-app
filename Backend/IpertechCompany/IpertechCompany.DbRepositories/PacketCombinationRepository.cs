@@ -59,7 +59,7 @@ namespace IpertechCompany.DbRepositories
 
         public PacketCombination Insert(PacketCombination packetCombination)
         {
-            var insertedPacketCombination = new PacketCombination();
+            var insertedPacketCombination = packetCombination;
             using (var connection = _dbContext.Connect())
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
