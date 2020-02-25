@@ -48,7 +48,7 @@ namespace IpertechCompany.DbRepositories
 
         public PhonePacket Insert(PhonePacket phonePacket)
         {
-            var insertedPhonePacket = new PhonePacket();
+            var insertedPhonePacket = phonePacket;
             using (var connection = _dbContext.Connect())
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
