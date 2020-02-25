@@ -74,6 +74,9 @@ namespace IpertechCompany.WebAPI
             services.AddScoped<IBillRepository, BillRepository>();
             services.AddScoped<IBillService, BillService>();
 
+            services.AddScoped<IPollRepository, PollRepository>();
+            services.AddScoped<IPollService, PollService>();
+
             var key = Encoding.ASCII.GetBytes(Configuration["Secret"]);
             services.AddAuthentication(x =>
             {

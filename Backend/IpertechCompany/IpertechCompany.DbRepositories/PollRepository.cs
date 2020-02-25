@@ -48,7 +48,7 @@ namespace IpertechCompany.DbRepositories
 
         public Poll Insert(Poll poll)
         {
-            var insertedPoll = new Poll();
+            var insertedPoll = poll;
             using (var connection = _dbContext.Connect())
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
