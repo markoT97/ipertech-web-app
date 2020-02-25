@@ -16,6 +16,12 @@ namespace IpertechCompany.Services
         private readonly IUserRepository _userRepository;
         private readonly IConfiguration _configuration;
 
+
+        public UserService(IUserRepository userRepository)
+        {
+            _userRepository = userRepository;
+        }
+
         public UserService(IUserRepository userRepository, IConfiguration configuration)
         {
             _userRepository = userRepository;

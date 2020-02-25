@@ -53,7 +53,7 @@ namespace IpertechCompany.Tests.Services
         [Test]
         public void LoginUser_NullObject_ExpectsException()
         {
-            Assert.Throws<ArgumentNullException>(() => _userService.LoginUser(null, null));
+            Assert.Throws<ArgumentNullException>(() => _userService.LoginUser(null));
         }
 
         [Test]
@@ -61,9 +61,10 @@ namespace IpertechCompany.Tests.Services
         {
             var user = new User(Guid.Parse("8F10E3A8-5B61-42F0-B00A-243F0FA2D228"), new UserContract(Guid.Parse("E352D17F-E719-40F1-B1AE-660510F3DBC4")), "User", "Steva", "Ðubre", "Muški", "steva@gmail.com", "3455666", "123@@", "www/users/steva.png");
 
-            _userRepository.Get(user.Email, user.Password).Returns(user);
+            var userLogin = new UserLogin(user.Email, user.Password);
+            _userRepository.Get(userLogin).Returns(user);
 
-            var token = _userService.LoginUser(user.Email, user.Password);
+            var token = _userService.LoginUser(userLogin);
             var deserializedToken = new JwtSecurityToken(token);
 
             Assert.AreEqual(user.Role, deserializedToken.Claims.Single(c => c.Type == "role").Value);
