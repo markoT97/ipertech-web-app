@@ -13,6 +13,7 @@ namespace IpertechCompany.WebAPI.AutoMapper
             CreateMap<User, UserViewModel>().ReverseMap();
             CreateMap<UserLogin, UserLoginViewModel>().ReverseMap();
             CreateMap<InternetRouter, InternetRouterViewModel>().ReverseMap();
+            CreateMap<InternetPacket, InternetPacketViewModel>().ReverseMap();
         }
     }
 }

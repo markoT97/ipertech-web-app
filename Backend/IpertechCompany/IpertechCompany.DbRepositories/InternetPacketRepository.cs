@@ -54,7 +54,7 @@ namespace IpertechCompany.DbRepositories
 
         public InternetPacket Insert(InternetPacket internetPacket)
         {
-            var insertedInternetPacket = new InternetPacket();
+            var insertedInternetPacket = internetPacket;
             using (var connection = _dbContext.Connect())
             {
                 using (var command = (SqlCommand)connection.CreateCommand())

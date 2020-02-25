@@ -44,6 +44,9 @@ namespace IpertechCompany.WebAPI
             services.AddScoped<IInternetRouterRepository, InternetRouterRepository>();
             services.AddScoped<IInternetRouterService, InternetRouterService>();
 
+            services.AddScoped<IInternetPacketRepository, InternetPacketRepository>();
+            services.AddScoped<IInternetPacketService, InternetPacketService>();
+
             var key = Encoding.ASCII.GetBytes(Configuration["Secret"]);
             services.AddAuthentication(x =>
             {
