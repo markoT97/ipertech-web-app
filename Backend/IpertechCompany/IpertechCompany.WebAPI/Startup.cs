@@ -62,6 +62,9 @@ namespace IpertechCompany.WebAPI
             services.AddScoped<IPacketCombinationRepository, PacketCombinationRepository>();
             services.AddScoped<IPacketCombinationService, PacketCombinationService>();
 
+            services.AddScoped<IUserContractRepository, UserContractRepository>();
+            services.AddScoped<IUserContractService, UserContractService>();
+
             var key = Encoding.ASCII.GetBytes(Configuration["Secret"]);
             services.AddAuthentication(x =>
             {

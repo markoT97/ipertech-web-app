@@ -48,7 +48,7 @@ namespace IpertechCompany.DbRepositories
 
         public UserContract Insert(UserContract userContract)
         {
-            var insertedUserContract = new UserContract();
+            var insertedUserContract = userContract;
             using (var connection = _dbContext.Connect())
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
