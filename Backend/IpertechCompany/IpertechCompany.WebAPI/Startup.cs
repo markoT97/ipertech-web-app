@@ -68,6 +68,9 @@ namespace IpertechCompany.WebAPI
             services.AddScoped<IUserMessageRepository, UserMessageRepository>();
             services.AddScoped<IUserMessageService, UserMessageService>();
 
+            services.AddScoped<IMessageRepository, MessageRepository>();
+            services.AddScoped<IMessageService, MessageService>();
+
             var key = Encoding.ASCII.GetBytes(Configuration["Secret"]);
             services.AddAuthentication(x =>
             {

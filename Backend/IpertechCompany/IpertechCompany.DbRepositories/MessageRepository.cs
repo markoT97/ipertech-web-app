@@ -48,7 +48,7 @@ namespace IpertechCompany.DbRepositories
 
         public Message Insert(Message message)
         {
-            var insertedMessage = new Message();
+            var insertedMessage = message;
             using (var connection = _dbContext.Connect())
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
