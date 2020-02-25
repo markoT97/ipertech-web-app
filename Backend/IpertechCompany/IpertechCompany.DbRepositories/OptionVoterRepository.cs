@@ -30,7 +30,7 @@ namespace IpertechCompany.DbRepositories
 
         public OptionVoter Insert(OptionVoter optionVoter)
         {
-            var insertedOptionVoter = new OptionVoter();
+            var insertedOptionVoter = optionVoter;
             using (var connection = _dbContext.Connect())
             {
                 using (var command = (SqlCommand)connection.CreateCommand())
