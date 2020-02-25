@@ -53,6 +53,9 @@ namespace IpertechCompany.WebAPI
             services.AddScoped<ITvChannelRepository, TvChannelRepository>();
             services.AddScoped<ITvChannelService, TvChannelService>();
 
+            services.AddScoped<ITvPacketRepository, TvPacketRepository>();
+            services.AddScoped<ITvPacketService, TvPacketService>();
+
             var key = Encoding.ASCII.GetBytes(Configuration["Secret"]);
             services.AddAuthentication(x =>
             {
