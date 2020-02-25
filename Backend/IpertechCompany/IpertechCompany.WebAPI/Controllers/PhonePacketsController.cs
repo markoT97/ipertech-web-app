@@ -54,10 +54,10 @@ namespace IpertechCompany.WebAPI.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpDelete]
-        [Route("{phonePacketId}")]
-        public IActionResult DeletePhonePacket(Guid phonePacketId)
+        [Route("{id}")]
+        public IActionResult DeletePhonePacket(Guid id)
         {
-            if (!_phonePacketService.DeletePhonePacket(phonePacketId))
+            if (!_phonePacketService.DeletePhonePacket(id))
             {
                 return NotFound();
             }
