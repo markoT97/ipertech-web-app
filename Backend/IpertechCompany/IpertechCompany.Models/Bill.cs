@@ -7,8 +7,8 @@ namespace IpertechCompany.Models
     {
         public Guid BillId { get; set; }
         public UserContract UserContract { get; set; }
-        public DateTime StartDate { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? StartDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public string CallNum { get; set; }
         public string AccOfRecipient { get; set; }
         public bool IsPaid { get; set; }
@@ -20,12 +20,12 @@ namespace IpertechCompany.Models
             UserContract = new UserContract();
         }
 
-        public Bill(Guid billId, UserContract userContract = null, string callNum = null, string accOfRecipient = null, bool isPaid = false, decimal price = 0, string currency = null)
+        public Bill(Guid billId, UserContract userContract = null, DateTime? startDate = null, DateTime? endDate = null, string callNum = null, string accOfRecipient = null, bool isPaid = false, decimal price = 0, string currency = null)
         {
             BillId = billId.Equals(Guid.Empty) ? Guid.NewGuid() : billId;
             UserContract = userContract;
-            StartDate = DateTime.UtcNow;
-            EndDate = StartDate.AddDays(30);
+            StartDate = startDate;
+            EndDate = endDate;
             CallNum = callNum;
             AccOfRecipient = accOfRecipient;
             IsPaid = isPaid;
@@ -41,7 +41,8 @@ namespace IpertechCompany.Models
         public bool IsValid()
         {
             if (!(!BillId.Equals(Guid.Empty) && !UserContract.Equals(null) && !StartDate.Equals(null) &&
-                  !EndDate.Equals(null) && CallNum != null && AccOfRecipient != null && Price != 0 && Currency != null))
+                  !EndDate.Equals(null) && CallNum != null && AccOfRecipient != null && Price != 0 && Currency != null &&
+                  StartDate < EndDate))
             {
                 return false;
             }
