@@ -1,0 +1,37 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="627" height="547" viewBox="0 0 627 547"><defs><style>  
+      .cls-1, .cls-5 {
+        fill: none;
+      }
+
+      .cls-1, .cls-2, .cls-3 {
+        stroke: #363636;
+      }
+
+      .cls-1 {
+        stroke-width: 12.87px;
+      }
+
+      .cls-2, .cls-4 {
+        fill: #363636;
+      }
+
+      .cls-2, .cls-3, .cls-5 {
+        stroke-width: 4px;
+      }
+
+      .cls-3 {
+        fill: lime;
+      }
+
+      .cls-3, .cls-4, .cls-5, .cls-7 {
+        fill-rule: evenodd;
+      }
+
+      .cls-5 {
+        stroke: #ed1c24;
+      }
+
+      .cls-6, .cls-7 {
+        fill: #ed1c24;
+      }
+    </style></defs><rect class="cls-1" x="42" y="297" width="527" height="185" rx="10" ry="10"/><rect class="cls-2" x="105" y="401" width="404" height="36" rx="10" ry="10"/><path class="cls-3" d="M170 404h5a10 10 0 0 1 10 10v5a10 10 0 0 1-10 10h-5a10 10 0 0 1-10-10v-5A10 10 0 0 1 170 404Zm50 0h5a10 10 0 0 1 10 10v5a10 10 0 0 1-10 10h-5a10 10 0 0 1-10-10v-5A10 10 0 0 1 220 404Zm52 0h5a10 10 0 0 1 10 10v5a10 10 0 0 1-10 10h-5a10 10 0 0 1-10-10v-5A10 10 0 0 1 272 404Zm52 0h5a10 10 0 0 1 10 10v5a10 10 0 0 1-10 10h-5a10 10 0 0 1-10-10v-5A10 10 0 0 1 324 404Zm52 0h5a10 10 0 0 1 10 10v5a10 10 0 0 1-10 10h-5a10 10 0 0 1-10-10v-5A10 10 0 0 1 376 404Zm52 0h5a10 10 0 0 1 10 10v5a10 10 0 0 1-10 10h-5a10 10 0 0 1-10-10v-5A10 10 0 0 1 428 404Z"/><path class="cls-4" d="M515 199.9L579 244.4l-20 28.7-64-44.5ZM433 67h31V275H433V67Zm31 0H574V96H464V67Zm0 91H574v29H464V158Zm81-62h29v62H545V96ZM410 275h75v22H410V275ZM327 76H429V93H327V76Zm0 17h15V247H327V93Zm0 154h98v14H327V247Zm15-96h65v22H342V151Z"/><path class="cls-5" d="M488.3 239L464 187 521 191.9Z"/><rect class="cls-6" x="410" y="44" width="75" height="23"/><path class="cls-7" d="M235 343h10v36H235V343Zm31 0h10v32H266V343Zm41-10h10v45H307V333Zm41-14h10v73H348V319Zm31 0h10v73H379V319ZM266 333h31v10H266V333Zm10 21h21v10H276V354Zm82 0h21v10H358V354Zm-92 21h31v10H266V375Zm41 3h31v10H307V378Zm0-55h31v10H307V323Zm-85 10h36v10H222V333Z"/></svg>
