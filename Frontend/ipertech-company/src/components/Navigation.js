@@ -1,15 +1,14 @@
 import React, { Component } from "react";
-import { Navbar, Nav } from "react-bootstrap";
-import logo from "./../../logo.svg";
-import "bootstrap/dist/css/bootstrap.min.css";
+import { Navbar, Nav, Image } from "react-bootstrap";
+import logo from "./../logo.svg";
 import { Link } from "react-router-dom";
 
 export class Navigation extends Component {
   render() {
     return (
       <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
-        <Navbar.Brand as={Link} to="">
-          <img
+        <Navbar.Brand as={Link} to="/">
+          <Image
             alt=""
             src={logo}
             width="50"
