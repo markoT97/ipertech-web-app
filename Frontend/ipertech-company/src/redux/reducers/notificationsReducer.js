@@ -1,18 +1,14 @@
-import { FETCH_NOTIFICATIONS } from "../actions/actions";
+import { FETCH_NOTIFICATIONS } from "../actions/notificationsActions/actionTypes";
 
-const initialState = {
-  notifications: []
-};
-
-function reducer(state = initialState, action) {
+function reducer(notifications = [], action) {
   switch (action.type) {
     case FETCH_NOTIFICATIONS:
       return {
-        ...state,
+        ...notifications,
         notifications: action.notifications
       };
     default:
-      return state;
+      return notifications;
   }
 }
 

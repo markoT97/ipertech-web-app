@@ -1,4 +1,4 @@
-export const FETCH_NOTIFICATIONS = "FETCH_NOTIFICATIONS";
+import { FETCH_NOTIFICATIONS } from "./actionTypes";
 
 function fetchNotifications() {
   return {

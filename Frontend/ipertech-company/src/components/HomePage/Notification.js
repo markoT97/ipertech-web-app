@@ -3,7 +3,7 @@ import { CardDeck, Card } from "react-bootstrap";
 import FadeIn from "react-fade-in";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import fetchNotifications from "./../../redux/actions/actions";
+import fetchNotifications from "../../redux/actions/notificationsActions/actionCreators";
 
 export class Notification extends Component {
   render() {
