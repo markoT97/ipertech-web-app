@@ -8,7 +8,7 @@ namespace IpertechCompany.IServices
     {
         IEnumerable<Notification> GetAllNotifications();
         IEnumerable<Notification> GetAllNotifications(int numberOfNewestRows);
-        IEnumerable<Notification> GetByNotificationTypeId(Guid notificationTypeId);
+        IEnumerable<Notification> GetByNotificationTypeId(Guid notificationTypeId, int numberOfNewestRows);
         Notification CreateNotification(Notification notification);
         void UpdateNotification(Notification notification);
         bool DeleteNotification(Guid notificationId, Guid notificationTypeId);

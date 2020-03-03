@@ -42,8 +42,15 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT * FROM notifications.Notification";
-                return connection.Query<Notification>(query);
+                const string query = "SELECT * FROM notifications.Notification n" +
+                                     " INNER JOIN notifications.NotificationType nt ON n.NotificationTypeID = nt.NotificationTypeID" +
+                                     " ORDER BY n.Title";
+                return connection.Query<Notification, NotificationType, Notification>(query, (notification, notificationType) =>
+                {
+                    notification.NotificationType = notificationType;
+                    return notification;
+                }
+                , splitOn: "NotificationTypeID");
             }
         }
 
@@ -51,24 +58,31 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT TOP (@numberOfNewestRows) * FROM notifications.Notification" +
-                                    " ORDER BY CreatedAt DESC";
-                return connection.Query<Notification>(query, new { numberOfNewestRows });
-            }
-        }
-
-        public IEnumerable<Notification> Get(Guid notificationTypeId)
-        {
-            using (var connection = _dbContext.Connect())
-            {
-                const string query = "SELECT * FROM notifications.Notification n" +
+                const string query = "SELECT TOP (@numberOfNewestRows) * FROM notifications.Notification n" +
                                      " INNER JOIN notifications.NotificationType nt ON n.NotificationTypeID = nt.NotificationTypeID" +
-                                     " WHERE n.NotificationTypeID = @NotificationTypeID";
+                                     " ORDER BY n.CreatedAt DESC";
                 return connection.Query<Notification, NotificationType, Notification>(query, (notification, notificationType) =>
                 {
                     notification.NotificationType = notificationType;
                     return notification;
-                }, splitOn: "NotificationTypeID", param: new { NotificationTypeID = notificationTypeId });
+                }
+                , splitOn: "NotificationTypeID", param: new { numberOfNewestRows });
+            }
+        }
+
+        public IEnumerable<Notification> Get(Guid notificationTypeId, int numberOfNewestRows)
+        {
+            using (var connection = _dbContext.Connect())
+            {
+                const string query = "SELECT TOP (@numberOfNewestRows) * FROM notifications.Notification n" +
+                                     " INNER JOIN notifications.NotificationType nt ON n.NotificationTypeID = nt.NotificationTypeID" +
+                                     " WHERE n.NotificationTypeID = @NotificationTypeID" +
+                                     " ORDER BY n.CreatedAt DESC";
+                return connection.Query<Notification, NotificationType, Notification>(query, (notification, notificationType) =>
+                {
+                    notification.NotificationType = notificationType;
+                    return notification;
+                }, splitOn: "NotificationTypeID", param: new { NotificationTypeID = notificationTypeId, numberOfNewestRows });
             }
         }
 
