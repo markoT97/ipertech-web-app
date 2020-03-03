@@ -30,6 +30,21 @@ namespace IpertechCompany.WebAPI.Controllers
 
         [AllowAnonymous]
         [HttpGet]
+        public IActionResult GetAllNotifications()
+        {
+            return Ok(_notificationService.GetAllNotifications().Select(notification => _mapper.Map<NotificationViewModel>(notification)));
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
+        [Route("{numberOfNewestNotifications}")]
+        public IActionResult GetNewestNotifications(int numberOfNewestNotifications)
+        {
+            return Ok(_notificationService.GetAllNotifications(numberOfNewestNotifications).Select(notification => _mapper.Map<NotificationViewModel>(notification)));
+        }
+
+        [AllowAnonymous]
+        [HttpGet]
         [Route("{id}/notificationTypes")]
         public IActionResult GetNotificationsByNotificationTypeId(Guid id)
         {
