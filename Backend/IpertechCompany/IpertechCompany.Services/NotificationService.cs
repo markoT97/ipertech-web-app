@@ -35,6 +35,16 @@ namespace IpertechCompany.Services
             return _notificationRepository.Delete(notificationId, notificationTypeId);
         }
 
+        public IEnumerable<Notification> GetAllNotifications()
+        {
+            return _notificationRepository.GetAll();
+        }
+
+        public IEnumerable<Notification> GetAllNotifications(int numberOfNewestRows)
+        {
+            return _notificationRepository.GetAll(numberOfNewestRows);
+        }
+
         public IEnumerable<Notification> GetByNotificationTypeId(Guid notificationTypeId)
         {
             return _notificationRepository.Get(notificationTypeId);

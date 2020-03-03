@@ -98,6 +98,50 @@ namespace IpertechCompany.Tests.Services
         }
 
         [Test]
+        public void GetAllNotifications_WithoutData_ReturnsEmptyList()
+        {
+            _notificationRepository.GetAll().Returns(new List<Notification>());
+            Assert.AreEqual(0, _notificationService.GetAllNotifications().Count());
+        }
+
+        [Test]
+        public void GetAllNotifications_WithData_ReturnsPopulatedList()
+        {
+            var notifications = new List<Notification>()
+            {
+                new Notification(Guid.Parse("F6AFCC3E-DD34-421B-8573-23695441F910"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "www/notifications/prom-1.png"),
+                new Notification(Guid.Parse("B10C5F84-73FB-4211-8959-5A9E35403207"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "www/notifications/prom-2.png"),
+                new Notification(Guid.Parse("D6D21485-EC75-47D7-9A65-7B3789FA53FD"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "www/notifications/prom-3.png"),
+                new Notification(Guid.Parse("480C536D-20B1-4F64-B6C3-B3F122ED4639"), new NotificationType(Guid.Parse("9FBA9021-1A99-47F6-ABC7-C132C3AC7A0E")), "Radovi na rekonstrukciji infrastrukture", "U ulici Stevana Momcilovica, Bulevaru Patrijarha Pavla, Bulevar i Cara Lazara 06.01.2020. ...", "www/notifications/ob-1.png"),
+            };
+            _notificationRepository.GetAll().Returns(notifications);
+
+            Assert.AreEqual(notifications.Count, _notificationService.GetAllNotifications().Count());
+        }
+
+        [Test]
+        public void GetNewestTwoNotifications_WithoutData_ReturnsEmptyList()
+        {
+            _notificationRepository.GetAll(2).Returns(new List<Notification>());
+            Assert.AreEqual(0, _notificationService.GetAllNotifications().Count());
+        }
+
+        [Test]
+        public void GetNewestTwoNotifications_WithData_ReturnsPopulatedList()
+        {
+            var notifications = new List<Notification>()
+            {
+                new Notification(Guid.Parse("F6AFCC3E-DD34-421B-8573-23695441F910"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "www/notifications/prom-1.png"),
+                new Notification(Guid.Parse("B10C5F84-73FB-4211-8959-5A9E35403207"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "www/notifications/prom-2.png"),
+                new Notification(Guid.Parse("D6D21485-EC75-47D7-9A65-7B3789FA53FD"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "www/notifications/prom-3.png"),
+                new Notification(Guid.Parse("480C536D-20B1-4F64-B6C3-B3F122ED4639"), new NotificationType(Guid.Parse("9FBA9021-1A99-47F6-ABC7-C132C3AC7A0E")), "Radovi na rekonstrukciji infrastrukture", "U ulici Stevana Momcilovica, Bulevaru Patrijarha Pavla, Bulevar i Cara Lazara 06.01.2020. ...", "www/notifications/ob-1.png"),
+            };
+            _notificationRepository.GetAll(2).Returns(notifications.GetRange(0, 1));
+
+            Assert.AreEqual(notifications.GetRange(0, 1).Count(), _notificationService.GetAllNotifications(2).Count());
+        }
+
+        [Test]
         public void GetNotificationByNotificationTypeId_WithoutData_ReturnsEmptyList()
         {
             var notificationTypeId = Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850");

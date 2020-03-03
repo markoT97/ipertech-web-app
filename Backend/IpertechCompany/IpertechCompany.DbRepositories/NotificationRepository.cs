@@ -38,6 +38,25 @@ namespace IpertechCompany.DbRepositories
             return (rowsAffected > 0);
         }
 
+        public IEnumerable<Notification> GetAll()
+        {
+            using (var connection = _dbContext.Connect())
+            {
+                const string query = "SELECT * FROM notifications.Notification";
+                return connection.Query<Notification>(query);
+            }
+        }
+
+        public IEnumerable<Notification> GetAll(int numberOfNewestRows)
+        {
+            using (var connection = _dbContext.Connect())
+            {
+                const string query = "SELECT TOP (@numberOfNewestRows) * FROM notifications.Notification" +
+                                    " ORDER BY CreatedAt DESC";
+                return connection.Query<Notification>(query, new { numberOfNewestRows });
+            }
+        }
+
         public IEnumerable<Notification> Get(Guid notificationTypeId)
         {
             using (var connection = _dbContext.Connect())

@@ -21,6 +21,18 @@ namespace IpertechCompany.Tests.Repositories
         }
 
         [Test]
+        public void GetAll_WithData_ReturnsListOfNineNotifications()
+        {
+            Assert.AreEqual(9, _notificationRepository.GetAll().Count());
+        }
+
+        [Test]
+        public void GetNewestTwo_WithData_ReturnsListOfTwoNotifications()
+        {
+            Assert.AreEqual(2, _notificationRepository.GetAll(2).Count());
+        }
+
+        [Test]
         public void GetByNotificationTypeId_WithExistingNotificationType_ReturnsPopulatedList()
         {
             Assert.AreEqual(5, _notificationRepository.Get(Guid.Parse("9FBA9021-1A99-47F6-ABC7-C132C3AC7A0E")).Count());

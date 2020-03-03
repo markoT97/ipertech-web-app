@@ -34,7 +34,7 @@ namespace IpertechCompany.Tests.Repositories
         [Test]
         public void Insert_WithRequiredFields_ReturnsMessage()
         {
-            var message = new Message(Guid.NewGuid(), "Insert Title", "Insert Content", "Insert");
+            var message = new Message(Guid.NewGuid(), "Insert Title", "Insert Content", DateTime.Parse("2020-02-25 22:53:56.917"), "Insert");
 
             _messageRepository.Insert(message);
             Assert.AreEqual(message.Title, _messageRepository.Get(message.MessageId).Title);
@@ -49,7 +49,7 @@ namespace IpertechCompany.Tests.Repositories
         [Test]
         public void Update_WithRequiredFields_ReturnsMessage()
         {
-            var message = new Message(Guid.Parse("C8D6F372-06F8-40EE-8BC8-A1DFBFDC56FC"), "Update Title", "Update Content", "Update");
+            var message = new Message(Guid.Parse("C8D6F372-06F8-40EE-8BC8-A1DFBFDC56FC"), "Update Title", "Update Content", DateTime.UtcNow, "Update");
 
             _messageRepository.Update(message);
             var updatedMessage = _messageRepository

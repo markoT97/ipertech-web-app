@@ -72,7 +72,7 @@ namespace IpertechCompany.Services
                 throw new InvalidOperationException("Specified user does not exists.");
             }
 
-            var secretCode = _configuration["Secret"];
+            var secretCode = "fds6743129hvf89ry42bvfe29ggb59y4hbg948943bufr89b48ibg94";
             var tokenHandler = new JwtSecurityTokenHandler();
 
             var signingCredentials = new SigningCredentials(new SymmetricSecurityKey(Encoding.ASCII.GetBytes(secretCode)), "HS256");

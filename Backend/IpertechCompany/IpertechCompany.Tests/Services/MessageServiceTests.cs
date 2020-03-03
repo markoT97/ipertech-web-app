@@ -47,7 +47,7 @@ namespace IpertechCompany.Tests.Services
         {
             var message = new Message(Guid.Parse("C8D6F372-06F8-40EE-8BC8-A1DFBFDC56FC"),
                 "Ruter je bez signala",
-                "Svi kablovi su povezani, ali racunar nece da ucita stranicu...", "Problem");
+                "Svi kablovi su povezani, ali racunar nece da ucita stranicu...", DateTime.UtcNow, "Problem");
             _messageRepository.Insert(message).Returns(message);
 
             var returnedMessage = _messageService.CreateMessage(message);
@@ -76,7 +76,7 @@ namespace IpertechCompany.Tests.Services
         {
             var message = new Message(Guid.Parse("C8D6F372-06F8-40EE-8BC8-A1DFBFDC56FC"),
                 "Ruter je bez signala",
-                "Svi kablovi su povezani, ali racunar nece da ucita stranicu...", "Problem");
+                "Svi kablovi su povezani, ali racunar nece da ucita stranicu...", DateTime.Parse("2020-02-25 22:53:56.917"), "Problem");
             _messageService.UpdateMessage(message);
             _messageRepository.Received(1).Update(message);
         }
@@ -117,16 +117,16 @@ namespace IpertechCompany.Tests.Services
             {
                 new Message(Guid.Parse("C8D6F372-06F8-40EE-8BC8-A1DFBFDC56FC"),
                     "Ruter je bez signala",
-                    "Svi kablovi su povezani, ali racunar nece da ucita stranicu...", "Problem"),
+                    "Svi kablovi su povezani, ali racunar nece da ucita stranicu...", DateTime.Parse("2020-02-25 22:53:56.917"), "Problem"),
                 new Message(Guid.Parse("2B78F0D1-FFFA-4723-AD87-C9E2532ACD70"),
                     "Slanje utisaka",
-                    "Slanje utisaka je pocelo da radi!", "Utisak"),
+                    "Slanje utisaka je pocelo da radi!", DateTime.Parse("2020-02-25 22:53:56.917"), "Utisak"),
                 new Message(Guid.Parse("C1851B9D-9624-44D0-86D4-CE10EC026A43"),
                     "TV gubi signal",
-                    "Sve je povezano, medutim slika se cesto gubi.", "Problem"),
+                    "Sve je povezano, medutim slika se cesto gubi.", DateTime.Parse("2020-02-25 22:53:56.917"), "Problem"),
                 new Message(Guid.Parse("B18A0A9C-320A-4EC2-BD09-F2E1652E736A"),
                     "Proba",
-                    "Proba radi!", "Utisak")
+                    "Proba radi!", DateTime.Parse("2020-02-25 22:53:56.917"), "Utisak")
             };
             var messageId = Guid.Parse("C8D6F372-06F8-40EE-8BC8-A1DFBFDC56FC");
             _messageRepository.Get(messageId)

@@ -101,9 +101,9 @@ namespace IpertechCompany.Tests.Services
 
             var messages = new List<Message>()
             {
-                new Message(Guid.Parse("C8D6F372-06F8-40EE-8BC8-A1DFBFDC56FC"), "Ruter je bez signala", "Svi kablovi su povezani, ali racunar nece da ucita stranicu...", "Problem"),
-                new Message(Guid.Parse("2B78F0D1-FFFA-4723-AD87-C9E2532ACD70"), "Slanje utisaka", "Slanje utisaka je pocelo da radi!", "Utisak"),
-                new Message(Guid.Parse("C1851B9D-9624-44D0-86D4-CE10EC026A43"), "TV gubi signal", "Sve je povezano, međutim slika se cesto gubi.", "Problem")
+                new Message(Guid.Parse("C8D6F372-06F8-40EE-8BC8-A1DFBFDC56FC"), "Ruter je bez signala", "Svi kablovi su povezani, ali racunar nece da ucita stranicu...", DateTime.Parse("2020-02-25 22:53:56.917"), "Problem"),
+                new Message(Guid.Parse("2B78F0D1-FFFA-4723-AD87-C9E2532ACD70"), "Slanje utisaka", "Slanje utisaka je pocelo da radi!", DateTime.Parse("2020-02-25 22:53:56.917"), "Utisak"),
+                new Message(Guid.Parse("C1851B9D-9624-44D0-86D4-CE10EC026A43"), "TV gubi signal", "Sve je povezano, međutim slika se cesto gubi.", DateTime.Parse("2020-02-25 22:53:56.917"), "Problem")
             };
 
             var userId = Guid.Parse("8D613A6B-AEF0-4B15-95F4-3BB5039F47DE");

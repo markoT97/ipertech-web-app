@@ -22,18 +22,18 @@ namespace IpertechCompany.Tests.Repositories
 
 
         [Test]
-        public void GetAll_WithData_ReturnsListOfTwentyOneTvChannels()
+        public void GetAll_WithData_ReturnsListOfTwentyThreeTvChannels()
         {
-            Assert.AreEqual(22, _tvChannelRepository.GetAll().Count());
+            Assert.AreEqual(23, _tvChannelRepository.GetAll().Count());
         }
 
         [Test]
-        public void Insert_WithRequiredFields_ReturnsListWithTwentyTwoTvChannels()
+        public void Insert_WithRequiredFields_ReturnsListWithTwentyFourTvChannels()
         {
             var tvChannel = new TvChannel(Guid.NewGuid(), "Insert Name", "Insert Location", 99, true);
 
             _tvChannelRepository.Insert(tvChannel);
-            Assert.AreEqual(23, _tvChannelRepository.GetAll().Count());
+            Assert.AreEqual(24, _tvChannelRepository.GetAll().Count());
         }
 
         [Test]

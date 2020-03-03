@@ -22,9 +22,9 @@ namespace IpertechCompany.Tests.Repositories
 
 
         [Test]
-        public void GetAll_WithData_ReturnsListOfTwoUsers()
+        public void GetAll_WithData_ReturnsListOfOneUser()
         {
-            Assert.AreEqual(2, _userRepository.GetAll().Count());
+            Assert.AreEqual(1, _userRepository.GetAll().Count());
         }
 
         [Test]
@@ -40,7 +40,7 @@ namespace IpertechCompany.Tests.Repositories
         }
 
         [Test]
-        public void Insert_WithRequiredFields_ReturnsListWithThreeUsers()
+        public void Insert_WithRequiredFields_ReturnsListWithTwoUsers()
         {
             var user = new User(Guid.Parse("04822534-5A84-47EA-AF87-81060832CD0A"),
                 new UserContract(Guid.Parse("082C90F1-F513-4B2D-ACF1-14B277D6D6C8")),
@@ -54,7 +54,7 @@ namespace IpertechCompany.Tests.Repositories
                 "Insert Location");
 
             _userRepository.Insert(user);
-            Assert.AreEqual(3, _userRepository.GetAll().Count());
+            Assert.AreEqual(2, _userRepository.GetAll().Count());
         }
 
         [Test]

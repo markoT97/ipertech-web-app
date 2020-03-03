@@ -40,7 +40,7 @@ namespace IpertechCompany.Tests.Repositories
             [Test]
             public void Insert_WithRequiredFields_ReturnsListWithFourBills()
             {
-                var bill = new Bill(Guid.Parse("061E89AA-59AB-4F9F-B658-47088C14786A"), new UserContract(Guid.Parse("2E97AAA3-E364-4C32-BC4C-1895FF066492")), "Test Insert Call", "Test Insert Acc", false, 0, "RSD");
+                var bill = new Bill(Guid.Parse("061E89AA-59AB-4F9F-B658-47088C14786A"), new UserContract(Guid.Parse("2E97AAA3-E364-4C32-BC4C-1895FF066492")), DateTime.UtcNow, DateTime.UtcNow.AddDays(30), "Test Insert Call", "Test Insert Acc", false, 0, "RSD");
 
                 _billRepository.Insert(bill);
                 Assert.AreEqual(2, _billRepository.Get(Guid.Parse("2E97AAA3-E364-4C32-BC4C-1895FF066492")).Count());
@@ -57,6 +57,8 @@ namespace IpertechCompany.Tests.Repositories
             {
                 var bill = new Bill(Guid.Parse("4F6327C6-E149-4F86-BD09-426BFF1178B2"),
                     new UserContract(Guid.Parse("2E97AAA3-E364-4C32-BC4C-1895FF066492")),
+                    DateTime.Parse("2019-06-01"),
+                    DateTime.Parse("2019-06-30"),
                     "Update Call",
                     "Update Acc",
                     false,
