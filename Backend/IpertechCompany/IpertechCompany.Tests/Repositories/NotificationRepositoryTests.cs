@@ -33,15 +33,27 @@ namespace IpertechCompany.Tests.Repositories
         }
 
         [Test]
-        public void GetByNotificationTypeId_WithExistingNotificationType_ReturnsPopulatedList()
+        public void GetNewestThreeByNotificationTypeId_WithExistingNotificationType_ReturnsPopulatedList()
         {
-            Assert.AreEqual(5, _notificationRepository.Get(Guid.Parse("9FBA9021-1A99-47F6-ABC7-C132C3AC7A0E")).Count());
+            Assert.AreEqual(5, _notificationRepository.Get(Guid.Parse("9FBA9021-1A99-47F6-ABC7-C132C3AC7A0E"), 5).Count());
         }
 
         [Test]
-        public void GetByNotificationTypeId_WithoutExistingNotificationType_ReturnsEmptyList()
+        public void GetNewestThreeByNotificationTypeName_WithExistingNotificationType_ReturnsPopulatedList()
         {
-            Assert.AreEqual(0, _notificationRepository.Get(Guid.NewGuid()).Count());
+            Assert.AreEqual(3, _notificationRepository.Get(("Novosti"), 3).Count());
+        }
+
+        [Test]
+        public void GetNewestThreeByNotificationTypeId_WithoutExistingNotificationType_ReturnsEmptyList()
+        {
+            Assert.AreEqual(0, _notificationRepository.Get(Guid.NewGuid(), 0).Count());
+        }
+
+        [Test]
+        public void GetNewestThreeByNotificationTypeName_WithoutExistingNotificationType_ReturnsEmptyList()
+        {
+            Assert.AreEqual(0, _notificationRepository.Get("Something", 0).Count());
         }
 
         [Test]
@@ -65,7 +77,7 @@ namespace IpertechCompany.Tests.Repositories
             var notification = new Notification(Guid.Parse("F6AFCC3E-DD34-421B-8573-23695441F910"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Update Title", "Update Content", "Update Location");
 
             _notificationRepository.Update(notification);
-            var updatedNotification = _notificationRepository.Get(notification.NotificationType.NotificationTypeId)
+            var updatedNotification = _notificationRepository.Get(notification.NotificationType.NotificationTypeId, 1)
                 .First(n => n.NotificationId == notification.NotificationId);
 
             Assert.AreEqual(notification.Title, updatedNotification.Title);

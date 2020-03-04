@@ -45,7 +45,7 @@ namespace IpertechCompany.Tests.Services
         [Test]
         public void CreateNotification_WithRequiredFields_ReturnsNotification()
         {
-            var notification = new Notification(Guid.Parse("F6AFCC3E-DD34-421B-8573-23695441F910"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "www/notifications/prom-1.png");
+            var notification = new Notification(Guid.Parse("F6AFCC3E-DD34-421B-8573-23695441F910"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "notifications/prom-1.png");
             _notificationRepository.Insert(notification).Returns(notification);
 
             var returnedNotification = _notificationService.CreateNotification(notification);
@@ -72,7 +72,7 @@ namespace IpertechCompany.Tests.Services
         [Test]
         public void UpdateNotification_WithRequiredFields_ReturnsNothing()
         {
-            var notification = new Notification(Guid.Parse("F6AFCC3E-DD34-421B-8573-23695441F910"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "www/notifications/prom-1.png");
+            var notification = new Notification(Guid.Parse("F6AFCC3E-DD34-421B-8573-23695441F910"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "notifications/prom-1.png");
             _notificationService.UpdateNotification(notification);
             _notificationRepository.Received(1).Update(notification);
         }
@@ -109,10 +109,10 @@ namespace IpertechCompany.Tests.Services
         {
             var notifications = new List<Notification>()
             {
-                new Notification(Guid.Parse("F6AFCC3E-DD34-421B-8573-23695441F910"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "www/notifications/prom-1.png"),
-                new Notification(Guid.Parse("B10C5F84-73FB-4211-8959-5A9E35403207"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "www/notifications/prom-2.png"),
-                new Notification(Guid.Parse("D6D21485-EC75-47D7-9A65-7B3789FA53FD"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "www/notifications/prom-3.png"),
-                new Notification(Guid.Parse("480C536D-20B1-4F64-B6C3-B3F122ED4639"), new NotificationType(Guid.Parse("9FBA9021-1A99-47F6-ABC7-C132C3AC7A0E")), "Radovi na rekonstrukciji infrastrukture", "U ulici Stevana Momcilovica, Bulevaru Patrijarha Pavla, Bulevar i Cara Lazara 06.01.2020. ...", "www/notifications/ob-1.png"),
+                new Notification(Guid.Parse("F6AFCC3E-DD34-421B-8573-23695441F910"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "notifications/prom-1.png"),
+                new Notification(Guid.Parse("B10C5F84-73FB-4211-8959-5A9E35403207"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "notifications/prom-2.png"),
+                new Notification(Guid.Parse("D6D21485-EC75-47D7-9A65-7B3789FA53FD"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "notifications/prom-3.png"),
+                new Notification(Guid.Parse("480C536D-20B1-4F64-B6C3-B3F122ED4639"), new NotificationType(Guid.Parse("9FBA9021-1A99-47F6-ABC7-C132C3AC7A0E")), "Radovi na rekonstrukciji infrastrukture", "U ulici Stevana Momcilovica, Bulevaru Patrijarha Pavla, Bulevar i Cara Lazara 06.01.2020. ...", "notifications/ob-1.png"),
             };
             _notificationRepository.GetAll().Returns(notifications);
 
@@ -131,10 +131,10 @@ namespace IpertechCompany.Tests.Services
         {
             var notifications = new List<Notification>()
             {
-                new Notification(Guid.Parse("F6AFCC3E-DD34-421B-8573-23695441F910"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "www/notifications/prom-1.png"),
-                new Notification(Guid.Parse("B10C5F84-73FB-4211-8959-5A9E35403207"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "www/notifications/prom-2.png"),
-                new Notification(Guid.Parse("D6D21485-EC75-47D7-9A65-7B3789FA53FD"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "www/notifications/prom-3.png"),
-                new Notification(Guid.Parse("480C536D-20B1-4F64-B6C3-B3F122ED4639"), new NotificationType(Guid.Parse("9FBA9021-1A99-47F6-ABC7-C132C3AC7A0E")), "Radovi na rekonstrukciji infrastrukture", "U ulici Stevana Momcilovica, Bulevaru Patrijarha Pavla, Bulevar i Cara Lazara 06.01.2020. ...", "www/notifications/ob-1.png"),
+                new Notification(Guid.Parse("F6AFCC3E-DD34-421B-8573-23695441F910"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "notifications/prom-1.png"),
+                new Notification(Guid.Parse("B10C5F84-73FB-4211-8959-5A9E35403207"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "notifications/prom-2.png"),
+                new Notification(Guid.Parse("D6D21485-EC75-47D7-9A65-7B3789FA53FD"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "notifications/prom-3.png"),
+                new Notification(Guid.Parse("480C536D-20B1-4F64-B6C3-B3F122ED4639"), new NotificationType(Guid.Parse("9FBA9021-1A99-47F6-ABC7-C132C3AC7A0E")), "Radovi na rekonstrukciji infrastrukture", "U ulici Stevana Momcilovica, Bulevaru Patrijarha Pavla, Bulevar i Cara Lazara 06.01.2020. ...", "notifications/ob-1.png"),
             };
             _notificationRepository.GetAll(2).Returns(notifications.GetRange(0, 1));
 
@@ -145,10 +145,10 @@ namespace IpertechCompany.Tests.Services
         public void GetNotificationByNotificationTypeId_WithoutData_ReturnsEmptyList()
         {
             var notificationTypeId = Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850");
-            _notificationRepository.Get(notificationTypeId)
+            _notificationRepository.Get(notificationTypeId, 0)
                 .Returns(new List<Notification>());
 
-            var returnedNotifications = _notificationService.GetByNotificationTypeId(notificationTypeId);
+            var returnedNotifications = _notificationService.GetByNotificationTypeId(notificationTypeId, 0);
             Assert.AreEqual(0, returnedNotifications.Count());
         }
 
@@ -157,17 +157,46 @@ namespace IpertechCompany.Tests.Services
         {
             var notifications = new List<Notification>()
             {
-                new Notification(Guid.Parse("F6AFCC3E-DD34-421B-8573-23695441F910"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "www/notifications/prom-1.png"),
-                new Notification(Guid.Parse("B10C5F84-73FB-4211-8959-5A9E35403207"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "www/notifications/prom-2.png"),
-                new Notification(Guid.Parse("D6D21485-EC75-47D7-9A65-7B3789FA53FD"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "www/notifications/prom-3.png"),
-                new Notification(Guid.Parse("480C536D-20B1-4F64-B6C3-B3F122ED4639"), new NotificationType(Guid.Parse("9FBA9021-1A99-47F6-ABC7-C132C3AC7A0E")), "Radovi na rekonstrukciji infrastrukture", "U ulici Stevana Momcilovica, Bulevaru Patrijarha Pavla, Bulevar i Cara Lazara 06.01.2020. ...", "www/notifications/ob-1.png"),
+                new Notification(Guid.Parse("F6AFCC3E-DD34-421B-8573-23695441F910"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "notifications/prom-1.png"),
+                new Notification(Guid.Parse("B10C5F84-73FB-4211-8959-5A9E35403207"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "notifications/prom-2.png"),
+                new Notification(Guid.Parse("D6D21485-EC75-47D7-9A65-7B3789FA53FD"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850")), "Naslov", "Tekst", "notifications/prom-3.png"),
+                new Notification(Guid.Parse("480C536D-20B1-4F64-B6C3-B3F122ED4639"), new NotificationType(Guid.Parse("9FBA9021-1A99-47F6-ABC7-C132C3AC7A0E")), "Radovi na rekonstrukciji infrastrukture", "U ulici Stevana Momcilovica, Bulevaru Patrijarha Pavla, Bulevar i Cara Lazara 06.01.2020. ...", "notifications/ob-1.png"),
             };
             var notificationTypeId = Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850");
-            _notificationRepository.Get(notificationTypeId)
+            _notificationRepository.Get(notificationTypeId, 3)
                 .Returns(notifications.Where(ir => ir.NotificationType.NotificationTypeId == notificationTypeId));
 
-            var returnedNotifications = _notificationService.GetByNotificationTypeId(notificationTypeId);
+            var returnedNotifications = _notificationService.GetByNotificationTypeId(notificationTypeId, 3);
             Assert.AreEqual(notifications.Where(ir => ir.NotificationType.NotificationTypeId == notificationTypeId).Count(), returnedNotifications.Count());
+        }
+
+        [Test]
+        public void GetNotificationByNotificationTypeName_WithoutData_ReturnsEmptyList()
+        {
+            var notificationTypeName = "Novosti";
+            _notificationRepository.Get(notificationTypeName, 0)
+                .Returns(new List<Notification>());
+
+            var returnedNotifications = _notificationService.GetByNotificationTypeName(notificationTypeName, 0);
+            Assert.AreEqual(0, returnedNotifications.Count());
+        }
+
+        [Test]
+        public void GetNotificationByNotificationTypeName_WithData_ReturnsNotification()
+        {
+            var notifications = new List<Notification>()
+            {
+                new Notification(Guid.Parse("F6AFCC3E-DD34-421B-8573-23695441F910"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850"), "Novosti"), "Naslov", "Tekst", "notifications/prom-1.png"),
+                new Notification(Guid.Parse("B10C5F84-73FB-4211-8959-5A9E35403207"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850"), "Novosti"), "Naslov", "Tekst", "notifications/prom-2.png"),
+                new Notification(Guid.Parse("D6D21485-EC75-47D7-9A65-7B3789FA53FD"), new NotificationType(Guid.Parse("B953E5F6-2DE5-4B9C-B2C4-17E62DDAE850"), "Novosti"), "Naslov", "Tekst", "notifications/prom-3.png"),
+                new Notification(Guid.Parse("480C536D-20B1-4F64-B6C3-B3F122ED4639"), new NotificationType(Guid.Parse("9FBA9021-1A99-47F6-ABC7-C132C3AC7A0E"), "Promocije"), "Radovi na rekonstrukciji infrastrukture", "U ulici Stevana Momcilovica, Bulevaru Patrijarha Pavla, Bulevar i Cara Lazara 06.01.2020. ...", "notifications/ob-1.png"),
+            };
+            var notificationTypeName = "Novosti";
+            _notificationRepository.Get(notificationTypeName)
+                .Returns(notifications.Where(ir => ir.NotificationType.Name.Equals(notificationTypeName)));
+
+            var returnedNotifications = _notificationService.GetByNotificationTypeName(notificationTypeName);
+            Assert.AreEqual(notifications.Where(ir => ir.NotificationType.Name.Equals(notificationTypeName)).Count(), returnedNotifications.Count());
         }
     }
 }

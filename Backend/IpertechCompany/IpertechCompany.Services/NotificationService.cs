@@ -45,9 +45,14 @@ namespace IpertechCompany.Services
             return _notificationRepository.GetAll(numberOfNewestRows);
         }
 
-        public IEnumerable<Notification> GetByNotificationTypeId(Guid notificationTypeId, int numberOfNewestNotifications)
+        public IEnumerable<Notification> GetByNotificationTypeId(Guid notificationTypeId, int? numberOfNewestNotifications = null)
         {
             return _notificationRepository.Get(notificationTypeId, numberOfNewestNotifications);
+        }
+
+        public IEnumerable<Notification> GetByNotificationTypeName(string notificationTypeName, int? numberOfNewestNotifications = null)
+        {
+            return _notificationRepository.Get(notificationTypeName, numberOfNewestNotifications);
         }
 
         public void UpdateNotification(Notification notification)

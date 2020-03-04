@@ -45,10 +45,10 @@ namespace IpertechCompany.WebAPI.Controllers
 
         [AllowAnonymous]
         [HttpGet]
-        [Route("{id}/notificationTypes/{numberOfNewestNotifications}")]
-        public IActionResult GetNotificationsByNotificationTypeId(Guid id, int numberOfNewestNotifications)
+        [Route("{name}/notificationTypes/{numberOfNewestNotifications}")]
+        public IActionResult GetNotificationsByNotificationTypeName(string name, int numberOfNewestNotifications)
         {
-            return Ok(_notificationService.GetByNotificationTypeId(id, numberOfNewestNotifications).Select(notification => _mapper.Map<NotificationViewModel>(notification)));
+            return Ok(_notificationService.GetByNotificationTypeName(name, numberOfNewestNotifications).Select(notification => _mapper.Map<NotificationViewModel>(notification)));
         }
 
         [Authorize(Roles = "Admin")]
@@ -57,7 +57,7 @@ namespace IpertechCompany.WebAPI.Controllers
         {
             NotificationViewModel insertedNotification = _mapper.Map<NotificationViewModel>(_notificationService.CreateNotification(_mapper.Map<Notification>(notification)));
 
-            return CreatedAtAction(nameof(GetNotificationsByNotificationTypeId), new { id = insertedNotification.NotificationId }, insertedNotification);
+            return CreatedAtAction(nameof(GetNotificationsByNotificationTypeName), new { name = insertedNotification.NotificationType.Name }, insertedNotification);
         }
 
         [Authorize(Roles = "Admin")]
