@@ -130,6 +130,8 @@ namespace IpertechCompany.WebAPI
             app.UseAuthentication();
             app.UseCors();
             app.UseMvc();
+
+            app.UseStaticFiles();
         }
     }
 }
