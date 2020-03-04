@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Promotions } from "./Promotions";
-import Notification from "./Notification";
+import News from "./News";
 import About from "./About";
 import Advert from "./Advert";
 
@@ -9,7 +9,7 @@ export class Home extends Component {
     return (
       <React.Fragment>
         <Promotions />
-        <Notification />
+        <News />
         <Advert />
         <About />
       </React.Fragment>
