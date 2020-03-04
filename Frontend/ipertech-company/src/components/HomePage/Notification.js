@@ -4,8 +4,12 @@ import FadeIn from "react-fade-in";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import fetchNotifications from "../../redux/actions/notificationsActions/actionCreators";
+import { BACKEND_URL } from "../../redux/actions/backendServerSettings";
 
 export class Notification extends Component {
+  componentDidMount() {
+    this.props.fetchNotifications("novosti");
+  }
   render() {
     const notifications = this.props.notifications;
     return (
@@ -16,7 +20,7 @@ export class Notification extends Component {
             return (
               <Card key={i} bg="secondary" text="white">
                 <Card.Img
-                  src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-1.2.1&ixid=eyJhcHBfaWQiOjEyMDd9&auto=format&fit=crop&w=1950&q=80"
+                  src={BACKEND_URL + "/" + n.imageLocation}
                   style={{ opacity: 0.6 }}
                 />
                 <Card.ImgOverlay>
@@ -41,7 +45,7 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators(fetchNotifications, dispatch);
+  return bindActionCreators({ fetchNotifications }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notification);
