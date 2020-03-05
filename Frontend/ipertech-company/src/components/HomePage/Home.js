@@ -1,5 +1,5 @@
 import React, { Component } from "react";
-import { Promotions } from "./Promotions";
+import Promotions from "./Promotions";
 import News from "./News";
 import About from "./About";
 import Advert from "./Advert";

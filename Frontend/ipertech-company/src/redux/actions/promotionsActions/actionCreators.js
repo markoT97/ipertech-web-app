@@ -1,18 +1,19 @@
 import fetch from "cross-fetch";
-import { BACKEND_URL } from "./../backendServerSettings";
+import { BACKEND_URL } from "../backendServerSettings";
 
-import { FETCH_NOTIFICATIONS } from "./actionTypes";
+import { FETCH_PROMOTIONS } from "./actionTypes";
 
-const numberOfNotificationsToShow = 3;
+const numberOfPromotionsToShow = 3;
+const notificationTypeName = "promocije";
 
-function fetchNotifications(notificationTypeName) {
+function fetchPromotions() {
   return dispatch => {
     fetch(
       BACKEND_URL +
         "api/notifications/" +
         notificationTypeName +
         "/notificationTypes/" +
-        numberOfNotificationsToShow
+        numberOfPromotionsToShow
     )
       .then(res => {
         if (res.status >= 400) {
@@ -20,10 +21,10 @@ function fetchNotifications(notificationTypeName) {
         }
         return res.json();
       })
-      .then(notifications => {
+      .then(promotions => {
         dispatch({
-          type: FETCH_NOTIFICATIONS,
-          notifications
+          type: FETCH_PROMOTIONS,
+          promotions
         });
       })
       .catch(err => {
@@ -31,4 +32,4 @@ function fetchNotifications(notificationTypeName) {
       });
   };
 }
-export default fetchNotifications;
+export default fetchPromotions;

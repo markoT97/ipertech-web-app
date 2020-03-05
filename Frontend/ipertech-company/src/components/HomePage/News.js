@@ -3,14 +3,14 @@ import { CardDeck } from "react-bootstrap";
 import PeaceOfNews from "./PeaceOfNews";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import fetchNotifications from "../../redux/actions/notificationsActions/actionCreators";
+import fetchNews from "../../redux/actions/newsActions/actionCreators";
 
 export class Notification extends Component {
   componentDidMount() {
-    this.props.fetchNotifications("novosti");
+    this.props.fetchNews();
   }
   render() {
-    const news = this.props.notifications;
+    const news = this.props.news;
     return (
       <React.Fragment>
         <h5 className="text-danger text-uppercase">Obaveštenja</h5>
@@ -26,12 +26,12 @@ export class Notification extends Component {
 
 const mapStateToProps = state => {
   return {
-    notifications: state.notifications
+    news: state.news
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ fetchNotifications }, dispatch);
+  return bindActionCreators({ fetchNews }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Notification);

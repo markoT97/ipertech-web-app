@@ -2,7 +2,8 @@ import React, { Component } from "react";
 import { Carousel, Image } from "react-bootstrap";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import fetchNotifications from "../../redux/actions/notificationsActions/actionCreators";
+import fetchPromotions from "../../redux/actions/promotionsActions/actionCreators";
+import { BACKEND_URL } from "../../redux/actions/backendServerSettings";
 
 export class Promotions extends Component {
   state = {
@@ -11,8 +12,7 @@ export class Promotions extends Component {
   };
 
   componentDidMount() {
-    //this.props.fetchNotifications("promocije");
-    console.log(this.props);
+    this.props.fetchPromotions();
   }
 
   handleSelect = (selectedIndex, e) => {
@@ -21,6 +21,7 @@ export class Promotions extends Component {
   };
 
   render() {
+    const { promotions } = this.props;
     return (
       <Carousel
         className="mt-2 mb-2"
@@ -28,16 +29,17 @@ export class Promotions extends Component {
         direction={this.state.direction}
         onSelect={this.handleSelect}
       >
-        <Carousel.Item>
-          <Image
-            src="http://ipertech.somee.com/Content/images/news/vajrles.jpg"
-            height="240em"
-          />
-          <Carousel.Caption>
-            <h3>First slide label</h3>
-            <p>Nulla vitae elit libero, a pharetra augue mollis interdum.</p>
-          </Carousel.Caption>
-        </Carousel.Item>
+        {promotions.map((p, i) => {
+          return (
+            <Carousel.Item key={i}>
+              <Image src={BACKEND_URL + "/" + p.imageLocation} height="240em" />
+              <Carousel.Caption>
+                <h3>{p.title}</h3>
+                <p>{p.content}</p>
+              </Carousel.Caption>
+            </Carousel.Item>
+          );
+        })}
       </Carousel>
     );
   }
@@ -45,12 +47,12 @@ export class Promotions extends Component {
 
 const mapStateToProps = state => {
   return {
-    notifications: state.notifications
+    promotions: state.promotions
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ fetchNotifications }, dispatch);
+  return bindActionCreators({ fetchPromotions }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Promotions);
