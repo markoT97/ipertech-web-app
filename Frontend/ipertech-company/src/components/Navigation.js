@@ -39,7 +39,7 @@ export class Navigation extends Component {
               Telefonija
             </Nav.Link>
 
-            <Nav.Link as={Link} to="/about">
+            <Nav.Link as={Link} to="/packets">
               Paketi
             </Nav.Link>
           </Nav>
