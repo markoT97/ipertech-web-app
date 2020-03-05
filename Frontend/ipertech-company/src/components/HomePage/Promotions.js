@@ -1,11 +1,19 @@
 import React, { Component } from "react";
 import { Carousel, Image } from "react-bootstrap";
+import { connect } from "react-redux";
+import { bindActionCreators } from "redux";
+import fetchNotifications from "../../redux/actions/notificationsActions/actionCreators";
 
 export class Promotions extends Component {
   state = {
     index: 0,
     direction: null
   };
+
+  componentDidMount() {
+    //this.props.fetchNotifications("promocije");
+    console.log(this.props);
+  }
 
   handleSelect = (selectedIndex, e) => {
     this.setState({ index: selectedIndex });
@@ -35,4 +43,14 @@ export class Promotions extends Component {
   }
 }
 
-export default Promotions;
+const mapStateToProps = state => {
+  return {
+    notifications: state.notifications
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ fetchNotifications }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Promotions);
