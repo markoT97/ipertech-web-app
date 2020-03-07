@@ -5,6 +5,7 @@ import About from "./AboutPage/About";
 import Internet from "./InternetPage/Internet";
 import Tv from "./TvPage/Tv";
 import Phone from "./PhonePage/Phone";
+import PacketCombinations from "./PacketCombinationsPage/PacketCombinations";
 
 export class Routes extends Component {
   render() {
@@ -15,6 +16,7 @@ export class Routes extends Component {
         <Route path="/internet" component={Internet}></Route>
         <Route path="/tv" component={Tv}></Route>
         <Route path="/phone" component={Phone}></Route>
+        <Route path="/packets" component={PacketCombinations}></Route>
       </Switch>
     );
   }
