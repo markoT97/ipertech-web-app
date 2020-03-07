@@ -4,6 +4,7 @@ import Home from "./HomePage/Home";
 import About from "./AboutPage/About";
 import Internet from "./InternetPage/Internet";
 import Tv from "./TvPage/Tv";
+import Phone from "./PhonePage/Phone";
 
 export class Routes extends Component {
   render() {
@@ -13,6 +14,7 @@ export class Routes extends Component {
         <Route path="/about" component={About}></Route>
         <Route path="/internet" component={Internet}></Route>
         <Route path="/tv" component={Tv}></Route>
+        <Route path="/phone" component={Phone}></Route>
       </Switch>
     );
   }
