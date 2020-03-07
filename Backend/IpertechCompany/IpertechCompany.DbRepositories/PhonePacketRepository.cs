@@ -41,7 +41,8 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT * FROM packets.PhonePacket";
+                const string query = "SELECT * FROM packets.PhonePacket" +
+                                     " ORDER BY Price";
                 return connection.Query<PhonePacket>(query);
             }
         }

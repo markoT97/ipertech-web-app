@@ -43,7 +43,8 @@ namespace IpertechCompany.DbRepositories
             using (var connection = _dbContext.Connect())
             {
                 const string query = "SELECT [ip].InternetPacketID, [ip].Name, [ip].Speed, [ip].Price, ir.* FROM packets.InternetPacket [ip]" +
-                                     " INNER JOIN packets.InternetRouter ir ON [ip].InternetRouterID = ir.InternetRouterID";
+                                     " INNER JOIN packets.InternetRouter ir ON [ip].InternetRouterID = ir.InternetRouterID" +
+                                     " ORDER BY [ip].Price";
                 return connection.Query<InternetPacket, InternetRouter, InternetPacket>(query, (internet, router) =>
                     {
                         internet.InternetRouter = router;
