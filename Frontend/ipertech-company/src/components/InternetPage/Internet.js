@@ -19,7 +19,7 @@ export class Internet extends Component {
         <Image src={BACKEND_URL + "/packets/internet/cover-photo.jpg"} fluid />
 
         <Table bordered hover responsive className="text-center">
-          <thead>
+          <thead className="text-uppercase">
             <tr>
               <th>Naziv</th>
               <th>Brzina</th>
@@ -31,7 +31,9 @@ export class Internet extends Component {
             {internetPackets.map((ip, i) => {
               return (
                 <tr key={i}>
-                  <td className="align-middle text-danger">{ip.name}</td>
+                  <td className="align-middle text-danger text-uppercase">
+                    {ip.name}
+                  </td>
                   <td className="align-middle">{ip.speed}</td>
                   <td className="align-middle">
                     <Image
