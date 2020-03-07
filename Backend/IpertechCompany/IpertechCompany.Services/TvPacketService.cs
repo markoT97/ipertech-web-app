@@ -3,6 +3,7 @@ using IpertechCompany.IServices;
 using IpertechCompany.Models;
 using System;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace IpertechCompany.Services
 {
@@ -37,7 +38,12 @@ namespace IpertechCompany.Services
 
         public IEnumerable<TvPacket> GetAllTvPackets()
         {
-            return _tvPacketRepository.GetAll();
+            return _tvPacketRepository.GetAll().GroupBy(tvPacket => tvPacket.TvPacketId).Select(group =>
+            {
+                var tvPacketsWithTvChannels = group.First();
+                tvPacketsWithTvChannels.TvChannels = group.Select(tvPacket => tvPacket.TvChannels.Single()).ToList();
+                return tvPacketsWithTvChannels;
+            });
         }
 
         public void UpdateTvPacket(TvPacket tvPacket)

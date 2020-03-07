@@ -1,5 +1,6 @@
 ﻿using IpertechCompany.Models.Validation;
 using System;
+using System.Collections.Generic;
 
 namespace IpertechCompany.Models
 {
@@ -9,9 +10,11 @@ namespace IpertechCompany.Models
         public string Name { get; set; }
         public decimal Price { get; set; }
 
+        public List<TvChannel> TvChannels { get; set; }
+
         public TvPacket()
         {
-
+            TvChannels = new List<TvChannel>();
         }
 
         public TvPacket(Guid tvPacketId, string name = null, decimal price = 0)

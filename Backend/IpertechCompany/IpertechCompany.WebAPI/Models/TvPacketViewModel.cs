@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace IpertechCompany.WebAPI.Models
@@ -11,5 +12,7 @@ namespace IpertechCompany.WebAPI.Models
         public string Name { get; set; }
         [Required]
         public decimal Price { get; set; }
+
+        public List<TvChannelViewModel> TvChannels { get; set; }
     }
 }

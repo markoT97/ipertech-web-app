@@ -41,8 +41,14 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT * FROM packets.TvPacket";
-                return connection.Query<TvPacket>(query);
+                const string query = "SELECT * FROM packets.TvPacket tp" +
+                    " INNER JOIN packets.TvPacketTvChannel tptc ON tp.TvPacketID = tptc.TvPacketID" +
+                    " INNER JOIN packets.TvChannel tc ON tc.TvChannelID = tptc.TvChannelID";
+                return connection.Query<TvPacket, TvChannel, TvPacket>(query, (tvPacket, tvChannel) =>
+                {
+                    tvPacket.TvChannels.Add(tvChannel);
+                    return tvPacket;
+                }, splitOn: "TvChannelID");
             }
         }
 
