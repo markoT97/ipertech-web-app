@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { Image, Table } from "react-bootstrap";
 import { BACKEND_URL } from "../../redux/actions/backendServerSettings";
-import "./Internet.scss";
+import "./../App.scss";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import fetchInternetPackets from "../../redux/actions/internetPacketsActions/actionCreators";
@@ -16,7 +16,10 @@ export class Internet extends Component {
       <div className="m-2">
         <h5 className="text-danger text-uppercase">Internet paketi</h5>
 
-        <Image src={BACKEND_URL + "/packets/internet/cover-photo.jpg"} fluid />
+        <Image
+          src={BACKEND_URL + "/packets/internet/cover-photo.jpg"}
+          className="page-cover"
+        />
 
         <Table bordered hover responsive className="text-center">
           <thead className="text-uppercase">

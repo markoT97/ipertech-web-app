@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import { Image, Table } from "react-bootstrap";
 import { BACKEND_URL } from "../../redux/actions/backendServerSettings";
+import "./../App.scss";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import fetchPacketCombinations from "../../redux/actions/packetCombinationsActions/actionCreators";
@@ -15,7 +16,10 @@ export class Phone extends Component {
       <div className="m-2">
         <h5 className="text-danger text-uppercase">Kombinacije paketa</h5>
 
-        <Image src={BACKEND_URL + "/packets/cover-photo.jpg"} fluid />
+        <Image
+          src={BACKEND_URL + "/packets/cover-photo.jpg"}
+          className="page-cover"
+        />
 
         <Table bordered hover responsive className="text-center">
           <thead className="text-uppercase">

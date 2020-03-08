@@ -15,7 +15,10 @@ export class Phone extends Component {
       <div className="m-2">
         <h5 className="text-danger text-uppercase">Telefonski paketi</h5>
 
-        <Image src={BACKEND_URL + "/packets/phone/cover-photo.jpg"} fluid />
+        <Image
+          src={BACKEND_URL + "/packets/phone/cover-photo.jpg"}
+          className="page-cover"
+        />
 
         <Table bordered hover responsive className="text-center">
           <thead className="text-uppercase">
