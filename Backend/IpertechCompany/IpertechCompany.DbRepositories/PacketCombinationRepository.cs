@@ -46,7 +46,7 @@ namespace IpertechCompany.DbRepositories
                 " INNER JOIN packets.InternetPacket [ip] ON pc.InternetPacketID = [ip].InternetPacketID" +
                 " LEFT JOIN packets.TvPacket tp ON pc.TvPacketID = tp.TvPacketID " +
                 " LEFT JOIN packets.PhonePacket ph ON pc.PhonePacketID = ph.PhonePacketID" +
-                " ORDER BY [ip].price, tp.price, ph.price";
+                " ORDER BY ([ip].price + tp.price + ph.price)";
                 return connection.Query<PacketCombination, InternetPacket, TvPacket, PhonePacket, PacketCombination>(query,
                     (packet, internet, tv, phone) =>
                     {

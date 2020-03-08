@@ -42,11 +42,9 @@ export class Phone extends Component {
                     {pc.phonePacket == null ? "-" : pc.phonePacket.name}
                   </td>
                   <td className="align-middle text-danger">
-                    {pc.tvPacket == null || pc.phonePacket == null
-                      ? pc.internetPacket.price
-                      : pc.internetPacket.price +
-                        pc.tvPacket.price +
-                        pc.phonePacket.price}
+                    {pc.internetPacket.price +
+                      (!pc.tvPacket ? 0 : pc.tvPacket.price) +
+                      (!pc.phonePacket ? 0 : pc.phonePacket.price)}
                   </td>
                 </tr>
               );
