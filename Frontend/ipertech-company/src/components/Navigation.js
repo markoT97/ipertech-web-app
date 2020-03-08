@@ -2,6 +2,9 @@ import React, { Component } from "react";
 import { Navbar, Nav, Image } from "react-bootstrap";
 import logo from "./../logo.svg";
 import { Link } from "react-router-dom";
+import setVisibility from "./../redux/actions/loginModalActions/actionCreators";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
 export class Navigation extends Component {
   render() {
@@ -49,7 +52,10 @@ export class Navigation extends Component {
               Registruj se
             </Nav.Link>
 
-            <Nav.Link as={Link} to="/login" className="text-danger">
+            <Nav.Link
+              onClick={() => this.props.setVisibility(true)}
+              className="text-danger"
+            >
               Prijavi se
             </Nav.Link>
           </Nav>
@@ -59,4 +65,14 @@ export class Navigation extends Component {
   }
 }
 
-export default Navigation;
+const mapStateToProps = state => {
+  return {
+    visibility: state.loginModalVisibility
+  };
+};
+
+const mapDispatchToProps = dispatch => {
+  return bindActionCreators({ setVisibility }, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Navigation);
