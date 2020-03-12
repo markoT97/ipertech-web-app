@@ -15,7 +15,7 @@ export class Routes extends Component {
         <Route path="/about" component={About}></Route>
         <Route path="/internet" component={Internet}></Route>
         <Route path="/tv" component={Tv}></Route>
-        <Route path="/" component={Phone}></Route>
+        <Route path="/phone" component={Phone}></Route>
         <Route path="/packets" component={PacketCombinations}></Route>
       </Switch>
     );
