@@ -81,8 +81,11 @@ namespace IpertechCompany.Services
 
             var claims = new List<Claim>()
             {
+                new Claim("userId", user.UserId.ToString()),
                 new Claim("email", user.Email),
-                new Claim("role", user.Role)
+                new Claim("role", user.Role),
+                new Claim("firstName", user.FirstName),
+                new Claim("lastName", user.LastName)
             };
             var dateTimeNow = DateTime.Now;
             var tokenExpirationMinutes = 30;
