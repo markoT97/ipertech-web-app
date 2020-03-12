@@ -1,25 +1,23 @@
-import fetch from "cross-fetch";
+import axios from "axios";
 import { BACKEND_URL } from "../backendServerSettings";
 
 import { FETCH_PHONE_PACKETS } from "./actionTypes";
 
 function fetchPhonePackets() {
   return dispatch => {
-    fetch(BACKEND_URL + "api/phonePackets")
-      .then(res => {
-        if (res.status >= 400) {
+    axios
+      .get(BACKEND_URL + "api/phonePackets")
+      .then(response => {
+        if (response.status >= 400) {
           throw new Error("Bad response from server");
         }
-        return res.json();
-      })
-      .then(phonePackets => {
-        dispatch({
+        return dispatch({
           type: FETCH_PHONE_PACKETS,
-          phonePackets
+          phonePackets: response.data
         });
       })
-      .catch(err => {
-        console.error(err);
+      .catch(error => {
+        console.error(error);
       });
   };
 }

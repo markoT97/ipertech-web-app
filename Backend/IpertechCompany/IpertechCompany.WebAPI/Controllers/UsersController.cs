@@ -45,7 +45,7 @@ namespace IpertechCompany.WebAPI.Controllers
         }
 
         [AllowAnonymous]
-        [HttpGet]
+        [HttpPost]
         [Route("login")]
         public IActionResult LoginUser(UserLoginViewModel userLoginViewModel)
         {

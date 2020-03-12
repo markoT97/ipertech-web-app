@@ -3,11 +3,44 @@ import { Navbar, Nav, Image } from "react-bootstrap";
 import logo from "./../logo.svg";
 import { Link } from "react-router-dom";
 import setVisibility from "./../redux/actions/loginModalActions/actionCreators";
+import { logoutUser } from "../redux/actions/authActions/actionCreators";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 export class Navigation extends Component {
   render() {
+    const { auth } = this.props;
+
+    const userLinks = (
+      <React.Fragment>
+        <Nav.Link as={Link} to="/register" className="text-success">
+          Moj profil
+        </Nav.Link>
+
+        <Nav.Link
+          onClick={() => this.props.logoutUser()}
+          className="text-success"
+        >
+          Odjavi se
+        </Nav.Link>
+      </React.Fragment>
+    );
+
+    const guestLinks = (
+      <React.Fragment>
+        <Nav.Link as={Link} to="/register" className="text-danger">
+          Registruj se
+        </Nav.Link>
+
+        <Nav.Link
+          onClick={() => this.props.setVisibility(true)}
+          className="text-danger"
+        >
+          Prijavi se
+        </Nav.Link>
+      </React.Fragment>
+    );
+
     return (
       <Navbar collapseOnSelect expand="lg" bg="light" variant="light">
         <Navbar.Brand as={Link} to="/">
@@ -48,16 +81,7 @@ export class Navigation extends Component {
           </Nav>
 
           <Nav className="ml-auto">
-            <Nav.Link as={Link} to="/register" className="text-danger">
-              Registruj se
-            </Nav.Link>
-
-            <Nav.Link
-              onClick={() => this.props.setVisibility(true)}
-              className="text-danger"
-            >
-              Prijavi se
-            </Nav.Link>
+            {auth.isAuthenticated ? userLinks : guestLinks}
           </Nav>
         </Navbar.Collapse>
       </Navbar>
@@ -67,12 +91,13 @@ export class Navigation extends Component {
 
 const mapStateToProps = state => {
   return {
-    visibility: state.loginModalVisibility
+    visibility: state.loginModalVisibility,
+    auth: state.auth
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ setVisibility }, dispatch);
+  return bindActionCreators({ setVisibility, logoutUser }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

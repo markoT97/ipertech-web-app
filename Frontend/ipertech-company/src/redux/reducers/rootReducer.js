@@ -6,6 +6,7 @@ import tvPacketsReducer from "./../reducers/tvPacketsReducer";
 import phonePacketsReducer from "./../reducers/phonePacketsReducer";
 import packetCombinationsReducer from "./../reducers/packetCombinationsReducer";
 import loginModalVisibilityReducer from "./../reducers/loginModalReducer";
+import authReducer from "./authReducer";
 
 const rootReducer = combineReducers({
   promotions: promotionsReducer,
@@ -14,7 +15,8 @@ const rootReducer = combineReducers({
   tvPackets: tvPacketsReducer,
   phonePackets: phonePacketsReducer,
   packetCombinations: packetCombinationsReducer,
-  loginModalVisibility: loginModalVisibilityReducer
+  loginModalVisibility: loginModalVisibilityReducer,
+  auth: authReducer
 });
 
 export default rootReducer;
