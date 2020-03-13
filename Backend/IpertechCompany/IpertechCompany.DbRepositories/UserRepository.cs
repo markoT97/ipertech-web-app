@@ -42,10 +42,24 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT *" +
-                                    " FROM useractions.[User] " +
-                                    " WHERE UserID = @UserID";
-                return connection.Query<User>(query, new { UserID = userId }).SingleOrDefault();
+                const string query = "SELECT * FROM useractions.[User] u" +
+                                    " INNER JOIN useractions.UserContract uc ON u.UserContractID = uc.UserContractID" +
+                                    " INNER JOIN packets.PacketCombination pc ON uc.PacketCombinationID = pc.PacketCombinationID" +
+                                    " INNER JOIN packets.InternetPacket [ip] ON pc.InternetPacketID = [ip].InternetPacketID" +
+                                    " LEFT JOIN packets.TvPacket tp ON pc.TvPacketID = tp.TvPacketID" +
+                                    " LEFT JOIN packets.PhonePacket pp ON pc.PhonePacketID = pp.PhonePacketID" +
+                                    " LEFT JOIN useractions.Bill b ON uc.UserContractID = b.BillID" +
+                                    " WHERE u.UserID = @UserID";
+                return connection.Query<User, UserContract, PacketCombination, InternetPacket, TvPacket, PhonePacket, User>(query, (user, userContract, packetCombination, internetPacket, tvPacket, phonePacket) =>
+                {
+                    user.UserContract = userContract;
+                    user.UserContract.PacketCombination = packetCombination;
+                    user.UserContract.PacketCombination.InternetPacket = internetPacket;
+                    user.UserContract.PacketCombination.TvPacket = tvPacket;
+                    user.UserContract.PacketCombination.PhonePacket = phonePacket;
+
+                    return user;
+                }, splitOn: "UserContractID, PacketCombinationID, InternetPacketID, TvPacketID, PhonePacketID", param: new { UserID = userId }).SingleOrDefault();
             }
         }
 

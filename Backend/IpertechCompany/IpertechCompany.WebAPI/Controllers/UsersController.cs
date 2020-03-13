@@ -36,7 +36,7 @@ namespace IpertechCompany.WebAPI.Controllers
             return Ok(_userService.GetAllUsers().Select(user => _mapper.Map<UserViewModel>(user)));
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "User")]
         [HttpGet]
         [Route("{id}")]
         public IActionResult GetUserById(Guid id)

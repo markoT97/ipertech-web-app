@@ -5,6 +5,7 @@ import {
 
 import jwtDecode from "jwt-decode";
 import isEmpty from "lodash/isEmpty";
+import setAuthorizationToken from "./../../utils/setAuthorizationToken";
 
 const initialAuthState = {
   isAuthenticated: localStorage.getItem("jwt") ? true : false,
@@ -21,6 +22,9 @@ function authReducer(authState = initialAuthState, action) {
     case UNSET_CURRENT_USER:
       return { user: {}, isAuthenticated: false };
     default:
+      if (authState.isAuthenticated) {
+        setAuthorizationToken(localStorage.getItem("jwt"));
+      }
       return authState;
   }
 }

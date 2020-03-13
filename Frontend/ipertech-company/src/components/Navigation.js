@@ -13,8 +13,8 @@ export class Navigation extends Component {
 
     const userLinks = (
       <React.Fragment>
-        <Nav.Link as={Link} to="/register" className="text-success">
-          Moj profil
+        <Nav.Link as={Link} to="/user-profile" className="text-success">
+          {auth.user.firstName + " " + auth.user.lastName}
         </Nav.Link>
 
         <Nav.Link
