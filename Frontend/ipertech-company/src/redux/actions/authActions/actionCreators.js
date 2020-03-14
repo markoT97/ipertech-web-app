@@ -1,5 +1,4 @@
 import fetch from "cross-fetch";
-import axios from "axios";
 import { BACKEND_URL } from "../backendServerSettings";
 
 import { SET_CURRENT_USER, UNSET_CURRENT_USER } from "./actionTypes";
@@ -31,21 +30,11 @@ export function loginUser(email, password) {
       .then(token => {
         localStorage.setItem("jwt", token);
         setAuthorizationToken(token);
-        console.log("THEN: LOGIN USER");
-        axios
-          .get(BACKEND_URL + "api/users/" + jwtDecode(token).userId)
-          .then(response => {
-            if (response.status >= 400) {
-              throw new Error("Bad response from server");
-            }
-            dispatch({
-              type: SET_CURRENT_USER,
-              user: response.data
-            });
-          })
-          .catch(error => {
-            console.error(error);
-          });
+
+        dispatch({
+          type: SET_CURRENT_USER,
+          user: jwtDecode(token)
+        });
       })
       .catch(err => {
         console.error(err);

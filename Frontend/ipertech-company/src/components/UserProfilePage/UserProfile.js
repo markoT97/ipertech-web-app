@@ -170,7 +170,7 @@ export class UserProfile extends Component {
                 </tr>
                 {user.bills.map((b, i) => {
                   return (
-                    <tr>
+                    <tr key={i}>
                       <td>
                         {format(new Date(b.startDate), "dd.MM.yyyy") +
                           " - " +
@@ -288,7 +288,7 @@ export class UserProfile extends Component {
               <tbody>
                 {poll.options.map((o, i) => {
                   return (
-                    <tr>
+                    <tr key={i}>
                       <td>
                         <Form.Check
                           type="radio"
