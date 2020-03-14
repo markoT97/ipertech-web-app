@@ -8,7 +8,8 @@ import {
   Row,
   Col,
   Form,
-  Spinner
+  Spinner,
+  Toast
 } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import { BACKEND_URL } from "../../redux/actions/backendServerSettings";
@@ -63,7 +64,7 @@ export class UserProfile extends Component {
             <Table striped responsive className="text-center">
               <thead>
                 <tr>
-                  <th colSpan={4}>
+                  <th colSpan={4} className="bg-success text-white">
                     <Icon.PersonFill size={35} />
                     Podaci
                   </th>
@@ -71,7 +72,9 @@ export class UserProfile extends Component {
               </thead>
               <tbody>
                 <tr>
-                  <td colSpan={2}>ID ugovora:</td>
+                  <td colSpan={2} className="align-middle">
+                    ID ugovora:
+                  </td>
                   <td colSpan={2}>{user.userContract.userContractId}</td>
                 </tr>
                 <tr>
@@ -79,54 +82,71 @@ export class UserProfile extends Component {
                   <td colSpan={2}>{user.firstName + " " + user.lastName}</td>
                 </tr>
                 <tr>
+                  <td colSpan={2}>Imejl adresa:</td>
+                  <td colSpan={2}>{user.email}</td>
+                </tr>
+                <tr>
                   <td rowSpan={3} className="text-center align-middle">
                     <Icon.Folder size={70} />
                   </td>
-                  <td>
+                  <td className="align-middle">
                     <Icon.At size={25} />
                     &nbsp; Internet
                   </td>
-                  <td>
+                  <td className="text-danger align-middle">
                     {user.userContract.packetCombination.internetPacket.name}
                   </td>
-                  <td>
-                    <Icon.Pencil size={20} />
-                    <Icon.XCircleFill size={20} />
+                  <td className="align-middle">
+                    <Button variant="outline-primary mb-2">
+                      <Icon.Pencil size={25} />
+                    </Button>
                   </td>
                 </tr>
                 <tr>
-                  <td>
+                  <td className="align-middle">
                     <Icon.Tv size={25} />
                     &nbsp; Televizija
                   </td>
-                  <td>
+                  <td className="text-danger align-middle">
                     {user.userContract.packetCombination.tvPacket
                       ? user.userContract.packetCombination.tvPacket.name
-                      : "-"}
+                      : ""}
                   </td>
-                  <td>
-                    <Icon.Pencil size={20} />
-                    <Icon.XCircleFill size={20} />
+                  <td className="align-middle">
+                    <Button variant="outline-primary mb-2">
+                      <Icon.Pencil size={25} />
+                    </Button>
+                    {user.userContract.packetCombination.tvPacket ? (
+                      <Button variant="outline-danger">
+                        <Icon.XCircle size={25} />
+                      </Button>
+                    ) : (
+                      ""
+                    )}
                   </td>
                 </tr>
                 <tr>
-                  <td>
+                  <td className="align-middle">
                     <Icon.Phone size={25} />
                     &nbsp; Telefonija
                   </td>
-                  <td>
+                  <td className="text-danger align-middle">
                     {user.userContract.packetCombination.phonePacket
                       ? user.userContract.packetCombination.phonePacket.name
-                      : "-"}
+                      : ""}
                   </td>
-                  <td>
-                    <Icon.Pencil size={20} />
-                    <Icon.XCircleFill size={20} />
+                  <td className="align-middle">
+                    <Button variant="outline-primary mb-2">
+                      <Icon.Pencil size={25} />
+                    </Button>
+                    {user.userContract.packetCombination.phonePacket ? (
+                      <Button variant="outline-danger">
+                        <Icon.XCircle size={25} />
+                      </Button>
+                    ) : (
+                      ""
+                    )}
                   </td>
-                </tr>
-                <tr>
-                  <td colSpan={2}>Imejl adresa:</td>
-                  <td colSpan={2}>{user.email}</td>
                 </tr>
               </tbody>
             </Table>
@@ -135,7 +155,7 @@ export class UserProfile extends Component {
             <Table striped responsive className="text-center">
               <thead>
                 <tr>
-                  <th>
+                  <th className="bg-danger text-white">
                     <Icon.DocumentText size={35} />
                     Računi
                   </th>
@@ -149,7 +169,11 @@ export class UserProfile extends Component {
                   <td>17.02.2018. - 17.03.2018.</td>
                 </tr>
                 <tr>
-                  <td>Pregledaj sve račune</td>
+                  <td className="bg-white">
+                    <Button variant="outline-danger" block>
+                      Pregledaj sve račune
+                    </Button>
+                  </td>
                 </tr>
               </tbody>
             </Table>
@@ -158,7 +182,7 @@ export class UserProfile extends Component {
             <Table striped responsive className="text-center">
               <thead>
                 <tr>
-                  <th>
+                  <th className="bg-dark text-white">
                     <Icon.LockFill size={35} />
                     Promena lozinke
                   </th>
@@ -185,8 +209,118 @@ export class UserProfile extends Component {
                 </tr>
                 <tr>
                   <td>
-                    <Button variant="dark">Sačuvaj</Button>
+                    <Button variant="outline-dark" block>
+                      Sačuvaj
+                    </Button>
                   </td>
+                </tr>
+              </tbody>
+            </Table>
+          </Col>
+        </Row>
+
+        <Row>
+          <Col lg={5} className="mt-2 mb-2">
+            <h5 className="text-warning text-uppercase text-center">
+              <Icon.Chat size={40} />
+              &nbsp; Poruke
+            </h5>
+            <Toast>
+              <Toast.Header>
+                <img
+                  src="holder.js/20x20?text=%20"
+                  className="rounded mr-2"
+                  alt=""
+                />
+                <strong className="mr-auto">Ime korisnika</strong>
+                <small>11 mins ago</small>
+              </Toast.Header>
+              <Toast.Body>Tekst poruke</Toast.Body>
+            </Toast>
+            <Toast>
+              <Toast.Header>
+                <img
+                  src="holder.js/20x20?text=%20"
+                  className="rounded mr-2"
+                  alt=""
+                />
+                <strong className="mr-auto">Ime korisnika</strong>
+                <small>11 mins ago</small>
+              </Toast.Header>
+              <Toast.Body>Tekst poruke</Toast.Body>
+            </Toast>
+            <Toast>
+              <Toast.Header>
+                <img
+                  src="holder.js/20x20?text=%20"
+                  className="rounded mr-2"
+                  alt=""
+                />
+                <strong className="mr-auto">Ime korisnika</strong>
+                <small>11 mins ago</small>
+              </Toast.Header>
+              <Toast.Body>Tekst poruke</Toast.Body>
+            </Toast>
+          </Col>
+          <Col className="text-center mt-2">
+            <h5 className="text-danger text-uppercase">
+              <Icon.QuestionFill size={40} />
+              &nbsp; Anketa
+            </h5>
+            <Table>
+              <thead>
+                <tr>
+                  <th>Ocenite zadovoljstvo našom uslugom</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>
+                    <Form.Check
+                      type="radio"
+                      label="Opcija 1"
+                      name="formHorizontalRadios"
+                      id="formHorizontalRadios1"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <Form.Check
+                      type="radio"
+                      label="Opcija 2"
+                      name="formHorizontalRadios"
+                      id="formHorizontalRadios1"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <Form.Check
+                      type="radio"
+                      label="Opcija 3"
+                      name="formHorizontalRadios"
+                      id="formHorizontalRadios1"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <Form.Check
+                      type="radio"
+                      label="Opcija 4"
+                      name="formHorizontalRadios"
+                      id="formHorizontalRadios1"
+                    />
+                  </td>
+                </tr>
+                <tr>
+                  <td>
+                    <Button variant="danger" block>
+                      Glasaj
+                    </Button>
+                  </td>
+                  <td></td>
                 </tr>
               </tbody>
             </Table>
