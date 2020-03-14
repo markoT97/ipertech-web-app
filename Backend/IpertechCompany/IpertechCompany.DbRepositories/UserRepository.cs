@@ -48,18 +48,24 @@ namespace IpertechCompany.DbRepositories
                                     " INNER JOIN packets.InternetPacket [ip] ON pc.InternetPacketID = [ip].InternetPacketID" +
                                     " LEFT JOIN packets.TvPacket tp ON pc.TvPacketID = tp.TvPacketID" +
                                     " LEFT JOIN packets.PhonePacket pp ON pc.PhonePacketID = pp.PhonePacketID" +
-                                    " LEFT JOIN useractions.Bill b ON uc.UserContractID = b.BillID" +
+                                    " LEFT JOIN useractions.Bill b ON uc.UserContractID = b.UserContractID" +
                                     " WHERE u.UserID = @UserID";
-                return connection.Query<User, UserContract, PacketCombination, InternetPacket, TvPacket, PhonePacket, User>(query, (user, userContract, packetCombination, internetPacket, tvPacket, phonePacket) =>
+                return connection.Query<User, UserContract, PacketCombination, InternetPacket, TvPacket, PhonePacket, Bill, User>(query, (user, userContract, packetCombination, internetPacket, tvPacket, phonePacket, bill) =>
                 {
                     user.UserContract = userContract;
                     user.UserContract.PacketCombination = packetCombination;
                     user.UserContract.PacketCombination.InternetPacket = internetPacket;
                     user.UserContract.PacketCombination.TvPacket = tvPacket;
                     user.UserContract.PacketCombination.PhonePacket = phonePacket;
+                    user.Bills.Add(bill);
 
                     return user;
-                }, splitOn: "UserContractID, PacketCombinationID, InternetPacketID, TvPacketID, PhonePacketID", param: new { UserID = userId }).SingleOrDefault();
+                }, splitOn: "UserContractID, PacketCombinationID, InternetPacketID, TvPacketID, PhonePacketID, BillID", param: new { UserID = userId }).GroupBy(user => user.UserId).Select(group =>
+                {
+                    var userWithBills = group.First();
+                    userWithBills.Bills = group.Select(user => user.Bills.Single()).ToList();
+                    return userWithBills;
+                }).SingleOrDefault();
             }
         }
 

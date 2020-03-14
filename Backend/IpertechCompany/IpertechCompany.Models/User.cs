@@ -1,5 +1,6 @@
 ﻿using IpertechCompany.Models.Validation;
 using System;
+using System.Collections.Generic;
 
 namespace IpertechCompany.Models
 {
@@ -15,10 +16,11 @@ namespace IpertechCompany.Models
         public string PhoneNumber { get; set; }
         public string Password { get; set; }
         public string ImageLocation { get; set; }
+        public List<Bill> Bills { get; set; }
 
         public User()
         {
-
+            Bills = new List<Bill>();
         }
 
         public User(Guid userId, UserContract userContract = null, string role = null, string firstName = null, string lastName = null, string gender = null, string email = null, string phoneNumber = null, string password = null

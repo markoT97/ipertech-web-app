@@ -1,5 +1,6 @@
 ﻿using IpertechCompany.Models;
 using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace IpertechCompany.WebAPI.Models
@@ -23,5 +24,6 @@ namespace IpertechCompany.WebAPI.Models
         [Required]
         public string Password { get; set; }
         public string ImageLocation { get; set; }
+        public List<BillViewModel> Bills { get; set; }
     }
 }
