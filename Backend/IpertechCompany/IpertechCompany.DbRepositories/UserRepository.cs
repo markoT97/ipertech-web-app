@@ -42,14 +42,15 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT * FROM useractions.[User] u" +
+                const string query = "SELECT TOP 3 * FROM useractions.[User] u" +
                                     " INNER JOIN useractions.UserContract uc ON u.UserContractID = uc.UserContractID" +
                                     " INNER JOIN packets.PacketCombination pc ON uc.PacketCombinationID = pc.PacketCombinationID" +
                                     " INNER JOIN packets.InternetPacket [ip] ON pc.InternetPacketID = [ip].InternetPacketID" +
                                     " LEFT JOIN packets.TvPacket tp ON pc.TvPacketID = tp.TvPacketID" +
                                     " LEFT JOIN packets.PhonePacket pp ON pc.PhonePacketID = pp.PhonePacketID" +
                                     " LEFT JOIN useractions.Bill b ON uc.UserContractID = b.UserContractID" +
-                                    " WHERE u.UserID = @UserID";
+                                    " WHERE u.UserID = @UserID" +
+                                    " ORDER BY b.StartDate DESC";
                 return connection.Query<User, UserContract, PacketCombination, InternetPacket, TvPacket, PhonePacket, Bill, User>(query, (user, userContract, packetCombination, internetPacket, tvPacket, phonePacket, bill) =>
                 {
                     user.UserContract = userContract;
