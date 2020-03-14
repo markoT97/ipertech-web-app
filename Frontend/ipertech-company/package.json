@@ -9,6 +9,7 @@
     "axios": "^0.19.2",
     "bootstrap": "^4.4.1",
     "cross-fetch": "^3.0.4",
+    "date-fns": "^2.11.0",
     "holderjs": "^2.9.6",
     "jwt-decode": "^2.2.0",
     "lodash.isempty": "^4.4.0",

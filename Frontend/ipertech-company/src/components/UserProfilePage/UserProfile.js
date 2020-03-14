@@ -1,4 +1,5 @@
 import React, { Component } from "react";
+import { format } from "date-fns";
 import { bindActionCreators } from "redux";
 import {
   Jumbotron,
@@ -165,9 +166,18 @@ export class UserProfile extends Component {
                 <tr>
                   <td>Neplaćeni računi</td>
                 </tr>
-                <tr>
-                  <td>17.02.2018. - 17.03.2018.</td>
-                </tr>
+                {user.bills.map((b, i) => {
+                  return (
+                    <tr>
+                      <td>
+                        {format(new Date(b.startDate), "dd.MM.yyyy") +
+                          " - " +
+                          format(new Date(b.endDate), "dd.MM.yyyy")}
+                      </td>
+                    </tr>
+                  );
+                })}
+
                 <tr>
                   <td className="bg-white">
                     <Button variant="outline-danger" block>

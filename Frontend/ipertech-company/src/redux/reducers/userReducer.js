@@ -30,7 +30,8 @@ const initialUser = {
   email: "",
   phoneNumber: "",
   password: "",
-  imageLocation: null
+  imageLocation: null,
+  bills: []
 };
 
 function userReducer(user = initialUser, action) {
