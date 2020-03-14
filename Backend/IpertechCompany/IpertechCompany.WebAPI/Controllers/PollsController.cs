@@ -29,6 +29,13 @@ namespace IpertechCompany.WebAPI.Controllers
 
         [Authorize(Roles = "User")]
         [HttpGet]
+        public IActionResult GetLatestPoll()
+        {
+            return Ok(_mapper.Map<PollViewModel>(_pollService.GetLatestPoll()));
+        }
+
+        [Authorize(Roles = "User")]
+        [HttpGet]
         [Route("{id}")]
         public IActionResult GetPollById(Guid id)
         {

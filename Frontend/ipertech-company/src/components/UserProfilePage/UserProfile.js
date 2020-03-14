@@ -17,13 +17,15 @@ import { BACKEND_URL } from "../../redux/actions/backendServerSettings";
 import "./../App.scss";
 import { connect } from "react-redux";
 import { fetchUserById } from "./../../redux/actions/userActions/actionCreators";
+import { fetchLatestPoll } from "./../../redux/actions/pollActions/actionCreators";
 
 export class UserProfile extends Component {
   componentDidMount() {
     this.props.fetchUserById(this.props.auth.user.userId);
+    this.props.fetchLatestPoll();
   }
   render() {
-    const { user } = this.props;
+    const { user, poll } = this.props;
     console.log(user);
     return (
       <div className="m-2">
@@ -280,50 +282,24 @@ export class UserProfile extends Component {
             <Table>
               <thead>
                 <tr>
-                  <th>Ocenite zadovoljstvo našom uslugom</th>
+                  <th>{poll.question}</th>
                 </tr>
               </thead>
               <tbody>
-                <tr>
-                  <td>
-                    <Form.Check
-                      type="radio"
-                      label="Opcija 1"
-                      name="formHorizontalRadios"
-                      id="formHorizontalRadios1"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <Form.Check
-                      type="radio"
-                      label="Opcija 2"
-                      name="formHorizontalRadios"
-                      id="formHorizontalRadios1"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <Form.Check
-                      type="radio"
-                      label="Opcija 3"
-                      name="formHorizontalRadios"
-                      id="formHorizontalRadios1"
-                    />
-                  </td>
-                </tr>
-                <tr>
-                  <td>
-                    <Form.Check
-                      type="radio"
-                      label="Opcija 4"
-                      name="formHorizontalRadios"
-                      id="formHorizontalRadios1"
-                    />
-                  </td>
-                </tr>
+                {poll.options.map((o, i) => {
+                  return (
+                    <tr>
+                      <td>
+                        <Form.Check
+                          type="radio"
+                          label={o.answerText}
+                          name="formHorizontalRadios"
+                        />
+                      </td>
+                    </tr>
+                  );
+                })}
+
                 <tr>
                   <td>
                     <Button variant="danger" block>
@@ -344,12 +320,13 @@ export class UserProfile extends Component {
 const mapStateToProps = state => {
   return {
     auth: state.auth,
-    user: state.user
+    user: state.user,
+    poll: state.poll
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ fetchUserById }, dispatch);
+  return bindActionCreators({ fetchUserById, fetchLatestPoll }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserProfile);

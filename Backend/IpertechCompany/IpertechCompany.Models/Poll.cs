@@ -1,5 +1,6 @@
 ﻿using IpertechCompany.Models.Validation;
 using System;
+using System.Collections.Generic;
 
 namespace IpertechCompany.Models
 {
@@ -8,10 +9,11 @@ namespace IpertechCompany.Models
         public Guid PollId { get; set; }
         public string Question { get; set; }
         public int NumberOfVoters { get; set; }
+        public List<PollOption> Options { get; set; }
 
         public Poll()
         {
-
+            Options = new List<PollOption>();
         }
 
         public Poll(Guid pollId, string question = null, int numberOfVoters = 0)

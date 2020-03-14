@@ -5,6 +5,7 @@ using IpertechCompany.Models;
 using System;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace IpertechCompany.DbRepositories
 {
@@ -36,13 +37,42 @@ namespace IpertechCompany.DbRepositories
             return (rowsAffected > 0);
         }
 
+        public Poll Get()
+        {
+            using (var connection = _dbContext.Connect())
+            {
+                const string query = "SELECT * FROM useractions.Poll p" +
+                                " INNER JOIN useractions.PollOption po ON p.PollID = po.PollID";
+                return connection.Query<Poll, PollOption, Poll>(query, (poll, pollOption) =>
+                {
+                    poll.Options.Add(pollOption);
+                    return poll;
+                }, splitOn: "PollOptionID").GroupBy(poll => poll.PollId).Select(group =>
+                {
+                    var pollWithOptions = group.First();
+                    pollWithOptions.Options = group.Select(poll => poll.Options.Single()).ToList();
+                    return pollWithOptions;
+                }).FirstOrDefault();
+            }
+        }
+
         public Poll Get(Guid pollId)
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT * FROM useractions.Poll" +
-                                     " WHERE PollID = @PollID";
-                return connection.QuerySingleOrDefault<Poll>(query, new { PollID = pollId });
+                const string query = "SELECT * FROM useractions.Poll p" +
+                                " INNER JOIN useractions.PollOption po ON p.PollID = po.PollID" +
+                                " WHERE p.PollID = @PollID";
+                return connection.Query<Poll, PollOption, Poll>(query, (poll, pollOption) =>
+                {
+                    poll.Options.Add(pollOption);
+                    return poll;
+                }, splitOn: "PollOptionID", param: new { PollID = pollId }).GroupBy(poll => poll.PollId).Select(group =>
+                {
+                    var pollWithOptions = group.First();
+                    pollWithOptions.Options = group.Select(poll => poll.Options.Single()).ToList();
+                    return pollWithOptions;
+                }).SingleOrDefault();
             }
         }
 

@@ -34,6 +34,11 @@ namespace IpertechCompany.Services
             return _pollRepository.Delete(pollId);
         }
 
+        public Poll GetLatestPoll()
+        {
+            return _pollRepository.Get();
+        }
+
         public Poll GetByPollId(Guid pollId)
         {
             return _pollRepository.Get(pollId);

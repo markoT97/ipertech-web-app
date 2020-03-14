@@ -8,6 +8,7 @@ import packetCombinationsReducer from "./../reducers/packetCombinationsReducer";
 import loginModalVisibilityReducer from "./../reducers/loginModalReducer";
 import authReducer from "./authReducer";
 import userReducer from "./userReducer";
+import pollReducer from "./pollsReducer";
 
 const rootReducer = combineReducers({
   promotions: promotionsReducer,
@@ -18,7 +19,8 @@ const rootReducer = combineReducers({
   packetCombinations: packetCombinationsReducer,
   loginModalVisibility: loginModalVisibilityReducer,
   auth: authReducer,
-  user: userReducer
+  user: userReducer,
+  poll: pollReducer
 });
 
 export default rootReducer;
