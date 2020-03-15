@@ -9,6 +9,7 @@ import loginModalVisibilityReducer from "./../reducers/loginModalReducer";
 import authReducer from "./authReducer";
 import userReducer from "./userReducer";
 import pollReducer from "./pollsReducer";
+import billsReducer from "./billsReducer";
 
 const rootReducer = combineReducers({
   promotions: promotionsReducer,
@@ -20,7 +21,8 @@ const rootReducer = combineReducers({
   loginModalVisibility: loginModalVisibilityReducer,
   auth: authReducer,
   user: userReducer,
-  poll: pollReducer
+  poll: pollReducer,
+  bills: billsReducer
 });
 
 export default rootReducer;

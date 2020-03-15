@@ -1,0 +1,2 @@
+export const FETCH_BILLS = "FETCH_BILLS";
+export const FETCH_COUNT_OF_BILLS = "FETCH_COUNT_OF_BILLS";
