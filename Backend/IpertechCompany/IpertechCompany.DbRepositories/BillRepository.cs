@@ -37,18 +37,32 @@ namespace IpertechCompany.DbRepositories
             return (rowsAffected > 0);
         }
 
-        public IEnumerable<Bill> Get(Guid userContractId)
+        public IEnumerable<Bill> Get(Guid userContractId, int offset, int numberOfRows)
         {
             using (var connection = _dbContext.Connect())
             {
                 const string query = "SELECT * FROM useractions.Bill b" +
                                      " INNER JOIN useractions.UserContract uc ON b.UserContractID = uc.UserContractID" +
-                                     " WHERE b.UserContractID = @UserContractID";
+                                     " WHERE b.UserContractID = @UserContractID" +
+                                     " ORDER BY b.startDate DESC" +
+                                     " OFFSET @Offset ROWS" +
+                                     " FETCH NEXT @NumberOfRows ROWS ONLY";
                 return connection.Query<Bill, UserContract, Bill>(query, (bill, userContract) =>
                 {
                     bill.UserContract = userContract;
                     return bill;
-                }, splitOn: "UserContractID", param: new { UserContractId = userContractId });
+                }, splitOn: "UserContractID", param: new { UserContractId = userContractId, Offset = offset, NumberOfRows = numberOfRows });
+            }
+        }
+
+        public int Get(Guid userContractId)
+        {
+            using (var connection = _dbContext.Connect())
+            {
+                const string query = "SELECT COUNT(*) FROM useractions.Bill b" +
+                                     " INNER JOIN useractions.UserContract uc ON b.UserContractID = uc.UserContractID" +
+                                     " WHERE b.UserContractID = @UserContractID";
+                return connection.ExecuteScalar<int>(query, new { UserContractId = userContractId });
             }
         }
 

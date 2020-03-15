@@ -34,7 +34,16 @@ namespace IpertechCompany.Services
             return _billRepository.Delete(billId);
         }
 
-        public IEnumerable<Bill> GetByUserContractId(Guid userContractId)
+        public IEnumerable<Bill> GetByUserContractId(Guid userContractId, int offset, int numberOfRows)
+        {
+            if (!(userContractId != null))
+            {
+                throw new ArgumentException("Missing required properties.");
+            }
+            return _billRepository.Get(userContractId, offset, numberOfRows);
+        }
+
+        public int GetTotalNumberOfBillsByUserContractId(Guid userContractId)
         {
             if (!(userContractId != null))
             {

@@ -30,10 +30,18 @@ namespace IpertechCompany.WebAPI.Controllers
 
         [Authorize(Roles = "User")]
         [HttpGet]
-        [Route("{id}")]
-        public IActionResult GetBillsByUserContractId(Guid id)
+        [Route("{id}/{offset}/{numberOfRows}")]
+        public IActionResult GetBillsByUserContractId(Guid id, int offset, int numberOfRows)
         {
-            return Ok(_billService.GetByUserContractId(id).Select(bill => _mapper.Map<BillViewModel>(bill)));
+            return Ok(_billService.GetByUserContractId(id, offset, numberOfRows).Select(bill => _mapper.Map<BillViewModel>(bill)));
+        }
+
+        [Authorize(Roles = "User")]
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult GetTotalNumberOfBillsByUserContractId(Guid id)
+        {
+            return Ok(_billService.GetTotalNumberOfBillsByUserContractId(id));
         }
 
         [Authorize(Roles = "Admin")]
