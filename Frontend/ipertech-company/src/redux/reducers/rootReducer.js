@@ -10,6 +10,7 @@ import authReducer from "./authReducer";
 import userReducer from "./userReducer";
 import pollReducer from "./pollsReducer";
 import billsReducer from "./billsReducer";
+import tableOfBillsReducer from "./tableOfBillsReducer";
 
 const rootReducer = combineReducers({
   promotions: promotionsReducer,
@@ -22,7 +23,8 @@ const rootReducer = combineReducers({
   auth: authReducer,
   user: userReducer,
   poll: pollReducer,
-  bills: billsReducer
+  bills: billsReducer,
+  tableOfBills: tableOfBillsReducer
 });
 
 export default rootReducer;
