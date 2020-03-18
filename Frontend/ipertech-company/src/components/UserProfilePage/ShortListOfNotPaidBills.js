@@ -48,10 +48,14 @@ export class ShortListOfNotPaidBills extends Component {
                   this.props.setTableOfBillsVisibility(
                     !tableOfBills.visibility
                   );
-
                   this.props.fetchBills(
                     user.userContract.userContractId,
-                    0,
+                    (Math.floor(
+                      (tableOfBills.currentPage * numberOfBillsPerPage) /
+                        numberOfBillsPerPage
+                    ) -
+                      1) *
+                      numberOfBillsPerPage,
                     numberOfBillsPerPage
                   );
 
