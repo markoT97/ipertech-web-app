@@ -6,7 +6,8 @@ namespace IpertechCompany.IServices
 {
     public interface IUserMessageService
     {
-        IEnumerable<Message> GetMessagesByUserId(Guid userId);
+        IEnumerable<Message> GetMessagesByUserId(Guid userId, int offset, int numberOfRows);
+        int GetTotalNumberOfMessagesByUserId(Guid userId);
         UserMessage CreateUserMessage(UserMessage userMessage);
         bool DeleteUserMessage(UserMessage userMessage);
     }

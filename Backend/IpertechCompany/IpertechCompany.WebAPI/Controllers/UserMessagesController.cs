@@ -30,10 +30,18 @@ namespace IpertechCompany.WebAPI.Controllers
 
         [Authorize(Roles = "User")]
         [HttpGet]
-        [Route("{id}")]
-        public IActionResult GetMessagesByUserId(Guid id)
+        [Route("{id}/{offset}/{numberOfRows}")]
+        public IActionResult GetMessagesByUserId(Guid id, int offset, int numberOfRows)
         {
-            return Ok(_userMessageService.GetMessagesByUserId(id).Select(message => _mapper.Map<MessageViewModel>(message)));
+            return Ok(_userMessageService.GetMessagesByUserId(id, offset, numberOfRows).Select(message => _mapper.Map<MessageViewModel>(message)));
+        }
+
+        [Authorize(Roles = "User")]
+        [HttpGet]
+        [Route("{id}")]
+        public IActionResult GetTotalNumberOfMessagesByUserId(Guid id)
+        {
+            return Ok(_userMessageService.GetMessagesByUserId(id, 0, 10).Select(message => _mapper.Map<MessageViewModel>(message)));
         }
 
         [Authorize(Roles = "User")]

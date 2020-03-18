@@ -102,10 +102,10 @@ namespace IpertechCompany.Tests.Services
         public void GetBillByUserContractId_WithoutData_ReturnsEmptyList()
         {
             var userContractId = Guid.Parse("2E97AAA3-E364-4C32-BC4C-1895FF066492");
-            _billRepository.Get(userContractId)
+            _billRepository.Get(userContractId, 0, 10)
                 .Returns(new List<Bill>());
 
-            var returnedBills = _billService.GetByUserContractId(userContractId);
+            var returnedBills = _billService.GetByUserContractId(userContractId, 0, 10);
             Assert.AreEqual(0, returnedBills.Count());
         }
 
@@ -125,10 +125,10 @@ namespace IpertechCompany.Tests.Services
                     "RSD")
             };
             var userContractId = Guid.Parse("2E97AAA3-E364-4C32-BC4C-1895FF066492");
-            _billRepository.Get(userContractId)
+            _billRepository.Get(userContractId, 0, 10)
                 .Returns(bills.Where(b => b.UserContract.UserContractId == userContractId));
 
-            var returnedBills = _billService.GetByUserContractId(userContractId);
+            var returnedBills = _billService.GetByUserContractId(userContractId, 0, 10);
             Assert.AreEqual(bills.Count(b => b.UserContract.UserContractId == userContractId), returnedBills.Count());
         }
     }

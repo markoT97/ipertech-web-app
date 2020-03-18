@@ -28,13 +28,13 @@ namespace IpertechCompany.Tests.Repositories
             [Test]
             public void GetByUserContractId_WithExistingUserContractId_ReturnsPopulatedList()
             {
-                Assert.AreEqual(1, _billRepository.Get(Guid.Parse("2E97AAA3-E364-4C32-BC4C-1895FF066492")).Count());
+                Assert.AreEqual(1, _billRepository.Get(Guid.Parse("2E97AAA3-E364-4C32-BC4C-1895FF066492"), 0, 10).Count());
             }
 
             [Test]
             public void GetByUserContractId_WithoutExistingUserContractId_ReturnsEmptyList()
             {
-                Assert.AreEqual(0, _billRepository.Get(Guid.NewGuid()).Count());
+                Assert.AreEqual(0, _billRepository.Get(Guid.NewGuid(), 0, 10).Count());
             }
 
             [Test]
@@ -43,7 +43,7 @@ namespace IpertechCompany.Tests.Repositories
                 var bill = new Bill(Guid.Parse("061E89AA-59AB-4F9F-B658-47088C14786A"), new UserContract(Guid.Parse("2E97AAA3-E364-4C32-BC4C-1895FF066492")), DateTime.UtcNow, DateTime.UtcNow.AddDays(30), "Test Insert Call", "Test Insert Acc", false, 0, "RSD");
 
                 _billRepository.Insert(bill);
-                Assert.AreEqual(2, _billRepository.Get(Guid.Parse("2E97AAA3-E364-4C32-BC4C-1895FF066492")).Count());
+                Assert.AreEqual(2, _billRepository.Get(Guid.Parse("2E97AAA3-E364-4C32-BC4C-1895FF066492"), 0, 10).Count());
             }
 
             [Test]
@@ -67,7 +67,7 @@ namespace IpertechCompany.Tests.Repositories
 
                 _billRepository.Update(bill);
                 var updatedBill = _billRepository
-                    .Get(Guid.Parse("2E97AAA3-E364-4C32-BC4C-1895FF066492")).First();
+                    .Get(Guid.Parse("2E97AAA3-E364-4C32-BC4C-1895FF066492"), 0, 10).First();
 
                 Assert.AreEqual(bill.CallNum, updatedBill.CallNum);
             }

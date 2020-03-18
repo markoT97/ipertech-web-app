@@ -38,7 +38,7 @@ namespace IpertechCompany.DbRepositories
             return (rowsAffected > 0);
         }
 
-        public IEnumerable<Message> Get(Guid userId)
+        public IEnumerable<Message> Get(Guid userId, int offset, int numberOfRows)
         {
             using (var connection = _dbContext.Connect())
             {
@@ -48,6 +48,17 @@ namespace IpertechCompany.DbRepositories
                                      " INNER JOIN useractions.Message m ON um.MessageID = m.MessageID" +
                                      " WHERE um.UserID = @UserID";
                 return connection.Query<Message>(query, new { UserID = userId });
+            }
+        }
+
+        public int Get(Guid userId)
+        {
+            using (var connection = _dbContext.Connect())
+            {
+                const string query = "SELECT COUNT(*) FROM useractions.UserMessage um" +
+                                     " INNER JOIN useractions.Message m ON um.UserID = m.UserID" +
+                                     " WHERE um.UserID = @UserID";
+                return connection.ExecuteScalar<int>(query, new { UserID = userId });
             }
         }
 
