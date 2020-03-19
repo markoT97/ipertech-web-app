@@ -35,18 +35,14 @@ namespace IpertechCompany.Services
             return _userMessageRepository.Delete(userMessage);
         }
 
-        public IEnumerable<Message> GetMessagesByUserId(Guid userId, int offset, int numberOfRows)
+        public IEnumerable<UserMessage> GetAllUserMessages(int offset, int numberOfRows)
         {
-            return _userMessageRepository.Get(userId, offset, numberOfRows);
+            return _userMessageRepository.GetAll(offset, numberOfRows);
         }
 
-        public int GetTotalNumberOfMessagesByUserId(Guid userId)
+        public int GetTotalNumberOfMessages()
         {
-            if (!(userId != null))
-            {
-                throw new ArgumentException("Missing required properties.");
-            }
-            return _userMessageRepository.Get(userId);
+            return _userMessageRepository.GetAll();
         }
     }
 }

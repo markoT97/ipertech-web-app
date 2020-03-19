@@ -2,7 +2,6 @@
 using IpertechCompany.DbConnection;
 using IpertechCompany.IRepositories;
 using IpertechCompany.Models;
-using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -38,27 +37,31 @@ namespace IpertechCompany.DbRepositories
             return (rowsAffected > 0);
         }
 
-        public IEnumerable<Message> Get(Guid userId, int offset, int numberOfRows)
+        public IEnumerable<UserMessage> GetAll(int offset, int numberOfRows)
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT m.*" +
+                const string query = "SELECT u.ImageLocation, m.*" +
                                      " FROM useractions.UserMessage um" +
                                      " INNER JOIN useractions.[User] u ON um.UserID = u.UserID" +
                                      " INNER JOIN useractions.Message m ON um.MessageID = m.MessageID" +
-                                     " WHERE um.UserID = @UserID";
-                return connection.Query<Message>(query, new { UserID = userId });
+                                     " ORDER BY m.CreatedAt DESC" +
+                                     " OFFSET @Offset ROWS" +
+                                     " FETCH NEXT @NumberOfRows ROWS ONLY";
+                return connection.Query<User, Message, UserMessage>(query, (user, message) =>
+                {
+                    return new UserMessage(user, message);
+                }
+                , splitOn: "UserID, MessageID", param: new { Offset = offset, NumberOfRows = numberOfRows });
             }
         }
 
-        public int Get(Guid userId)
+        public int GetAll()
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT COUNT(*) FROM useractions.UserMessage um" +
-                                     " INNER JOIN useractions.Message m ON um.UserID = m.UserID" +
-                                     " WHERE um.UserID = @UserID";
-                return connection.ExecuteScalar<int>(query, new { UserID = userId });
+                const string query = "SELECT COUNT(*) FROM useractions.UserMessage";
+                return connection.ExecuteScalar<int>(query);
             }
         }
 

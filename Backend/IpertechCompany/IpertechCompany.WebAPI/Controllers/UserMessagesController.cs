@@ -30,18 +30,17 @@ namespace IpertechCompany.WebAPI.Controllers
 
         [Authorize(Roles = "User")]
         [HttpGet]
-        [Route("{id}/{offset}/{numberOfRows}")]
-        public IActionResult GetMessagesByUserId(Guid id, int offset, int numberOfRows)
+        [Route("{offset}/{numberOfRows}")]
+        public IActionResult GetAllUserMessages(int offset, int numberOfRows)
         {
-            return Ok(_userMessageService.GetMessagesByUserId(id, offset, numberOfRows).Select(message => _mapper.Map<MessageViewModel>(message)));
+            return Ok(_userMessageService.GetAllUserMessages(offset, numberOfRows).Select(message => _mapper.Map<UserMessageViewModel>(message)));
         }
 
         [Authorize(Roles = "User")]
         [HttpGet]
-        [Route("{id}")]
-        public IActionResult GetTotalNumberOfMessagesByUserId(Guid id)
+        public IActionResult GetTotalNumberOfMessages()
         {
-            return Ok(_userMessageService.GetMessagesByUserId(id, 0, 10).Select(message => _mapper.Map<MessageViewModel>(message)));
+            return Ok(_userMessageService.GetTotalNumberOfMessages());
         }
 
         [Authorize(Roles = "User")]
@@ -50,7 +49,7 @@ namespace IpertechCompany.WebAPI.Controllers
         {
             UserMessageViewModel insertedUserMessage = _mapper.Map<UserMessageViewModel>(_userMessageService.CreateUserMessage(_mapper.Map<UserMessage>(userMessage)));
 
-            return CreatedAtAction(nameof(GetMessagesByUserId), new { id = insertedUserMessage.User.UserId }, insertedUserMessage);
+            return CreatedAtAction(nameof(GetAllUserMessages), new { id = insertedUserMessage.User.UserId }, insertedUserMessage);
         }
 
         [Authorize(Roles = "User")]

@@ -76,18 +76,7 @@ namespace IpertechCompany.Tests.Services
         }
 
         [Test]
-        public void GetMessagesByUserId_WithoutData_ReturnsEmptyList()
-        {
-            var userId = Guid.Parse("C1851B9D-9624-44D0-86D4-CE10EC026A43");
-            _userMessageRepository.Get(userId, 0, 10)
-                .Returns(new List<Message>());
-
-            var returnedMessages = _userMessageService.GetMessagesByUserId(userId, 0, 10);
-            Assert.AreEqual(0, returnedMessages.Count());
-        }
-
-        [Test]
-        public void GetMessagesByUserId_WithData_ReturnsPopulatedList()
+        public void GetAllMessages_WithData_ReturnsPopulatedList()
         {
             var userMessages = new List<UserMessage>()
             {
@@ -131,10 +120,10 @@ namespace IpertechCompany.Tests.Services
                 }
             }
 
-            _userMessageRepository.Get(userId, 0, 10)
-                        .Returns(foundedMessages);
+            _userMessageRepository.GetAll(0, 10)
+                        .Returns(foundedUserMessages);
 
-            var returnedMessages = _userMessageService.GetMessagesByUserId(userId, 0, 10);
+            var returnedMessages = _userMessageService.GetAllUserMessages(0, 10);
             Assert.AreEqual(foundedMessages.Count(), returnedMessages.Count());
         }
     }
