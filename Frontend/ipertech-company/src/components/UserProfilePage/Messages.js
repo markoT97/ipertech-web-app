@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Toast, Image, Pagination } from "react-bootstrap";
+import calculatePaginationOffset from "./../../utils/calculatePaginationOffset";
 import { formatDistanceToNow } from "date-fns";
 import { sr } from "date-fns/locale";
 import { BACKEND_URL } from "../../redux/actions/backendServerSettings";
@@ -29,11 +30,7 @@ export class Messages extends Component {
           onClick={() => {
             this.props.fetchBills(
               auth.user.userId,
-              (Math.floor(
-                (number * numberOfMessagesPerPage) / numberOfMessagesPerPage
-              ) -
-                1) *
-                numberOfMessagesPerPage,
+              calculatePaginationOffset(number, numberOfMessagesPerPage),
               numberOfMessagesPerPage
             );
 

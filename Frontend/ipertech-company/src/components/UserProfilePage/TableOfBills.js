@@ -1,5 +1,6 @@
 import React, { Component } from "react";
 import { Button, Table, Row, Col, Pagination } from "react-bootstrap";
+import calculatePaginationOffset from "./../../utils/calculatePaginationOffset";
 import { format } from "date-fns";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -29,11 +30,7 @@ export class TableOfBills extends Component {
           onClick={() => {
             this.props.fetchBills(
               user.userContract.userContractId,
-              (Math.floor(
-                (number * numberOfBillsPerPage) / numberOfBillsPerPage
-              ) -
-                1) *
-                numberOfBillsPerPage,
+              calculatePaginationOffset(number, numberOfBillsPerPage),
               numberOfBillsPerPage
             );
 
