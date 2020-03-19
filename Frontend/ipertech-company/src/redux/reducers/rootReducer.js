@@ -11,6 +11,7 @@ import userReducer from "./userReducer";
 import pollReducer from "./pollsReducer";
 import billsReducer from "./billsReducer";
 import tableOfBillsReducer from "./tableOfBillsReducer";
+import messagesReducer from "./messagesReducer";
 
 const rootReducer = combineReducers({
   promotions: promotionsReducer,
@@ -24,7 +25,8 @@ const rootReducer = combineReducers({
   user: userReducer,
   poll: pollReducer,
   bills: billsReducer,
-  tableOfBills: tableOfBillsReducer
+  tableOfBills: tableOfBillsReducer,
+  userMessages: messagesReducer
 });
 
 export default rootReducer;
