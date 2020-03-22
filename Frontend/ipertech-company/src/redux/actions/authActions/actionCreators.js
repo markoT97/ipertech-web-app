@@ -1,39 +1,49 @@
-import fetch from "cross-fetch";
+import axios from "axios";
 import { BACKEND_URL } from "../backendServerSettings";
 
 import { SET_CURRENT_USER, UNSET_CURRENT_USER } from "./actionTypes";
 
 import setAuthorizationToken from "./../../../utils/setAuthorizationToken";
 import jwtDecode from "jwt-decode";
+import { fromUnixTime } from "date-fns";
+
+let axiosInterceptor = null;
 
 export function loginUser(email, password) {
   console.log("LOGIN USER");
   return dispatch => {
-    fetch(BACKEND_URL + "api/users/login", {
-      method: "POST",
-      headers: {
-        Accept: "application/json",
-        "Content-Type": "application/json"
-      },
-
-      body: JSON.stringify({
+    axios
+      .post(BACKEND_URL + "api/users/login", {
         email: email,
         password: password
       })
-    })
-      .then(res => {
-        if (res.status >= 400) {
+      .then(response => {
+        if (response.status >= 400) {
           throw new Error("Bad response from server");
         }
-        return res.json();
-      })
-      .then(token => {
+
+        const token = response.data;
+        const decodedToken = jwtDecode(token);
+
         localStorage.setItem("jwt", token);
         setAuthorizationToken(token);
 
+        axiosInterceptor = axios.interceptors.request.use(
+          function(config) {
+            if (Date.now() > fromUnixTime(decodedToken.exp)) {
+              console.log("Authentication token has expired");
+              dispatch(logoutUser());
+            }
+            return config;
+          },
+          function(error) {
+            return Promise.reject(error);
+          }
+        );
+
         dispatch({
           type: SET_CURRENT_USER,
-          user: jwtDecode(token)
+          user: decodedToken
         });
       })
       .catch(err => {
@@ -45,5 +55,6 @@ export function loginUser(email, password) {
 export function logoutUser() {
   localStorage.removeItem("jwt");
   setAuthorizationToken(null);
+  axios.interceptors.request.eject(axiosInterceptor);
   return { type: UNSET_CURRENT_USER, user: {} };
 }

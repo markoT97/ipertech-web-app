@@ -11,6 +11,7 @@ export default function(ComposedComponent) {
       const { auth } = this.props;
       if (!auth.isAuthenticated || Date.now() > fromUnixTime(auth.user.exp)) {
         console.log("User is not authenticated");
+        this.props.logoutUser();
         this.props.history.push("/");
         this.props.setVisibility(true);
       }
