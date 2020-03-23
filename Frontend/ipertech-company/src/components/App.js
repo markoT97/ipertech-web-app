@@ -5,7 +5,8 @@ import Routes from "./Routes";
 import Footer from "./Footer";
 import { BrowserRouter as Router } from "react-router-dom";
 import { Container, Row, Col } from "react-bootstrap";
-import LoginModal from "./UserLoginPage/LoginModal";
+import LoginModal from "./UserEntryPages/LoginModal";
+import RegisterModal from "./UserEntryPages/RegisterModal";
 
 function App() {
   return (
@@ -13,6 +14,7 @@ function App() {
       <Router>
         <Navigation />
         <LoginModal />
+        <RegisterModal />
         <Container>
           <Row className="justify-content-md-center">
             <Col xs lg={10}>

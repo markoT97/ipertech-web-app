@@ -5,7 +5,7 @@ import internetPacketsReducer from "./../reducers/internetPacketsReducer";
 import tvPacketsReducer from "./../reducers/tvPacketsReducer";
 import phonePacketsReducer from "./../reducers/phonePacketsReducer";
 import packetCombinationsReducer from "./../reducers/packetCombinationsReducer";
-import loginModalVisibilityReducer from "./../reducers/loginModalReducer";
+import modalsVisibilityReducer from "./../reducers/modalsReducer";
 import authReducer from "./authReducer";
 import userReducer from "./userReducer";
 import pollReducer from "./pollsReducer";
@@ -20,7 +20,7 @@ const rootReducer = combineReducers({
   tvPackets: tvPacketsReducer,
   phonePackets: phonePacketsReducer,
   packetCombinations: packetCombinationsReducer,
-  loginModalVisibility: loginModalVisibilityReducer,
+  modalsVisibility: modalsVisibilityReducer,
   auth: authReducer,
   user: userReducer,
   poll: pollReducer,

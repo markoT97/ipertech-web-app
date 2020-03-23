@@ -2,7 +2,10 @@ import React, { Component } from "react";
 import { Navbar, Nav, Image } from "react-bootstrap";
 import logo from "./../logo.svg";
 import { Link } from "react-router-dom";
-import setVisibility from "./../redux/actions/loginModalActions/actionCreators";
+import {
+  setLoginModalVisibility,
+  setRegisterModalVisibility
+} from "./../redux/actions/modalsActions/actionCreators";
 import { logoutUser } from "../redux/actions/authActions/actionCreators";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
@@ -28,12 +31,15 @@ export class Navigation extends Component {
 
     const guestLinks = (
       <React.Fragment>
-        <Nav.Link as={Link} to="/register" className="text-danger">
+        <Nav.Link
+          onClick={() => this.props.setRegisterModalVisibility(true)}
+          className="text-danger"
+        >
           Registruj se
         </Nav.Link>
 
         <Nav.Link
-          onClick={() => this.props.setVisibility(true)}
+          onClick={() => this.props.setLoginModalVisibility(true)}
           className="text-danger"
         >
           Prijavi se
@@ -91,13 +97,16 @@ export class Navigation extends Component {
 
 const mapStateToProps = state => {
   return {
-    visibility: state.loginModalVisibility,
+    modalsVisibility: state.modalsVisibility,
     auth: state.auth
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ setVisibility, logoutUser }, dispatch);
+  return bindActionCreators(
+    { setLoginModalVisibility, setRegisterModalVisibility, logoutUser },
+    dispatch
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Navigation);

@@ -1,7 +1,7 @@
 import React, { Component } from "react";
 import { fromUnixTime } from "date-fns";
 import { logoutUser } from "./../redux/actions/authActions/actionCreators";
-import setVisibility from "../redux/actions/loginModalActions/actionCreators";
+import { setLoginModalVisibility } from "../redux/actions/modalsActions/actionCreators";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
@@ -36,7 +36,10 @@ export default function(ComposedComponent) {
   };
 
   const mapDispatchToProps = dispatch => {
-    return bindActionCreators({ logoutUser, setVisibility }, dispatch);
+    return bindActionCreators(
+      { logoutUser, setLoginModalVisibility },
+      dispatch
+    );
   };
 
   return connect(mapStateToProps, mapDispatchToProps)(Authenticate);

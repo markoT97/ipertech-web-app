@@ -3,7 +3,7 @@ import { Modal, Form, InputGroup, Button } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import setVisibility from "./../../redux/actions/loginModalActions/actionCreators";
+import { setLoginModalVisibility } from "../../redux/actions/modalsActions/actionCreators";
 import { loginUser } from "../../redux/actions/authActions/actionCreators";
 
 export class LoginModal extends Component {
@@ -18,7 +18,7 @@ export class LoginModal extends Component {
   handleOnSubmitLoginForm = e => {
     e.preventDefault();
     this.props.loginUser(this.state.email, this.state.password);
-    this.props.setVisibility(false);
+    this.props.setLoginModalVisibility(false);
 
     this.setState({ email: "", password: "" });
   };
@@ -28,15 +28,15 @@ export class LoginModal extends Component {
         onSubmit={this.handleOnSubmitLoginForm}
         aria-labelledby="contained-modal-title-vcenter"
         centered
-        show={this.props.visibility}
-        onHide={() => this.props.setVisibility(false)}
+        show={this.props.modalsVisibility.loginModalVisibility}
+        onHide={() => this.props.setLoginModalVisibility(false)}
       >
         <Modal.Header closeButton className="bg-success text-white">
           <Modal.Title id="contained-modal-title-vcenter">Prijava</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <Form>
-            <Form.Group controlId="formBasicEmail">
+            <Form.Group controlId="formLoginEmail">
               <Form.Label>Imejl adresa</Form.Label>
               <InputGroup>
                 <InputGroup.Prepend>
@@ -53,7 +53,7 @@ export class LoginModal extends Component {
               </InputGroup>
             </Form.Group>
 
-            <Form.Group controlId="formBasicPassword">
+            <Form.Group controlId="formLoginPassword">
               <Form.Label>Lozinka</Form.Label>
               <InputGroup>
                 <InputGroup.Prepend>
@@ -73,7 +73,7 @@ export class LoginModal extends Component {
             <Button
               className="float-right ml-2"
               variant="light"
-              onClick={() => this.props.setVisibility(false)}
+              onClick={() => this.props.setLoginModalVisibility(false)}
             >
               Odustani
             </Button>
@@ -96,12 +96,12 @@ export class LoginModal extends Component {
 
 const mapStateToProps = state => {
   return {
-    visibility: state.loginModalVisibility
+    modalsVisibility: state.modalsVisibility
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ setVisibility, loginUser }, dispatch);
+  return bindActionCreators({ setLoginModalVisibility, loginUser }, dispatch);
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(LoginModal);
