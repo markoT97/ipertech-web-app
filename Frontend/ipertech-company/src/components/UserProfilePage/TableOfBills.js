@@ -85,14 +85,16 @@ export class TableOfBills extends Component {
                 </tbody>
               </Table>
 
-              <Pagination className="justify-content-center">
-                <Pagination.First />
-                <Pagination.Prev />
-                {paginationItems}
-                <Pagination.Ellipsis />
-                <Pagination.Next />
-                <Pagination.Last />
-              </Pagination>
+              {bills.totalCount > numberOfBillsPerPage && (
+                <Pagination className="justify-content-center">
+                  <Pagination.First />
+                  <Pagination.Prev />
+                  {paginationItems}
+                  <Pagination.Ellipsis />
+                  <Pagination.Next />
+                  <Pagination.Last />
+                </Pagination>
+              )}
             </Col>
           </Row>
         ) : (

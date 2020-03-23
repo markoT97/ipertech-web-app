@@ -26,16 +26,26 @@ export class ShortListOfNotPaidBills extends Component {
           </tr>
         </thead>
         <tbody>
-          <tr>
-            <td>Neplaćeni računi</td>
-          </tr>
+          {user.bills.data && (
+            <tr>
+              <td>Neplaćeni računi</td>
+            </tr>
+          )}
+
           {user.bills.map((b, i) => {
             return (
               <tr key={i}>
                 <td>
-                  {format(new Date(b.startDate), "dd.MM.yyyy") +
+                  {b ? (
+                    format(new Date(b.startDate), "dd.MM.yyyy") +
                     " - " +
-                    format(new Date(b.endDate), "dd.MM.yyyy")}
+                    format(new Date(b.endDate), "dd.MM.yyyy")
+                  ) : (
+                    <React.Fragment>
+                      <p>Svi računi su plaćeni!</p>
+                      <Icon.CheckCircle size={50} className="text-success" />
+                    </React.Fragment>
+                  )}
                 </td>
               </tr>
             );
@@ -43,33 +53,35 @@ export class ShortListOfNotPaidBills extends Component {
 
           <tr>
             <td className="bg-white">
-              <Button
-                onClick={() => {
-                  this.props.setTableOfBillsVisibility(
-                    !tableOfBills.visibility
-                  );
-                  this.props.fetchBills(
-                    user.userContract.userContractId,
-                    (Math.floor(
-                      (tableOfBills.currentPage * numberOfBillsPerPage) /
-                        numberOfBillsPerPage
-                    ) -
-                      1) *
-                      numberOfBillsPerPage,
-                    numberOfBillsPerPage
-                  );
+              {user.bills.length > 0 && user.bills[0] && (
+                <Button
+                  onClick={() => {
+                    this.props.setTableOfBillsVisibility(
+                      !tableOfBills.visibility
+                    );
+                    this.props.fetchBills(
+                      user.userContract.userContractId,
+                      (Math.floor(
+                        (tableOfBills.currentPage * numberOfBillsPerPage) /
+                          numberOfBillsPerPage
+                      ) -
+                        1) *
+                        numberOfBillsPerPage,
+                      numberOfBillsPerPage
+                    );
 
-                  this.props.fetchCountOfBills(
-                    user.userContract.userContractId
-                  );
-                }}
-                variant="outline-danger"
-                block
-              >
-                {tableOfBills.visibility
-                  ? "Sakrij račune"
-                  : "Pregledaj sve račune"}
-              </Button>
+                    this.props.fetchCountOfBills(
+                      user.userContract.userContractId
+                    );
+                  }}
+                  variant="outline-danger"
+                  block
+                >
+                  {tableOfBills.visibility
+                    ? "Sakrij račune"
+                    : "Pregledaj sve račune"}
+                </Button>
+              )}
             </td>
           </tr>
         </tbody>
