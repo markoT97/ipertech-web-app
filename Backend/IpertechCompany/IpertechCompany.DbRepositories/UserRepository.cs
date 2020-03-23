@@ -104,10 +104,10 @@ namespace IpertechCompany.DbRepositories
                 using (var command = (SqlCommand)connection.CreateCommand())
                 {
                     const string query = "INSERT INTO useractions.[User] (UserID, UserContractID, Role, FirstName, LastName, Gender, Email," +
-                                         " PhoneNumber, Password, ImageLocation)" +
+                                         " PhoneNumber, Password)" +
                                          " OUTPUT INSERTED.UserID" +
                                          " VALUES(@UserID, @UserContractID, @Role, @FirstName, @LastName," +
-                                         " @Gender, @Email, @PhoneNumber, @Password, @ImageLocation)";
+                                         " @Gender, @Email, @PhoneNumber, @Password)";
                     command.CommandText = query;
                     command.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = user.UserId;
                     command.Parameters.Add("@UserContractID", SqlDbType.UniqueIdentifier).Value = user.UserContract.UserContractId;
@@ -118,7 +118,6 @@ namespace IpertechCompany.DbRepositories
                     command.Parameters.Add("@Email", SqlDbType.VarChar, 50).Value = user.Email;
                     command.Parameters.Add("@PhoneNumber", SqlDbType.VarChar, 50).Value = user.PhoneNumber;
                     command.Parameters.Add("@Password", SqlDbType.VarChar, 50).Value = user.Password;
-                    command.Parameters.Add("@ImageLocation", SqlDbType.NVarChar, 200).Value = (object)user.ImageLocation ?? DBNull.Value;
 
                     connection.Open();
                     insertedUser.UserId = Guid.Parse(command.ExecuteScalar().ToString());
