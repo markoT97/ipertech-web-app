@@ -1,6 +1,7 @@
 import {
   SET_LOGIN_MODAL_VISIBILITY,
-  SET_REGISTER_MODAL_VISIBILITY
+  SET_REGISTER_MODAL_VISIBILITY,
+  SET_BILL_MODAL_VISIBILITY
 } from "./actionTypes";
 
 export function setLoginModalVisibility(visibility) {
@@ -13,6 +14,13 @@ export function setLoginModalVisibility(visibility) {
 export function setRegisterModalVisibility(visibility) {
   return {
     type: SET_REGISTER_MODAL_VISIBILITY,
+    visibility
+  };
+}
+
+export function setBillModalVisibility(visibility) {
+  return {
+    type: SET_BILL_MODAL_VISIBILITY,
     visibility
   };
 }

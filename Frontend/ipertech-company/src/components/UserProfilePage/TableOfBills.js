@@ -9,13 +9,19 @@ import {
   setTableOfBillsVisibility,
   setTableOfBillsCurrentPage
 } from "../../redux/actions/tableOfBillsActions/actionCreators";
+import { setBillModalVisibility } from "../../redux/actions/modalsActions/actionCreators";
 import { numberOfBillsPerPage } from "../../shared/constants";
 import {
   fetchBills,
-  fetchCountOfBills
+  fetchCountOfBills,
+  fetchSelectedBill
 } from "./../../redux/actions/billsActions/actionCreators";
 
 export class TableOfBills extends Component {
+  handleOnBillClick = selectedBill => {
+    this.props.fetchSelectedBill(selectedBill);
+    this.props.setBillModalVisibility(true);
+  };
   render() {
     const { user, bills, tableOfBills } = this.props;
 
@@ -62,6 +68,7 @@ export class TableOfBills extends Component {
                     return (
                       <React.Fragment key={i}>
                         <Button
+                          onClick={() => this.handleOnBillClick(b)}
                           as="tr"
                           variant={
                             b.isPaid ? "outline-success" : "outline-danger"
@@ -120,7 +127,9 @@ const mapDispatchToProps = dispatch => {
       fetchBills,
       fetchCountOfBills,
       setTableOfBillsVisibility,
-      setTableOfBillsCurrentPage
+      setTableOfBillsCurrentPage,
+      setBillModalVisibility,
+      fetchSelectedBill
     },
     dispatch
   );

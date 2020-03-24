@@ -1,4 +1,8 @@
-import { FETCH_BILLS, FETCH_COUNT_OF_BILLS } from "./actionTypes";
+import {
+  FETCH_BILLS,
+  FETCH_COUNT_OF_BILLS,
+  FETCH_SELECTED_BILL
+} from "./actionTypes";
 import axios from "axios";
 import { BACKEND_URL } from "../backendServerSettings";
 
@@ -43,4 +47,8 @@ export function fetchCountOfBills(userContractId) {
         console.error(error);
       });
   };
+}
+
+export function fetchSelectedBill(selectedBill) {
+  return { type: FETCH_SELECTED_BILL, selectedBill };
 }
