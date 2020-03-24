@@ -13,14 +13,14 @@ export default function(ComposedComponent) {
         console.log("User is not authenticated");
         this.props.logoutUser();
         this.props.history.push("/");
-        this.props.setVisibility(true);
+        this.props.setLoginModalVisibility(true);
       }
     }
 
     UNSAFE_componentWillUpdate(nextProps) {
       if (!nextProps.auth.isAuthenticated) {
         this.props.history.push("/");
-        this.props.setVisibility(true);
+        this.props.setLoginModalVisibility(true);
       }
     }
 
