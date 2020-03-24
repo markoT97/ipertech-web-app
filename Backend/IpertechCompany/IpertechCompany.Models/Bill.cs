@@ -14,6 +14,7 @@ namespace IpertechCompany.Models
         public bool IsPaid { get; set; }
         public decimal Price { get; set; }
         public string Currency { get; set; }
+        public string FirstAndLastName { get; set; }
 
         public Bill()
         {

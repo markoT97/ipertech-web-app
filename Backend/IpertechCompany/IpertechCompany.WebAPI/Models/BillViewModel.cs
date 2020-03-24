@@ -24,5 +24,6 @@ namespace IpertechCompany.WebAPI.Models
         public decimal Price { get; set; }
         [Required]
         public string Currency { get; set; }
+        public string FirstAndLastName { get; set; }
     }
 }

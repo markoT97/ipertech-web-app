@@ -43,15 +43,19 @@ namespace IpertechCompany.DbRepositories
             {
                 const string query = "SELECT * FROM useractions.Bill b" +
                                      " INNER JOIN useractions.UserContract uc ON b.UserContractID = uc.UserContractID" +
+                                     " INNER JOIN packets.PacketCombination pc ON uc.PacketCombinationID = pc.PacketCombinationID" +
+                                     " INNER JOIN useractions.[User] u ON uc.UserContractID = u.UserContractID" +
                                      " WHERE b.UserContractID = @UserContractID" +
                                      " ORDER BY b.startDate DESC" +
                                      " OFFSET @Offset ROWS" +
                                      " FETCH NEXT @NumberOfRows ROWS ONLY";
-                return connection.Query<Bill, UserContract, Bill>(query, (bill, userContract) =>
+                return connection.Query<Bill, UserContract, PacketCombination, User, Bill>(query, (bill, userContract, packetCombination, user) =>
                 {
+                    userContract.PacketCombination = packetCombination;
                     bill.UserContract = userContract;
+                    bill.FirstAndLastName = user.FirstName + " " + user.LastName;
                     return bill;
-                }, splitOn: "UserContractID", param: new { UserContractId = userContractId, Offset = offset, NumberOfRows = numberOfRows });
+                }, splitOn: "UserContractID, PacketCombinationID, UserID", param: new { UserContractId = userContractId, Offset = offset, NumberOfRows = numberOfRows });
             }
         }
 
