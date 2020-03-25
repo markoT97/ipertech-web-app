@@ -7,7 +7,7 @@ import {
 const initialBills = {
   data: [],
   totalCount: 0,
-  selectedBill: []
+  selectedBill: {}
 };
 
 function billsReducer(bills = initialBills, action) {
