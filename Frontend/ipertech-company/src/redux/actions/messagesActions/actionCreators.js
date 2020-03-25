@@ -1,4 +1,8 @@
-import { FETCH_MESSAGES, FETCH_COUNT_OF_MESSAGES } from "./actionTypes";
+import {
+  FETCH_MESSAGES,
+  FETCH_COUNT_OF_MESSAGES,
+  SET_MESSAGES_CURRENT_PAGE
+} from "./actionTypes";
 import axios from "axios";
 import { BACKEND_URL } from "../backendServerSettings";
 
@@ -35,4 +39,8 @@ export function fetchCountOfMessages() {
         console.error(error);
       });
   };
+}
+
+export function setMessagesCurrentPage(currentPage) {
+  return { type: SET_MESSAGES_CURRENT_PAGE, currentPage };
 }

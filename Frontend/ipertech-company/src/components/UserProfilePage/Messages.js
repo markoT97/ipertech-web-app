@@ -6,6 +6,7 @@ import { sr } from "date-fns/locale";
 import { BACKEND_URL } from "../../redux/actions/backendServerSettings";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { setMessagesCurrentPage } from "../../redux/actions/messagesActions/actionCreators";
 import { numberOfMessagesPerPage } from "../../shared/constants";
 import {
   fetchMessages,
@@ -15,9 +16,10 @@ import {
 export class Messages extends Component {
   componentDidMount() {
     this.props.fetchMessages(0, numberOfMessagesPerPage);
+    this.props.fetchCountOfMessages();
   }
   render() {
-    const { auth, userMessages } = this.props;
+    const { userMessages } = this.props;
 
     let numberOfPages =
       userMessages.totalCount / numberOfMessagesPerPage +
@@ -28,15 +30,15 @@ export class Messages extends Component {
       paginationItems.push(
         <Pagination.Item
           onClick={() => {
-            this.props.fetchBills(
-              auth.user.userId,
+            this.props.fetchMessages(
               calculatePaginationOffset(number, numberOfMessagesPerPage),
               numberOfMessagesPerPage
             );
 
-            //this.props.setTableOfBillsCurrentPage(number);
+            this.props.setMessagesCurrentPage(number);
           }}
           key={number}
+          active={number === userMessages.currentPage}
         >
           {number}
         </Pagination.Item>
@@ -67,7 +69,7 @@ export class Messages extends Component {
           );
         })}
 
-        {userMessages.data.length > numberOfMessagesPerPage && (
+        {userMessages.totalCount > numberOfMessagesPerPage && (
           <Pagination className="justify-content-center">
             <Pagination.First />
             <Pagination.Prev />
@@ -90,7 +92,10 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ fetchMessages, fetchCountOfMessages }, dispatch);
+  return bindActionCreators(
+    { fetchMessages, fetchCountOfMessages, setMessagesCurrentPage },
+    dispatch
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(Messages);
