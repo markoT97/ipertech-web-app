@@ -10,7 +10,8 @@ import { setMessagesCurrentPage } from "../../redux/actions/messagesActions/acti
 import { numberOfMessagesPerPage } from "../../shared/constants";
 import {
   fetchMessages,
-  fetchCountOfMessages
+  fetchCountOfMessages,
+  deleteMessage
 } from "./../../redux/actions/messagesActions/actionCreators";
 import { setInsertMessageModalVisibility } from "./../../redux/actions/modalsActions/actionCreators";
 
@@ -19,6 +20,7 @@ export class Messages extends Component {
     this.props.fetchMessages(0, numberOfMessagesPerPage);
     this.props.fetchCountOfMessages();
   }
+
   render() {
     const { userMessages, modalsVisibility } = this.props;
 
@@ -26,8 +28,13 @@ export class Messages extends Component {
       <React.Fragment>
         {userMessages.data.map((um, i) => {
           return (
-            <Toast key={i}>
-              <Toast.Header>
+            <Toast
+              key={i}
+              onClose={() => this.props.deleteMessage(um.message.messageId)}
+            >
+              <Toast.Header
+                closeButton={um.user.userId === this.props.auth.user.userId}
+              >
                 <Image
                   style={{ height: "2em" }}
                   src={BACKEND_URL + "/" + um.user.imageLocation}
@@ -80,6 +87,7 @@ const mapDispatchToProps = dispatch => {
     {
       fetchMessages,
       fetchCountOfMessages,
+      deleteMessage,
       setMessagesCurrentPage,
       setInsertMessageModalVisibility
     },

@@ -41,7 +41,7 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT u.ImageLocation, m.*" +
+                const string query = "SELECT u.UserID, u.ImageLocation, m.*" +
                                      " FROM useractions.UserMessage um" +
                                      " INNER JOIN useractions.[User] u ON um.UserID = u.UserID" +
                                      " INNER JOIN useractions.Message m ON um.MessageID = m.MessageID" +

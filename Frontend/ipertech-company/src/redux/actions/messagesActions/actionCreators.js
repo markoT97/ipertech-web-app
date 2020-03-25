@@ -6,6 +6,7 @@ import {
 } from "./actionTypes";
 import axios from "axios";
 import { BACKEND_URL } from "../backendServerSettings";
+import { numberOfMessagesPerPage } from "../../../shared/constants";
 
 export function fetchMessages(offset, numberOfRows) {
   return dispatch => {
@@ -100,6 +101,22 @@ export function insertUserMessage(user, message) {
           type: INSERT_MESSAGE,
           newUserMessage: { user, message }
         });
+      })
+      .catch(error => {
+        console.error(error);
+      });
+  };
+}
+
+export function deleteMessage(messageId) {
+  return dispatch => {
+    axios
+      .delete(BACKEND_URL + "api/messages/" + messageId)
+      .then(response => {
+        if (response.status >= 400) {
+          throw new Error("Bad response from server");
+        }
+        return dispatch(fetchMessages(0, numberOfMessagesPerPage));
       })
       .catch(error => {
         console.error(error);
