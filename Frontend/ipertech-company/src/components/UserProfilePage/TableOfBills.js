@@ -13,7 +13,6 @@ import { setBillModalVisibility } from "../../redux/actions/modalsActions/action
 import { numberOfBillsPerPage } from "../../shared/constants";
 import {
   fetchBills,
-  fetchCountOfBills,
   fetchSelectedBill
 } from "./../../redux/actions/billsActions/actionCreators";
 
@@ -125,7 +124,6 @@ const mapDispatchToProps = dispatch => {
     {
       fetchUserById,
       fetchBills,
-      fetchCountOfBills,
       setTableOfBillsVisibility,
       setTableOfBillsCurrentPage,
       setBillModalVisibility,

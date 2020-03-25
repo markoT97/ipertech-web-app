@@ -26,7 +26,7 @@ export class ShortListOfNotPaidBills extends Component {
           </tr>
         </thead>
         <tbody>
-          {user.bills.data && (
+          {user.bills && (
             <tr>
               <td>Neplaćeni računi</td>
             </tr>
