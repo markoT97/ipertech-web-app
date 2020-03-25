@@ -31,6 +31,11 @@ export class BillModal extends Component {
         show={this.props.modalsVisibility.billModalVisibility}
         onHide={() => this.props.setBillModalVisibility(false)}
       >
+        <Modal.Header closeButton>
+          <Modal.Title id="contained-modal-title-vcenter">
+            Izgled uplatnice
+          </Modal.Title>
+        </Modal.Header>
         <Modal.Body>
           <Bill />
         </Modal.Body>
@@ -41,6 +46,13 @@ export class BillModal extends Component {
             size="sm"
           >
             <Icon.Archive size={30} /> &nbsp; Sačuvaj
+          </Button>
+          <Button
+            onClick={() => this.props.setBillModalVisibility(false)}
+            variant="light"
+            size="sm"
+          >
+            <Icon.X size={30} /> &nbsp; Zatvori
           </Button>
         </Modal.Footer>
       </Modal>
