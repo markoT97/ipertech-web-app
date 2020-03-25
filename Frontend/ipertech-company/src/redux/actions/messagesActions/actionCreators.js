@@ -1,7 +1,8 @@
 import {
   FETCH_MESSAGES,
   FETCH_COUNT_OF_MESSAGES,
-  SET_MESSAGES_CURRENT_PAGE
+  SET_MESSAGES_CURRENT_PAGE,
+  INSERT_MESSAGE
 } from "./actionTypes";
 import axios from "axios";
 import { BACKEND_URL } from "../backendServerSettings";
@@ -52,7 +53,7 @@ export function insertMessage(user, message) {
         BACKEND_URL + "api/messages",
         {
           ...message,
-          createdAt: new Date().toLocaleDateString(),
+          createdAt: new Date(),
           category: "Utisci"
         },
         {
@@ -66,9 +67,9 @@ export function insertMessage(user, message) {
           throw new Error("Bad response from server");
         }
 
-        const { messageId } = response.data;
+        const message = response.data;
 
-        return dispatch(insertUserMessage(user, { messageId }));
+        return dispatch(insertUserMessage(user, message));
       })
       .catch(error => {
         console.error(error);
@@ -95,7 +96,10 @@ export function insertUserMessage(user, message) {
         if (response.status >= 400) {
           throw new Error("Bad response from server");
         }
-        return dispatch(fetchCountOfMessages());
+        return dispatch({
+          type: INSERT_MESSAGE,
+          newUserMessage: { user, message }
+        });
       })
       .catch(error => {
         console.error(error);

@@ -1,8 +1,10 @@
 import {
   FETCH_MESSAGES,
   FETCH_COUNT_OF_MESSAGES,
-  SET_MESSAGES_CURRENT_PAGE
+  SET_MESSAGES_CURRENT_PAGE,
+  INSERT_MESSAGE
 } from "./../actions/messagesActions/actionTypes";
+import { numberOfMessagesPerPage } from "../../shared/constants";
 
 const initialUserMessages = {
   data: [],
@@ -21,6 +23,12 @@ export default function messagesReducer(
       return { ...userMessages, totalCount: action.totalCount };
     case SET_MESSAGES_CURRENT_PAGE:
       return { ...userMessages, currentPage: action.currentPage };
+    case INSERT_MESSAGE:
+      userMessages.data.unshift(action.newUserMessage);
+      return {
+        ...userMessages,
+        data: userMessages.data.slice(0, numberOfMessagesPerPage)
+      };
     default:
       return userMessages;
   }

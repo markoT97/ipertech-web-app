@@ -21,7 +21,8 @@ export class InsertMessageForm extends Component {
     e.preventDefault();
     this.props.insertMessage(
       {
-        userId: this.props.user.userId
+        userId: this.props.user.userId,
+        imageLocation: this.props.user.imageLocation
       },
       {
         title: this.state.title,
@@ -71,7 +72,11 @@ export class InsertMessageForm extends Component {
               />
             </Form.Group>
 
-            <Button className="float-right ml-2" variant="light">
+            <Button
+              onClick={() => this.props.setInsertMessageModalVisibility(false)}
+              className="float-right ml-2"
+              variant="light"
+            >
               Odustani
             </Button>
             <Button
