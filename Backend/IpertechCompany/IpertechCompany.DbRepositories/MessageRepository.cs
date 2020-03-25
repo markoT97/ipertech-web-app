@@ -60,7 +60,7 @@ namespace IpertechCompany.DbRepositories
                     command.Parameters.Add("@MessageID", SqlDbType.UniqueIdentifier).Value = message.MessageId;
                     command.Parameters.Add("@Title", SqlDbType.NVarChar, 30).Value = message.Title;
                     command.Parameters.Add("@Content", SqlDbType.NVarChar, 200).Value = message.Content;
-                    command.Parameters.Add("@CreatedAt", SqlDbType.DateTime).Value = DateTime.UtcNow;
+                    command.Parameters.Add("@CreatedAt", SqlDbType.DateTime).Value = DateTime.Now;
                     command.Parameters.Add("@Category", SqlDbType.VarChar, 50).Value = message.Category;
 
                     connection.Open();

@@ -49,7 +49,7 @@ namespace IpertechCompany.WebAPI.Controllers
         {
             UserMessageViewModel insertedUserMessage = _mapper.Map<UserMessageViewModel>(_userMessageService.CreateUserMessage(_mapper.Map<UserMessage>(userMessage)));
 
-            return CreatedAtAction(nameof(GetAllUserMessages), new { id = insertedUserMessage.User.UserId }, insertedUserMessage);
+            return CreatedAtAction(nameof(GetAllUserMessages), new { offset = 0, numberOfRows = 1 }, insertedUserMessage);
         }
 
         [Authorize(Roles = "User")]

@@ -1,5 +1,4 @@
 import React, { Component } from "react";
-import { bindActionCreators } from "redux";
 import { Row, Col } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import "./../App.scss";
@@ -10,8 +9,10 @@ import ChangePasswordForm from "./ChangePasswordForm";
 import TableOfBills from "./TableOfBills";
 import Messages from "./Messages";
 import PollForm from "./PollForm";
-
+import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+
+import InsertMessageForm from "./InsertMessageForm";
 
 export class UserProfile extends Component {
   render() {
@@ -42,6 +43,8 @@ export class UserProfile extends Component {
               &nbsp; Poruke
             </h5>
             <Messages />
+
+            <InsertMessageForm />
           </Col>
           <Col className="text-center mt-2">
             <h5 className="text-danger text-uppercase">

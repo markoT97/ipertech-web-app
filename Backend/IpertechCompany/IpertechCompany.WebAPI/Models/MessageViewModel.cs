@@ -5,7 +5,6 @@ namespace IpertechCompany.WebAPI.Models
 {
     public class MessageViewModel
     {
-        [Required]
         public Guid MessageId { get; set; }
         [Required]
         public string Title { get; set; }

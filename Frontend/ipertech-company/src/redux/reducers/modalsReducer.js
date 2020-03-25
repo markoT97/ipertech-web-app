@@ -1,13 +1,15 @@
 import {
   SET_LOGIN_MODAL_VISIBILITY,
   SET_REGISTER_MODAL_VISIBILITY,
-  SET_BILL_MODAL_VISIBILITY
+  SET_BILL_MODAL_VISIBILITY,
+  SET_INSERT_MESSAGE_FORM_VISIBILITY
 } from "../actions/modalsActions/actionTypes";
 
 const initialModalsVisibility = {
   loginModalVisibility: false,
   registerModalVisibility: false,
-  billModalVisibility: false
+  billModalVisibility: false,
+  insertMessageModalVisibility: false
 };
 
 function modalsVisibilityReducer(
@@ -26,6 +28,11 @@ function modalsVisibilityReducer(
       return {
         ...modalsVisibility,
         billModalVisibility: action.visibility
+      };
+    case SET_INSERT_MESSAGE_FORM_VISIBILITY:
+      return {
+        ...modalsVisibility,
+        insertMessageModalVisibility: action.visibility
       };
     default:
       return modalsVisibility;

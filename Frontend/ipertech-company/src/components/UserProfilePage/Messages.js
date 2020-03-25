@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Toast, Image, Pagination } from "react-bootstrap";
+import { Toast, Image, Button, Pagination, Row, Col } from "react-bootstrap";
+import * as Icon from "react-bootstrap-icons";
 import calculatePaginationOffset from "./../../utils/calculatePaginationOffset";
 import { formatDistanceToNow } from "date-fns";
 import { sr } from "date-fns/locale";
@@ -12,6 +13,7 @@ import {
   fetchMessages,
   fetchCountOfMessages
 } from "./../../redux/actions/messagesActions/actionCreators";
+import { setInsertMessageModalVisibility } from "./../../redux/actions/modalsActions/actionCreators";
 
 export class Messages extends Component {
   componentDidMount() {
@@ -19,7 +21,7 @@ export class Messages extends Component {
     this.props.fetchCountOfMessages();
   }
   render() {
-    const { userMessages } = this.props;
+    const { userMessages, modalsVisibility } = this.props;
 
     let numberOfPages =
       userMessages.totalCount / numberOfMessagesPerPage +
@@ -69,15 +71,35 @@ export class Messages extends Component {
           );
         })}
 
+        {!modalsVisibility.insertMessageModalVisibility && (
+          <Row>
+            <Col>
+              <Button
+                size="sm"
+                className="float-right mb-3"
+                variant="outline-secondary"
+                onClick={() => this.props.setInsertMessageModalVisibility(true)}
+              >
+                <Icon.Cursor size={26} />
+                Pošalji
+              </Button>
+            </Col>
+          </Row>
+        )}
+
         {userMessages.totalCount > numberOfMessagesPerPage && (
-          <Pagination className="justify-content-center">
-            <Pagination.First />
-            <Pagination.Prev />
-            {paginationItems}
-            <Pagination.Ellipsis />
-            <Pagination.Next />
-            <Pagination.Last />
-          </Pagination>
+          <Row>
+            <Col>
+              <Pagination className="justify-content-center">
+                <Pagination.First />
+                <Pagination.Prev />
+                {paginationItems}
+                <Pagination.Ellipsis />
+                <Pagination.Next />
+                <Pagination.Last />
+              </Pagination>
+            </Col>
+          </Row>
         )}
       </React.Fragment>
     );
@@ -87,13 +109,19 @@ export class Messages extends Component {
 const mapStateToProps = state => {
   return {
     auth: state,
-    userMessages: state.userMessages
+    userMessages: state.userMessages,
+    modalsVisibility: state.modalsVisibility
   };
 };
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
-    { fetchMessages, fetchCountOfMessages, setMessagesCurrentPage },
+    {
+      fetchMessages,
+      fetchCountOfMessages,
+      setMessagesCurrentPage,
+      setInsertMessageModalVisibility
+    },
     dispatch
   );
 };
