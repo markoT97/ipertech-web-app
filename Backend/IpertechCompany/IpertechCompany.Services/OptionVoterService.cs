@@ -2,6 +2,7 @@
 using IpertechCompany.IServices;
 using IpertechCompany.Models;
 using System;
+using System.Collections.Generic;
 
 namespace IpertechCompany.Services
 {
@@ -29,9 +30,14 @@ namespace IpertechCompany.Services
             return _optionVoterRepository.Insert(optionVoter);
         }
 
-        public int GetNumberOfVotersByPollOptionId(Guid pollOptionId)
+        public IEnumerable<OptionVoter> GetNumberOfVotersByPollId(Guid pollId)
         {
-            return _optionVoterRepository.Get(pollOptionId);
+            return _optionVoterRepository.Get(pollId);
+        }
+
+        public bool CheckIsUserVotedOnPoll(Guid pollId, Guid userId)
+        {
+            return _optionVoterRepository.Get(pollId, userId);
         }
     }
 }

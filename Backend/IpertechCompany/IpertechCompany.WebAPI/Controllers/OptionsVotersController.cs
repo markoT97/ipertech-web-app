@@ -9,6 +9,7 @@ using IpertechCompany.WebAPI.Models;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.Linq;
 
 namespace IpertechCompany.WebAPI.Controllers
 {
@@ -30,9 +31,17 @@ namespace IpertechCompany.WebAPI.Controllers
         [Authorize(Roles = "User")]
         [HttpGet]
         [Route("{id}")]
-        public IActionResult GetNumberOfVotersByPollOptionId(Guid id)
+        public IActionResult GetNumberOfVotersByPollId(Guid id)
         {
-            return Ok(_optionVoterService.GetNumberOfVotersByPollOptionId(id));
+            return Ok(_optionVoterService.GetNumberOfVotersByPollId(id).Select(optionVoter => _mapper.Map<OptionVoterViewModel>(optionVoter)));
+        }
+
+        [Authorize(Roles = "User")]
+        [HttpGet]
+        [Route("{pollId}/{userId}")]
+        public IActionResult CheckIsUserVotedOnPoll(Guid pollId, Guid userId)
+        {
+            return Ok(_optionVoterService.CheckIsUserVotedOnPoll(pollId, userId));
         }
 
         [Authorize(Roles = "User")]
@@ -41,7 +50,7 @@ namespace IpertechCompany.WebAPI.Controllers
         {
             OptionVoterViewModel insertedOptionVoter = _mapper.Map<OptionVoterViewModel>(_optionVoterService.CreateOptionVoter(_mapper.Map<OptionVoter>(optionVoter)));
 
-            return CreatedAtAction(nameof(GetNumberOfVotersByPollOptionId), new { id = insertedOptionVoter.PollOptionId }, insertedOptionVoter);
+            return CreatedAtAction(nameof(GetNumberOfVotersByPollId), new { id = insertedOptionVoter.PollId }, insertedOptionVoter);
         }
     }
 }

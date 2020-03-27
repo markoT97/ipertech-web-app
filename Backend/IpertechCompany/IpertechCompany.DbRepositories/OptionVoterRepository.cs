@@ -3,9 +3,9 @@ using IpertechCompany.DbConnection;
 using IpertechCompany.IRepositories;
 using IpertechCompany.Models;
 using System;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using System.Linq;
 
 namespace IpertechCompany.DbRepositories
 {
@@ -18,13 +18,24 @@ namespace IpertechCompany.DbRepositories
             _dbContext = dbContext;
         }
 
-        public int Get(Guid pollOptionId)
+        public IEnumerable<OptionVoter> Get(Guid pollId)
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT * FROM useractions.OptionVoter" +
-                                     " WHERE PollOptionID = @PollOptionID";
-                return connection.Query<OptionVoter>(query, new { PollOptionID = pollOptionId }).Count();
+                const string query = "SELECT COUNT(*) AS NumberOfVoters, PollID, PollOptionID FROM useractions.OptionVoter" +
+                                     " WHERE PollID = @PollID" +
+                                     " GROUP BY PollID, PollOptionID";
+                return connection.Query<OptionVoter>(query, new { PollID = pollId });
+            }
+        }
+
+        public bool Get(Guid pollId, Guid userId)
+        {
+            using (var connection = _dbContext.Connect())
+            {
+                const string query = "SELECT COUNT(*) FROM useractions.OptionVoter" +
+                                     " WHERE PollID = @PollID AND UserID = @UserID";
+                return (connection.ExecuteScalar<int>(query, new { PollID = pollId, UserID = userId })) == 1;
             }
         }
 

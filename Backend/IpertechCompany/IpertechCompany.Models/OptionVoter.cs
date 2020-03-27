@@ -8,6 +8,7 @@ namespace IpertechCompany.Models
         public Guid UserId { get; set; }
         public Guid PollId { get; set; }
         public Guid PollOptionId { get; set; }
+        public int? NumberOfVoters { get; set; }
 
         public OptionVoter()
         {

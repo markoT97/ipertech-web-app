@@ -11,5 +11,6 @@ namespace IpertechCompany.WebAPI.Models
         public Guid PollId { get; set; }
         [Required]
         public Guid PollOptionId { get; set; }
+        public int? NumberOfVoters { get; set; }
     }
 }
