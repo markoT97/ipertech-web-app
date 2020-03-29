@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace IpertechCompany.DbRepositories
 {
@@ -55,6 +56,32 @@ namespace IpertechCompany.DbRepositories
                         packet.PhonePacket = phone;
                         return packet;
                     }, splitOn: "InternetPacketID, TvPacketID, PhonePacketID");
+            }
+        }
+
+        public PacketCombination Get(Guid internetPacketId, Guid? tvPacketId, Guid? phonePacketId)
+        {
+            using (var connection = _dbContext.Connect())
+            {
+                const string query = "SET ANSI_NULLS OFF " +
+                                    "SELECT * FROM packets.PacketCombination pc " +
+                                    "INNER JOIN packets.InternetPacket ip ON pc.InternetPacketID = ip.InternetPacketID " +
+                                    "LEFT JOIN packets.TvPacket tp ON pc.TvPacketID = tp.TvPacketID " +
+                                    "LEFT JOIN packets.PhonePacket pp ON pc.PhonePacketID = pp.PhonePacketID " +
+                                    "WHERE " +
+                                    "(pc.InternetPacketID = @InternetPacketID) " +
+                                    "AND " +
+                                    "(pc.TvPacketID = @TvPacketID) " +
+                                    "AND " +
+                                    "(pc.PhonePacketID = @PhonePacketID)";
+                return connection.Query<PacketCombination, InternetPacket, TvPacket, PhonePacket, PacketCombination>(query, (packetCombination, internetPacket, tvPacket, phonePacket) =>
+                {
+                    packetCombination.InternetPacket = internetPacket;
+                    packetCombination.TvPacket = tvPacket;
+                    packetCombination.PhonePacket = phonePacket;
+
+                    return packetCombination;
+                }, splitOn: "InternetPacketID, TvPacketID, PhonePacketID", param: new { InternetPacketID = internetPacketId, tvPacketId, PhonePacketID = phonePacketId }).SingleOrDefault();
             }
         }
 

@@ -1,4 +1,7 @@
-import { FETCH_USER_BY_ID } from "../actions/userActions/actionTypes";
+import {
+  FETCH_USER_BY_ID,
+  FETCH_PACKET_COMBINATION_BY_PACKET_IDS
+} from "../actions/userActions/actionTypes";
 
 const initialUser = {
   userId: null,
@@ -38,6 +41,14 @@ function userReducer(user = initialUser, action) {
   switch (action.type) {
     case FETCH_USER_BY_ID:
       return action.user;
+    case FETCH_PACKET_COMBINATION_BY_PACKET_IDS:
+      return {
+        ...user,
+        userContract: {
+          ...user.userContract,
+          packetCombination: action.packetCombination
+        }
+      };
     default:
       return user;
   }

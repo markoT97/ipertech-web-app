@@ -1,13 +1,33 @@
 import React, { Component } from "react";
-import { Button, Table } from "react-bootstrap";
+import { Button, Table, Dropdown, DropdownButton } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { fetchUserById } from "./../../redux/actions/userActions/actionCreators";
+import {
+  fetchUserById,
+  fetchPacketCombinationByInternetAndTvAndPhonePacketId
+} from "./../../redux/actions/userActions/actionCreators";
+import fetchInternetPackets from "./../../redux/actions/internetPacketsActions/actionCreators";
+import fetchTvPackets from "./../../redux/actions/tvPacketsActions/actionCreators";
+import fetchPhonePackets from "./../../redux/actions/phonePacketsActions/actionCreators";
 
 export class UserData extends Component {
+  state = {
+    isChangeInternetPacketActive: false,
+    isChangeTvPacketActive: false,
+    isChangePhonePacketActive: false,
+
+    selectedInternetPacket: { internetPacketId: null, name: "" },
+    selectedTvPacket: { tvPacketId: null, name: "" },
+    selectedPhonePacket: { phonePacketId: null, name: "" }
+  };
   render() {
-    const { user } = this.props;
+    const { user, internetPackets, tvPackets, phonePackets } = this.props;
+    const {
+      internetPacket,
+      tvPacket,
+      phonePacket
+    } = user.userContract.packetCombination;
     return (
       <Table striped responsive className="text-center">
         <thead>
@@ -42,12 +62,77 @@ export class UserData extends Component {
               &nbsp; Internet
             </td>
             <td className="text-danger align-middle">
-              {user.userContract.packetCombination.internetPacket.name}
+              {this.state.isChangeInternetPacketActive ? (
+                <DropdownButton
+                  id="dropdown-tvPackets-button"
+                  size="sm"
+                  title={this.state.selectedInternetPacket.name}
+                  variant="outline-secondary"
+                >
+                  {internetPackets.map((ip, i) => {
+                    return (
+                      <Dropdown.Item
+                        onClick={() =>
+                          this.setState({ selectedInternetPacket: ip })
+                        }
+                        key={i}
+                        active={internetPacket.name === ip.name}
+                      >
+                        {ip.name}
+                      </Dropdown.Item>
+                    );
+                  })}
+                </DropdownButton>
+              ) : (
+                internetPacket.name
+              )}
             </td>
             <td className="align-middle">
-              <Button variant="outline-primary mb-2">
-                <Icon.Pencil size={25} />
-              </Button>
+              {this.state.isChangeInternetPacketActive ? (
+                <Button
+                  onClick={() => {
+                    this.state.selectedInternetPacket.internetPacketId !==
+                      (internetPacket
+                        ? internetPacket.internetPacketId
+                        : null) &&
+                      this.props.fetchPacketCombinationByInternetAndTvAndPhonePacketId(
+                        {
+                          internetPacketId: this.state.selectedInternetPacket
+                            .internetPacketId,
+                          tvPacketId: tvPacket ? tvPacket.tvPacketId : null,
+                          phonePacketId: phonePacket
+                            ? phonePacket.phonePacketId
+                            : null
+                        },
+                        user.userContract
+                      );
+                    this.setState({
+                      internetPacketId: internetPacket,
+                      isChangeInternetPacketActive: false,
+                      selectedInternetPacket: {
+                        internetPacketId: null,
+                        name: ""
+                      }
+                    });
+                  }}
+                  variant="outline-warning mb-2"
+                >
+                  <Icon.BoxArrowDown size={25} />
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => {
+                    this.props.fetchInternetPackets();
+                    this.setState({
+                      isChangeInternetPacketActive: true,
+                      selectedInternetPacket: internetPacket
+                    });
+                  }}
+                  variant="outline-primary mb-2"
+                >
+                  <Icon.Pencil size={25} />
+                </Button>
+              )}
             </td>
           </tr>
           <tr>
@@ -56,16 +141,95 @@ export class UserData extends Component {
               &nbsp; Televizija
             </td>
             <td className="text-danger align-middle">
-              {user.userContract.packetCombination.tvPacket
-                ? user.userContract.packetCombination.tvPacket.name
-                : ""}
+              {this.state.isChangeTvPacketActive ? (
+                <DropdownButton
+                  id="dropdown-tvPackets-button"
+                  size="sm"
+                  title={this.state.selectedTvPacket.name}
+                  variant="outline-secondary"
+                >
+                  {tvPackets.map((tv, i) => {
+                    return (
+                      <Dropdown.Item
+                        onClick={() => this.setState({ selectedTvPacket: tv })}
+                        key={i}
+                        active={tvPacket ? tvPacket.name === tv.name : false}
+                      >
+                        {tv.name}
+                      </Dropdown.Item>
+                    );
+                  })}
+                </DropdownButton>
+              ) : tvPacket ? (
+                tvPacket.name
+              ) : (
+                ""
+              )}
             </td>
             <td className="align-middle">
-              <Button variant="outline-primary mb-2">
-                <Icon.Pencil size={25} />
-              </Button>
-              {user.userContract.packetCombination.tvPacket ? (
-                <Button variant="outline-danger">
+              {this.state.isChangeTvPacketActive ? (
+                <Button
+                  onClick={() => {
+                    this.state.selectedTvPacket.tvPacketId !==
+                      (tvPacket ? tvPacket.tvPacketId : null) &&
+                      this.props.fetchPacketCombinationByInternetAndTvAndPhonePacketId(
+                        {
+                          internetPacketId: internetPacket.internetPacketId,
+                          tvPacketId: this.state.selectedTvPacket.tvPacketId,
+                          phonePacketId: phonePacket
+                            ? phonePacket.phonePacketId
+                            : null
+                        },
+                        user.userContract
+                      );
+                    this.setState({
+                      tvPacketId: tvPacket ? tvPacket.tvPacketId : null,
+                      isChangeTvPacketActive: false
+                    });
+                  }}
+                  variant="outline-warning mb-2"
+                >
+                  <Icon.BoxArrowDown size={25} />
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => {
+                    this.props.fetchTvPackets();
+                    this.setState({
+                      isChangeTvPacketActive: true,
+                      selectedTvPacket: tvPacket
+                        ? tvPacket
+                        : { tvPacketId: null, name: "" }
+                    });
+                  }}
+                  variant="outline-primary mb-2 mr-1"
+                >
+                  <Icon.Pencil size={25} />
+                </Button>
+              )}
+
+              {tvPacket ? (
+                <Button
+                  onClick={() => {
+                    this.props.fetchPacketCombinationByInternetAndTvAndPhonePacketId(
+                      {
+                        internetPacketId: internetPacket.internetPacketId,
+                        tvPacketId: null,
+                        phonePacketId: phonePacket
+                          ? phonePacket.phonePacketId
+                          : null
+                      },
+                      user.userContract
+                    );
+
+                    this.setState({
+                      tvPacketId: tvPacket ? tvPacket.tvPacketId : "",
+                      isChangeTvPacketActive: false,
+                      selectedTvPacket: { tvPacketId: null, name: "" }
+                    });
+                  }}
+                  variant="outline-danger mb-2"
+                >
                   <Icon.XCircle size={25} />
                 </Button>
               ) : (
@@ -79,16 +243,78 @@ export class UserData extends Component {
               &nbsp; Telefonija
             </td>
             <td className="text-danger align-middle">
-              {user.userContract.packetCombination.phonePacket
-                ? user.userContract.packetCombination.phonePacket.name
-                : ""}
+              {this.state.isChangePhonePacketActive ? (
+                <DropdownButton
+                  id="dropdown-tvPackets-button"
+                  size="sm"
+                  title={this.state.selectedPhonePacket.name}
+                  variant="outline-secondary"
+                >
+                  {phonePackets.map((pp, i) => {
+                    return (
+                      <Dropdown.Item
+                        onClick={() =>
+                          this.setState({ selectedPhonePacket: pp })
+                        }
+                        key={i}
+                        active={
+                          phonePacket ? phonePacket.name === pp.name : false
+                        }
+                      >
+                        {pp.name}
+                      </Dropdown.Item>
+                    );
+                  })}
+                </DropdownButton>
+              ) : phonePacket ? (
+                phonePacket.name
+              ) : (
+                ""
+              )}
             </td>
             <td className="align-middle">
-              <Button variant="outline-primary mb-2">
-                <Icon.Pencil size={25} />
-              </Button>
-              {user.userContract.packetCombination.phonePacket ? (
-                <Button variant="outline-danger">
+              {this.state.isChangePhonePacketActive ? (
+                <Button
+                  onClick={() => {
+                    this.state.selectedPhonePacket.phonePacketId !==
+                      (phonePacket ? phonePacket.phonePacketId : null) &&
+                      this.props.fetchPacketCombinationByInternetAndTvAndPhonePacketId(
+                        {
+                          internetPacketId: internetPacket.internetPacketId,
+                          tvPacketId: tvPacket ? tvPacket.tvPacketId : null,
+                          phonePacketId: this.state.selectedPhonePacket
+                            .phonePacketId
+                        },
+                        user.userContract
+                      );
+                    this.setState({
+                      phonePacketId: phonePacket,
+                      isChangePhonePacketActive: false,
+                      selectedPhonePacket: { phonePacketId: null, name: "" }
+                    });
+                  }}
+                  variant="outline-warning mb-2"
+                >
+                  <Icon.BoxArrowDown size={25} />
+                </Button>
+              ) : (
+                <Button
+                  onClick={() => {
+                    this.props.fetchPhonePackets();
+                    this.setState({
+                      isChangePhonePacketActive: true,
+                      selectedPhonePacket: phonePacket
+                        ? phonePacket
+                        : { phonePacketId: null, name: "" }
+                    });
+                  }}
+                  variant="outline-primary mb-2 mr-1"
+                >
+                  <Icon.Pencil size={25} />
+                </Button>
+              )}
+              {phonePacket ? (
+                <Button variant="outline-danger mb-2">
                   <Icon.XCircle size={25} />
                 </Button>
               ) : (
@@ -105,12 +331,24 @@ export class UserData extends Component {
 const mapStateToProps = state => {
   return {
     auth: state.auth,
-    user: state.user
+    user: state.user,
+    internetPackets: state.internetPackets,
+    tvPackets: state.tvPackets,
+    phonePackets: state.phonePackets
   };
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ fetchUserById }, dispatch);
+  return bindActionCreators(
+    {
+      fetchUserById,
+      fetchInternetPackets,
+      fetchTvPackets,
+      fetchPhonePackets,
+      fetchPacketCombinationByInternetAndTvAndPhonePacketId
+    },
+    dispatch
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserData);

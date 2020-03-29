@@ -14,6 +14,8 @@ namespace IpertechCompany.Models
         public PacketCombination()
         {
             InternetPacket = new InternetPacket();
+            TvPacket = new TvPacket();
+            PhonePacket = new PhonePacket();
         }
 
         public PacketCombination(Guid packetCombinationId, InternetPacket internetPacket = null, string name = null, TvPacket tvPacket = null,

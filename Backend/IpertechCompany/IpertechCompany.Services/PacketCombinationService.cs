@@ -40,6 +40,15 @@ namespace IpertechCompany.Services
             return _packetCombinationRepository.GetAll();
         }
 
+        public PacketCombination GetPacketCombinationByInternetAndTvAndPhonePacketId(Guid internetPacketId, Guid? tvPacketId, Guid? phonePacketId)
+        {
+            if (!(internetPacketId != null))
+            {
+                throw new ArgumentNullException("internetPacketId", "Parameter is null.");
+            }
+            return _packetCombinationRepository.Get(internetPacketId, tvPacketId, phonePacketId);
+        }
+
         public void UpdatePacketCombination(PacketCombination packetCombination)
         {
             if (!(packetCombination != null))

@@ -35,6 +35,15 @@ namespace IpertechCompany.WebAPI.Controllers
             return Ok(_packetCombinationService.GetAllPacketCombinations().Select(packetCombination => _mapper.Map<PacketCombinationViewModel>(packetCombination)));
         }
 
+        [Authorize(Roles = "User")]
+        [HttpGet]
+        [Route("ids")]
+        public IActionResult
+        GetPacketCombinationByInternetAndTvAndPhonePacketId([FromQuery]Guid internetPacketId, [FromQuery]Guid? tvPacketId = null, [FromQuery] Guid? phonePacketId = null)
+        {
+            return Ok(_mapper.Map<PacketCombinationViewModel>(_packetCombinationService.GetPacketCombinationByInternetAndTvAndPhonePacketId(internetPacketId, tvPacketId, phonePacketId)));
+        }
+
         [Authorize(Roles = "Admin")]
         [HttpPost]
         public IActionResult InsertPacketCombination(PacketCombinationViewModel packetCombination)

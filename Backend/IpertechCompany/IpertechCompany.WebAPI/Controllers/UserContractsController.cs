@@ -43,7 +43,7 @@ namespace IpertechCompany.WebAPI.Models
             return CreatedAtAction(nameof(GetAllUserContracts), new { id = insertedUserContract.UserContractId }, insertedUserContract);
         }
 
-        [Authorize(Roles = "Admin")]
+        [Authorize(Roles = "User")]
         public IActionResult UpdateUserContract(UserContractViewModel userContract)
         {
             _userContractService.UpdateUserContract(_mapper.Map<UserContract>(userContract));
