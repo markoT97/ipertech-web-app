@@ -77,14 +77,7 @@ export class LoginModal extends Component {
             >
               Odustani
             </Button>
-            <Button
-              className="float-right"
-              type="submit"
-              variant="success"
-              onSubmit={() =>
-                this.props.loginUser(this.state.email, this.state.password)
-              }
-            >
+            <Button className="float-right" type="submit" variant="success">
               Potvrdi
             </Button>
           </Form>

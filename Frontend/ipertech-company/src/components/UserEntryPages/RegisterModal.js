@@ -234,25 +234,7 @@ export class RegisterModal extends Component {
             >
               Odustani
             </Button>
-            <Button
-              className="float-right"
-              type="submit"
-              variant="success"
-              onSubmit={() =>
-                this.props.insertUser({
-                  userContract: {
-                    userContractId: this.state.userContractId
-                  },
-                  firstName: this.state.firstName,
-                  lastName: this.state.lastName,
-                  gender: this.state.gender,
-                  email: this.state.email,
-                  phoneNumber: this.state.phoneNumber,
-                  password: this.state.password,
-                  passwordConfirm: this.state.passwordConfirm
-                })
-              }
-            >
+            <Button className="float-right" type="submit" variant="success">
               Potvrdi
             </Button>
           </Form>
