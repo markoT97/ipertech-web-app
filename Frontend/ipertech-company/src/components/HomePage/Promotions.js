@@ -17,7 +17,7 @@ export class Promotions extends Component {
 
   handleSelect = (selectedIndex, e) => {
     this.setState({ index: selectedIndex });
-    this.setState({ direction: e.direction });
+    this.setState({ direction: e ? e.direction : null });
   };
 
   render() {
