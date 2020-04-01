@@ -1,6 +1,7 @@
 import {
   FETCH_USER_BY_ID,
-  FETCH_PACKET_COMBINATION_BY_PACKET_IDS
+  FETCH_PACKET_COMBINATION_BY_PACKET_IDS,
+  UPDATE_USER_IMAGE
 } from "../actions/userActions/actionTypes";
 
 const initialUser = {
@@ -49,6 +50,8 @@ function userReducer(user = initialUser, action) {
           packetCombination: action.packetCombination
         }
       };
+    case UPDATE_USER_IMAGE:
+      return { ...user, imageLocation: action.imageLocation };
     default:
       return user;
   }

@@ -11,6 +11,7 @@ namespace IpertechCompany.IRepositories
         User Get(UserLogin userLogin);
         User Insert(User user);
         void Update(User user);
+        void Update(UserImage userImage);
         bool Delete(Guid userId);
     }
 }

@@ -153,5 +153,23 @@ namespace IpertechCompany.DbRepositories
                 }
             }
         }
+
+        public void Update(UserImage userImage)
+        {
+            using (var connection = _dbContext.Connect())
+            {
+                using (var command = (SqlCommand)connection.CreateCommand())
+                {
+                    const string query = "UPDATE useractions.[User] SET ImageLocation = @ImageLocation" +
+                                         " WHERE UserID = @UserID";
+                    command.CommandText = query;
+                    command.Parameters.Add("@ImageLocation", SqlDbType.NVarChar, 200).Value = (object)userImage.ImageLocation ?? DBNull.Value;
+                    command.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = userImage.UserId;
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

@@ -64,7 +64,7 @@ namespace IpertechCompany.Tests.Repositories
         }
 
         [Test]
-        public void Update_WithRequiredFields_ReturnsUser()
+        public void Update__WholeUser_WithRequiredFields_ReturnsUser()
         {
             var user = new User(Guid.Parse("04822534-5A84-47EA-AF87-81060832CD0A"),
                 new UserContract(Guid.Parse("082C90F1-F513-4B2D-ACF1-14B277D6D6C8")),
@@ -84,9 +84,26 @@ namespace IpertechCompany.Tests.Repositories
         }
 
         [Test]
-        public void Update_NullObject_ExpectsException()
+        public void Update_WholeUser_NullObject_ExpectsException()
         {
-            Assert.Throws<NullReferenceException>(() => _userRepository.Update(null));
+            Assert.Throws<NullReferenceException>(() => _userRepository.Update(new User()));
+        }
+
+        [Test]
+        public void Update_UserImage_WithRequiredFields_ReturnsUser()
+        {
+            var userImage = new UserImage(Guid.Parse("04822534-5A84-47EA-AF87-81060832CD0A"), "update-image-location.png");
+
+            _userRepository.Update(userImage);
+            var updatedUser = _userRepository.Get(userImage.UserId);
+
+            Assert.AreEqual(userImage.ImageLocation, updatedUser.ImageLocation);
+        }
+
+        [Test]
+        public void Update_UserImage_NullObject_ExpectsException()
+        {
+            Assert.Throws<NullReferenceException>(() => _userRepository.Update(new UserImage()));
         }
 
         [Test]

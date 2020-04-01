@@ -6,10 +6,12 @@ using IpertechCompany.IServices;
 using IpertechCompany.Models;
 using IpertechCompany.Services;
 using IpertechCompany.WebAPI.Models;
+using IpertechCompany.WebAPI.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Configuration;
 using System;
+using System.IO;
 using System.Linq;
 
 namespace IpertechCompany.WebAPI.Controllers
@@ -68,6 +70,31 @@ namespace IpertechCompany.WebAPI.Controllers
             _userService.UpdateUser(_mapper.Map<User>(user));
 
             return Accepted(user);
+        }
+
+        [Authorize(Roles = "User")]
+        [HttpPatch]
+        public IActionResult ChangeUserProfileImage([FromForm] UserImageViewModel userImage)
+        {
+
+            string fileName = userImage.UserId.ToString();
+            string fileExtension = Path.GetExtension(userImage.Image.FileName);
+            string imagesFolder = "wwwroot\\";
+            string relativeImagePath = "account\\user-images\\" + fileName + fileExtension;
+            string fullImagePath = imagesFolder + relativeImagePath;
+
+            string imageLocationForDb = relativeImagePath.Replace("\\", "/");
+
+            string locationPath = Path.Combine(Directory.GetCurrentDirectory(), fullImagePath);
+
+            if (!FilesManagement.SaveFile(userImage.Image, locationPath))
+            {
+                return BadRequest();
+            }
+
+            _userService.UpdateUser(new UserImage(userImage.UserId, imageLocationForDb));
+
+            return Ok(relativeImagePath.Replace("\\", "/"));
         }
 
         [Authorize(Roles = "Admin")]

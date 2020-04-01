@@ -2,7 +2,8 @@ import {
   FETCH_MESSAGES,
   FETCH_COUNT_OF_MESSAGES,
   SET_MESSAGES_CURRENT_PAGE,
-  INSERT_MESSAGE
+  INSERT_MESSAGE,
+  UPDATE_FETCHED_MESSAGES_USER_IMAGE
 } from "./actionTypes";
 import axios from "axios";
 import { BACKEND_URL } from "../backendServerSettings";
@@ -121,5 +122,13 @@ export function deleteMessage(messageId) {
       .catch(error => {
         console.error(error);
       });
+  };
+}
+
+export function updateMessagesUserImage(userId, imageLocation) {
+  return {
+    type: UPDATE_FETCHED_MESSAGES_USER_IMAGE,
+    userId,
+    imageLocation
   };
 }

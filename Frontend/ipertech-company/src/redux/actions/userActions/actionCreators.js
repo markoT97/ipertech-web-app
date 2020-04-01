@@ -4,8 +4,10 @@ import { BACKEND_URL } from "../backendServerSettings";
 import {
   FETCH_USER_BY_ID,
   INSERT_USER,
-  FETCH_PACKET_COMBINATION_BY_PACKET_IDS
+  FETCH_PACKET_COMBINATION_BY_PACKET_IDS,
+  UPDATE_USER_IMAGE
 } from "./actionTypes";
+import { updateMessagesUserImage } from "./../messagesActions/actionCreators";
 
 export function fetchUserById(id) {
   return dispatch => {
@@ -109,6 +111,31 @@ function updateUserContract(userContract) {
         console.log("Updated user contract: ");
         console.log(updatedUserContract);
         //return dispatch({ type: CHANGE_TV_PACKET, insertedUser: user });
+      });
+  };
+}
+
+export function updateUserImage(userImage) {
+  return dispatch => {
+    console.log(userImage.image);
+    let data = new FormData();
+    data.append("userId", userImage.userId);
+    data.append("image", userImage.image);
+
+    axios
+      .patch(BACKEND_URL + "api/users", data, {
+        headers: { "Content-Type": "multipart/form-data" }
+      })
+      .then(response => {
+        if (response.status >= 400) {
+          throw new Error("Bad response from server");
+        }
+        const imageLocation = response.data + "?" + Date.now();
+        dispatch(updateMessagesUserImage(userImage.userId, imageLocation));
+        return dispatch({
+          type: UPDATE_USER_IMAGE,
+          imageLocation
+        });
       });
   };
 }

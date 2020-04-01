@@ -2,7 +2,8 @@ import {
   FETCH_MESSAGES,
   FETCH_COUNT_OF_MESSAGES,
   SET_MESSAGES_CURRENT_PAGE,
-  INSERT_MESSAGE
+  INSERT_MESSAGE,
+  UPDATE_FETCHED_MESSAGES_USER_IMAGE
 } from "./../actions/messagesActions/actionTypes";
 import { numberOfMessagesPerPage } from "../../shared/constants";
 
@@ -28,6 +29,27 @@ export default function messagesReducer(
       return {
         ...userMessages,
         data: userMessages.data.slice(0, numberOfMessagesPerPage)
+      };
+    case UPDATE_FETCHED_MESSAGES_USER_IMAGE:
+      let updatedMessages = [];
+      const messages = userMessages.data;
+      for (let i = 0; i < messages.length; i++) {
+        const message = messages[i];
+
+        message.user.userId === action.userId
+          ? updatedMessages.push({
+              ...message,
+              user: {
+                ...message.user,
+                imageLocation: action.imageLocation
+              }
+            })
+          : updatedMessages.push(message);
+      }
+
+      return {
+        ...userMessages,
+        data: updatedMessages
       };
     default:
       return userMessages;

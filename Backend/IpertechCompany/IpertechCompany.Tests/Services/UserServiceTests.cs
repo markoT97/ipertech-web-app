@@ -71,14 +71,14 @@ namespace IpertechCompany.Tests.Services
         }
 
         [Test]
-        public void UpdateUser_NullObject_ExpectsException()
+        public void UpdateUser_WholeUser_NullObject_ExpectsException()
         {
-            Assert.Throws<ArgumentNullException>(() => _userService.UpdateUser(null));
-            _userRepository.DidNotReceive().Update(null);
+            Assert.Throws<ArgumentNullException>(() => _userService.UpdateUser(new User()));
+            _userRepository.DidNotReceive().Update(new User());
         }
 
         [Test]
-        public void UpdateUser_WithoutRequiredFields_ExpectsException()
+        public void UpdateUser_WholeUser_WithoutRequiredFields_ExpectsException()
         {
             var user = new User();
 
@@ -87,11 +87,35 @@ namespace IpertechCompany.Tests.Services
         }
 
         [Test]
-        public void UpdateUser_WithRequiredFields_ReturnsNothing()
+        public void UpdateUser_WholeUser_WithRequiredFields_ReturnsNothing()
         {
             var user = new User(Guid.Parse("8F10E3A8-5B61-42F0-B00A-243F0FA2D228"), new UserContract(Guid.Parse("E352D17F-E719-40F1-B1AE-660510F3DBC4")), "User", "Steva", "Ðubre", "Muški", "steva@gmail.com", "3455666", "123@@", "www/users/steva.png");
             _userService.UpdateUser(user);
             _userRepository.Received(1).Update(user);
+        }
+
+        [Test]
+        public void UpdateUser_UserImage_NullObject_ExpectsException()
+        {
+            Assert.Throws<ArgumentNullException>(() => _userService.UpdateUser(new UserImage()));
+            _userRepository.DidNotReceive().Update(new UserImage());
+        }
+
+        [Test]
+        public void UpdateUser_UserImage_WithoutRequiredFields_ExpectsException()
+        {
+            var userImage = new UserImage();
+
+            Assert.Throws<ArgumentException>(() => _userService.UpdateUser(userImage));
+            _userRepository.DidNotReceive().Update(userImage);
+        }
+
+        [Test]
+        public void UpdateUser_UserImage_WithRequiredFields_ReturnsNothing()
+        {
+            var userImage = new UserImage(Guid.Parse("8F10E3A8-5B61-42F0-B00A-243F0FA2D228"), "www/users/steva.png");
+            _userService.UpdateUser(userImage);
+            _userRepository.Received(1).Update(userImage);
         }
 
 

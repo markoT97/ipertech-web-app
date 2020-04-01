@@ -21,6 +21,7 @@
     "react-bootstrap-icons": "^1.0.0-alpha2",
     "react-dom": "^16.13.1",
     "react-fade-in": "^0.1.8",
+    "react-file-picker": "0.0.6",
     "react-holder-component": "^1.0.5",
     "react-redux": "^7.2.0",
     "react-router-dom": "^5.1.2",

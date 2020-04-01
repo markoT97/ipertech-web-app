@@ -11,6 +11,7 @@ namespace IpertechCompany.IServices
         User CreateUser(User user);
         string LoginUser(UserLogin userLogin);
         void UpdateUser(User user);
+        void UpdateUser(UserImage userImage);
         bool DeleteUser(Guid userId);
     }
 }

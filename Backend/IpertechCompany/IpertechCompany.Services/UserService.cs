@@ -108,5 +108,18 @@ namespace IpertechCompany.Services
             }
             _userRepository.Update(user);
         }
+        public void UpdateUser(UserImage userImage)
+        {
+            if (!(userImage != null))
+            {
+                throw new ArgumentNullException("userImage", "Parameter is null.");
+            }
+
+            if (!userImage.IsValid())
+            {
+                throw new ArgumentException("Missing required properties.");
+            }
+            _userRepository.Update(userImage);
+        }
     }
 }
