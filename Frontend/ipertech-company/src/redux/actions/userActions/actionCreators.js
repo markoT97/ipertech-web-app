@@ -139,3 +139,22 @@ export function updateUserImage(userImage) {
       });
   };
 }
+
+export function updateUserPassword(newPassword) {
+  return dispatch => {
+    axios
+      .patch(BACKEND_URL + "api/users/password", newPassword, {
+        headers: { "Content-Type": "application/json" }
+      })
+      .then(response => {
+        if (response.status >= 400) {
+          throw new Error("Bad response from server");
+        }
+
+        const updatedUserPassword = response.data;
+        console.log("Updated user password: ");
+        console.log(updatedUserPassword);
+        //return dispatch({ type: CHANGE_TV_PACKET, insertedUser: user });
+      });
+  };
+}

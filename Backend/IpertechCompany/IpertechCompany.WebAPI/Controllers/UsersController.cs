@@ -35,7 +35,7 @@ namespace IpertechCompany.WebAPI.Controllers
         [HttpGet]
         public IActionResult GetAllUser()
         {
-            return Ok(_userService.GetAllUsers().Select(user => _mapper.Map<UserViewModel>(user)));
+            return Ok(_userService.GetAllUsers().Select(user => _mapper.Map<UserPasswordViewModel>(user)));
         }
 
         [Authorize(Roles = "User")]
@@ -56,7 +56,7 @@ namespace IpertechCompany.WebAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult RegisterUser(UserViewModel user)
+        public IActionResult RegisterUser(UserPasswordViewModel user)
         {
             User insertedUser = _userService.CreateUser(_mapper.Map<User>(user));
 
@@ -65,7 +65,7 @@ namespace IpertechCompany.WebAPI.Controllers
 
         [Authorize(Roles = "User")]
         [HttpPut]
-        public IActionResult UpdateUser(UserViewModel user)
+        public IActionResult UpdateUser(UserPasswordViewModel user)
         {
             _userService.UpdateUser(_mapper.Map<User>(user));
 
@@ -95,6 +95,16 @@ namespace IpertechCompany.WebAPI.Controllers
             _userService.UpdateUser(new UserImage(userImage.UserId, imageLocationForDb));
 
             return Ok(relativeImagePath.Replace("\\", "/"));
+        }
+
+        [Authorize(Roles = "User")]
+        [HttpPatch]
+        [Route("password")]
+        public IActionResult ChangeUserPassword(UserPasswordViewModel userPassword)
+        {
+            _userService.UpdateUser(new UserPassword(userPassword.UserId, userPassword.Password));
+
+            return Accepted(userPassword);
         }
 
         [Authorize(Roles = "Admin")]

@@ -171,5 +171,23 @@ namespace IpertechCompany.DbRepositories
                 }
             }
         }
+
+        public void Update(UserPassword userPassword)
+        {
+            using (var connection = _dbContext.Connect())
+            {
+                using (var command = (SqlCommand)connection.CreateCommand())
+                {
+                    const string query = "UPDATE useractions.[User] SET Password = @Password" +
+                                         " WHERE UserID = @UserID";
+                    command.CommandText = query;
+                    command.Parameters.Add("@Password", SqlDbType.VarChar, 50).Value = userPassword.Password;
+                    command.Parameters.Add("@UserID", SqlDbType.UniqueIdentifier).Value = userPassword.UserId;
+
+                    connection.Open();
+                    command.ExecuteNonQuery();
+                }
+            }
+        }
     }
 }

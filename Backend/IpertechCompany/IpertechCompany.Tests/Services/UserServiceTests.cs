@@ -118,6 +118,30 @@ namespace IpertechCompany.Tests.Services
             _userRepository.Received(1).Update(userImage);
         }
 
+        [Test]
+        public void UpdateUser_UserPassword_NullObject_ExpectsException()
+        {
+            Assert.Throws<ArgumentNullException>(() => _userService.UpdateUser(new UserPassword()));
+            _userRepository.DidNotReceive().Update(new UserPassword());
+        }
+
+        [Test]
+        public void UpdateUser_UserPassword_WithoutRequiredFields_ExpectsException()
+        {
+            var userPassword = new UserPassword();
+
+            Assert.Throws<ArgumentException>(() => _userService.UpdateUser(userPassword));
+            _userRepository.DidNotReceive().Update(userPassword);
+        }
+
+        [Test]
+        public void UpdateUser_UserPassword_WithRequiredFields_ReturnsNothing()
+        {
+            var userPassword = new UserPassword(Guid.Parse("8F10E3A8-5B61-42F0-B00A-243F0FA2D228"), "password");
+            _userService.UpdateUser(userPassword);
+            _userRepository.Received(1).Update(userPassword);
+        }
+
 
         [Test]
         public void GetUserByUserId_WithoutData_ReturnsEmptyObject()

@@ -107,6 +107,23 @@ namespace IpertechCompany.Tests.Repositories
         }
 
         [Test]
+        public void Update_UserPassword_WithRequiredFields_ReturnsUser()
+        {
+            var userPassword = new UserPassword(Guid.Parse("04822534-5A84-47EA-AF87-81060832CD0A"), "password");
+
+            _userRepository.Update(userPassword);
+            var updatedUser = _userRepository.Get(userPassword.UserId);
+
+            Assert.AreEqual(userPassword.Password, updatedUser.Password);
+        }
+
+        [Test]
+        public void Update_UserPassword_NullObject_ExpectsException()
+        {
+            Assert.Throws<NullReferenceException>(() => _userRepository.Update(new UserPassword()));
+        }
+
+        [Test]
         public void Delete_WhichExists_ReturnsTrue()
         {
             Assert.True(_userRepository.Delete(Guid.Parse("8D613A6B-AEF0-4B15-95F4-3BB5039F47DE")));
