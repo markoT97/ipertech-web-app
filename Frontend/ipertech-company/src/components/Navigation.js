@@ -1,5 +1,6 @@
 import React, { Component } from "react";
-import { Navbar, Nav, Image } from "react-bootstrap";
+import { Navbar, Nav, Image, Dropdown, DropdownButton } from "react-bootstrap";
+import * as Icon from "react-bootstrap-icons";
 import logo from "./../logo.svg";
 import { Link } from "react-router-dom";
 import {
@@ -58,6 +59,26 @@ export class Navigation extends Component {
             className="d-inline-block align-top"
           />
         </Navbar.Brand>
+        <div className="d-flex order-lg-1 ml-auto pr-2 d-block d-lg-none">
+          <Dropdown>
+            <DropdownButton
+              title={
+                <Icon.PersonFill
+                  size={42}
+                  className={
+                    (auth.isAuthenticated ? "text-success" : "text-danger") +
+                    " border rounded"
+                  }
+                />
+              }
+              variant="outline-light"
+              drop="left"
+            >
+              {auth.isAuthenticated ? userLinks : guestLinks}
+            </DropdownButton>
+          </Dropdown>
+        </div>
+
         <Navbar.Toggle aria-controls="responsive-navbar-nav" />
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mr-auto">
@@ -85,11 +106,10 @@ export class Navigation extends Component {
               Paketi
             </Nav.Link>
           </Nav>
-
-          <Nav className="ml-auto">
-            {auth.isAuthenticated ? userLinks : guestLinks}
-          </Nav>
         </Navbar.Collapse>
+        <Nav className="d-none d-lg-flex">
+          {auth.isAuthenticated ? userLinks : guestLinks}
+        </Nav>
       </Navbar>
     );
   }
