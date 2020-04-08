@@ -12,11 +12,13 @@ import {
   fetchCountOfBills
 } from "./../../redux/actions/billsActions/actionCreators";
 
+import { Link } from "react-scroll";
+
 export class ShortListOfNotPaidBills extends Component {
   render() {
     const { user, tableOfBills } = this.props;
     return (
-      <Table striped responsive className="text-center">
+      <Table striped responsive className="text-center short-list-of-bills">
         <thead>
           <tr>
             <th className="bg-danger text-white">
@@ -53,35 +55,47 @@ export class ShortListOfNotPaidBills extends Component {
 
           <tr>
             <td className="bg-white">
-              {user.bills.length > 0 && user.bills[0] && (
-                <Button
-                  onClick={() => {
-                    this.props.setTableOfBillsVisibility(
-                      !tableOfBills.visibility
-                    );
-                    this.props.fetchBills(
-                      user.userContract.userContractId,
-                      (Math.floor(
-                        (tableOfBills.currentPage * numberOfBillsPerPage) /
-                          numberOfBillsPerPage
-                      ) -
-                        1) *
-                        numberOfBillsPerPage,
-                      numberOfBillsPerPage
-                    );
+              <Link
+                activeClass="active"
+                to={
+                  tableOfBills.visibility
+                    ? "short-list-of-bills"
+                    : "table-of-bills"
+                }
+                spy={true}
+                smooth={true}
+                duration={500}
+              >
+                {user.bills.length > 0 && user.bills[0] && (
+                  <Button
+                    onClick={() => {
+                      this.props.setTableOfBillsVisibility(
+                        !tableOfBills.visibility
+                      );
+                      this.props.fetchBills(
+                        user.userContract.userContractId,
+                        (Math.floor(
+                          (tableOfBills.currentPage * numberOfBillsPerPage) /
+                            numberOfBillsPerPage
+                        ) -
+                          1) *
+                          numberOfBillsPerPage,
+                        numberOfBillsPerPage
+                      );
 
-                    this.props.fetchCountOfBills(
-                      user.userContract.userContractId
-                    );
-                  }}
-                  variant="outline-danger"
-                  block
-                >
-                  {tableOfBills.visibility
-                    ? "Sakrij račune"
-                    : "Pregledaj sve račune"}
-                </Button>
-              )}
+                      this.props.fetchCountOfBills(
+                        user.userContract.userContractId
+                      );
+                    }}
+                    variant="outline-danger"
+                    block
+                  >
+                    {tableOfBills.visibility
+                      ? "Sakrij račune"
+                      : "Pregledaj sve račune"}
+                  </Button>
+                )}
+              </Link>
             </td>
           </tr>
         </tbody>

@@ -13,6 +13,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 
 import InsertMessageForm from "./InsertMessageForm";
+import { Element } from "react-scroll";
 
 export class UserProfile extends Component {
   render() {
@@ -34,7 +35,9 @@ export class UserProfile extends Component {
           </Col>
         </Row>
 
-        <TableOfBills />
+        <Element className="table-of-bills">
+          <TableOfBills />
+        </Element>
 
         <Row>
           <Col lg={5} className="mt-2 mb-2">
