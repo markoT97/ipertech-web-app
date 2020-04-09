@@ -57,3 +57,11 @@ export const insertMessageValidationSchema = yup.object({
     .max(100)
     .required()
 });
+
+export const changePasswordValidationSchema = yup.object({
+  password: yup.string().required(),
+  passwordConfirmation: yup
+    .string()
+    .oneOf([yup.ref("password")], "Lozinke se moraju poklapati")
+    .required()
+});
