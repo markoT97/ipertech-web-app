@@ -7,36 +7,26 @@ import {
   insertMessage,
   fetchMessages
 } from "./../../redux/actions/messagesActions/actionCreators";
+import { Formik } from "formik";
+import { insertMessageValidationSchema as schema } from "./../../shared/validation";
 
 export class InsertMessageForm extends Component {
-  state = {
-    title: "",
-    content: ""
-  };
-  handleChangeInputValue = e => {
-    const { target } = e;
-    this.setState({ [target.name]: target.value });
-  };
-  handleOnSubmitMessageForm = e => {
-    e.preventDefault();
+  handleOnSubmitMessageForm = form => {
     this.props.insertMessage(
       {
         userId: this.props.user.userId,
         imageLocation: this.props.user.imageLocation
       },
       {
-        title: this.state.title,
-        content: this.state.content
+        title: form.title,
+        content: form.content
       }
     );
     this.props.setInsertMessageModalVisibility(false);
-
-    this.setState({ title: "", content: "" });
   };
   render() {
     return (
       <Modal
-        onSubmit={this.handleOnSubmitMessageForm}
         aria-labelledby="contained-modal-title-vcenter"
         centered
         show={this.props.modalsVisibility.insertMessageModalVisibility}
@@ -48,45 +38,81 @@ export class InsertMessageForm extends Component {
           </Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
-            <Form.Group controlId="formMessageTitle">
-              <Form.Label>Naslov</Form.Label>
-              <Form.Control
-                onChange={this.handleChangeInputValue}
-                type="text"
-                name="title"
-                placeholder="Unesite naslov poruke"
-                value={this.state.title}
-              />
-            </Form.Group>
+          <Formik
+            validationSchema={schema}
+            onSubmit={this.handleOnSubmitMessageForm}
+            initialValues={{ title: "", content: "" }}
+          >
+            {({
+              handleSubmit,
+              handleChange,
+              handleBlur,
+              values,
+              touched,
+              isValid,
+              errors,
+              dirty
+            }) => (
+              <Form onSubmit={handleSubmit}>
+                <Form.Group controlId="formMessageTitle">
+                  <Form.Label>Naslov</Form.Label>
+                  <Form.Control
+                    onChange={handleChange}
+                    type="text"
+                    name="title"
+                    placeholder="Unesite naslov poruke"
+                    value={values.title}
+                    isValid={touched.title && !errors.title}
+                    isInvalid={!!errors.title}
+                  />
 
-            <Form.Group controlId="formMessageContent">
-              <Form.Label>Tekst</Form.Label>
-              <Form.Control
-                onChange={this.handleChangeInputValue}
-                as="textarea"
-                name="content"
-                placeholder="Unesite sadržaj poruke"
-                value={this.state.content}
-                rows="3"
-              />
-            </Form.Group>
+                  {errors.title && (
+                    <Form.Control.Feedback type="invalid">
+                      {errors.title}
+                    </Form.Control.Feedback>
+                  )}
+                </Form.Group>
 
-            <Button
-              onClick={() => this.props.setInsertMessageModalVisibility(false)}
-              className="float-right ml-2"
-              variant="light"
-            >
-              Odustani
-            </Button>
-            <Button
-              className="float-right ml-2"
-              variant="primary"
-              type="submit"
-            >
-              Pošalji
-            </Button>
-          </Form>
+                <Form.Group controlId="formMessageContent">
+                  <Form.Label>Tekst</Form.Label>
+                  <Form.Control
+                    onChange={handleChange}
+                    as="textarea"
+                    name="content"
+                    placeholder="Unesite sadržaj poruke"
+                    value={values.content}
+                    rows="3"
+                    isValid={touched.content && !errors.content}
+                    isInvalid={!!errors.content}
+                  />
+
+                  {errors.content && (
+                    <Form.Control.Feedback type="invalid">
+                      {errors.content}
+                    </Form.Control.Feedback>
+                  )}
+                </Form.Group>
+
+                <Button
+                  onClick={() =>
+                    this.props.setInsertMessageModalVisibility(false)
+                  }
+                  className="float-right ml-2"
+                  variant="light"
+                >
+                  Odustani
+                </Button>
+                <Button
+                  className="float-right ml-2"
+                  type="submit"
+                  variant="primary"
+                  disabled={!(isValid && dirty)}
+                >
+                  Pošalji
+                </Button>
+              </Form>
+            )}
+          </Formik>
         </Modal.Body>
       </Modal>
     );

@@ -44,3 +44,16 @@ export const registerValidationSchema = yup.object({
     .min(8)
     .required()
 });
+
+export const insertMessageValidationSchema = yup.object({
+  title: yup
+    .string()
+    .min(10)
+    .max(15)
+    .required(),
+  content: yup
+    .string()
+    .min(30)
+    .max(100)
+    .required()
+});
