@@ -5,27 +5,23 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { setLoginModalVisibility } from "../../redux/actions/modalsActions/actionCreators";
 import { loginUser } from "../../redux/actions/authActions/actionCreators";
+import { Formik } from "formik";
+import { loginValidationSchema as schema } from "./../../shared/validation";
 
 export class LoginModal extends Component {
-  state = {
-    email: "",
-    password: ""
-  };
   handleChangeInputValue = e => {
     const { target } = e;
     this.setState({ [target.type]: target.value });
   };
-  handleOnSubmitLoginForm = e => {
-    e.preventDefault();
-    this.props.loginUser(this.state.email, this.state.password);
-    this.props.setLoginModalVisibility(false);
-
-    this.setState({ email: "", password: "" });
+  handleOnSubmitLoginForm = form => {
+    setTimeout(() => {
+      this.props.loginUser(form.email, form.password);
+      this.props.setLoginModalVisibility(false);
+    }, 500);
   };
   render() {
     return (
       <Modal
-        onSubmit={this.handleOnSubmitLoginForm}
         aria-labelledby="contained-modal-title-vcenter"
         centered
         show={this.props.modalsVisibility.loginModalVisibility}
@@ -35,52 +31,95 @@ export class LoginModal extends Component {
           <Modal.Title id="contained-modal-title-vcenter">Prijava</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <Form>
-            <Form.Group controlId="formLoginEmail">
-              <Form.Label>Imejl adresa</Form.Label>
-              <InputGroup>
-                <InputGroup.Prepend>
-                  <InputGroup.Text id="btnGroupAddon" className="text-success">
-                    @
-                  </InputGroup.Text>
-                </InputGroup.Prepend>
-                <Form.Control
-                  onChange={this.handleChangeInputValue}
-                  type="email"
-                  placeholder="Unesite imejl adresu"
-                  value={this.state.email}
-                />
-              </InputGroup>
-            </Form.Group>
+          <Formik
+            validationSchema={schema}
+            onSubmit={this.handleOnSubmitLoginForm}
+            initialValues={{ email: "", password: "" }}
+          >
+            {({
+              handleSubmit,
+              handleChange,
+              handleBlur,
+              values,
+              touched,
+              isValid,
+              errors,
+              dirty
+            }) => (
+              <Form noValidate onSubmit={handleSubmit}>
+                <Form.Group controlId="formLoginEmail">
+                  <Form.Label>Imejl adresa</Form.Label>
+                  <InputGroup>
+                    <InputGroup.Prepend>
+                      <InputGroup.Text
+                        id="btnGroupAddon"
+                        className="text-success"
+                      >
+                        @
+                      </InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <Form.Control
+                      onChange={handleChange}
+                      type="email"
+                      name="email"
+                      placeholder="Unesite imejl adresu"
+                      value={values.email}
+                      isValid={touched.email && !errors.email}
+                      isInvalid={!!errors.email}
+                    />
 
-            <Form.Group controlId="formLoginPassword">
-              <Form.Label>Lozinka</Form.Label>
-              <InputGroup>
-                <InputGroup.Prepend>
-                  <InputGroup.Text id="btnGroupAddon">
-                    <Icon.LockFill className="text-success" />
-                  </InputGroup.Text>
-                </InputGroup.Prepend>
-                <Form.Control
-                  onChange={this.handleChangeInputValue}
-                  type="password"
-                  placeholder="Lozinka"
-                  value={this.state.password}
-                />
-              </InputGroup>
-            </Form.Group>
-            <hr />
-            <Button
-              className="float-right ml-2"
-              variant="light"
-              onClick={() => this.props.setLoginModalVisibility(false)}
-            >
-              Odustani
-            </Button>
-            <Button className="float-right" type="submit" variant="success">
-              Potvrdi
-            </Button>
-          </Form>
+                    {errors.email && (
+                      <Form.Control.Feedback type="invalid">
+                        {errors.email}
+                      </Form.Control.Feedback>
+                    )}
+                  </InputGroup>
+                </Form.Group>
+
+                <Form.Group controlId="formLoginPassword">
+                  <Form.Label>Lozinka</Form.Label>
+                  <InputGroup>
+                    <InputGroup.Prepend>
+                      <InputGroup.Text id="btnGroupAddon">
+                        <Icon.LockFill className="text-success" />
+                      </InputGroup.Text>
+                    </InputGroup.Prepend>
+                    <Form.Control
+                      onChange={handleChange}
+                      type="password"
+                      name="password"
+                      placeholder="Lozinka"
+                      value={values.password}
+                      isValid={touched.password && !errors.password}
+                      isInvalid={!!errors.password}
+                    />
+
+                    {errors.password && (
+                      <Form.Control.Feedback type="invalid">
+                        {errors.password}
+                      </Form.Control.Feedback>
+                    )}
+                  </InputGroup>
+                </Form.Group>
+                <hr />
+                <Button
+                  className="float-right ml-2"
+                  variant="light"
+                  onClick={() => this.props.setLoginModalVisibility(false)}
+                >
+                  Odustani
+                </Button>
+                <Button
+                  className="float-right"
+                  type="submit"
+                  variant="success"
+                  disabled={!(isValid && dirty)}
+                >
+                  Potvrdi
+                </Button>
+              </Form>
+            )}
+          </Formik>
         </Modal.Body>
       </Modal>
     );
