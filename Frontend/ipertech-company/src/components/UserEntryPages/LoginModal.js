@@ -9,15 +9,9 @@ import { Formik } from "formik";
 import { loginValidationSchema as schema } from "./../../shared/validation";
 
 export class LoginModal extends Component {
-  handleChangeInputValue = e => {
-    const { target } = e;
-    this.setState({ [target.type]: target.value });
-  };
   handleOnSubmitLoginForm = form => {
-    setTimeout(() => {
-      this.props.loginUser(form.email, form.password);
-      this.props.setLoginModalVisibility(false);
-    }, 500);
+    this.props.loginUser(form.email, form.password);
+    this.props.setLoginModalVisibility(false);
   };
   render() {
     return (
