@@ -55,7 +55,7 @@ namespace IpertechCompany.WebAPI.Controllers
 
             if (!(user != null))
             {
-                return BadRequest("User name or password is incorrect");
+                return UnprocessableEntity("User name or password is incorrect");
             }
             return Ok(_userService.AuthenticateUser(_mapper.Map<User>(user)));
         }
