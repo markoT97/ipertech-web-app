@@ -58,18 +58,16 @@ namespace IpertechCompany.Services
             return _userRepository.Get(userId);
         }
 
-        public string LoginUser(UserLogin userLogin)
+        public User GetByUserLogin(UserLogin userLogin)
         {
-            if (!(userLogin != null))
-            {
-                throw new ArgumentNullException("user", "Parameter is null.");
-            }
+            return _userRepository.Get(userLogin);
+        }
 
-            var user = _userRepository.Get(userLogin);
-
+        public string AuthenticateUser(User user)
+        {
             if (!(user != null))
             {
-                throw new InvalidOperationException("Specified user does not exists.");
+                throw new ArgumentNullException("user", "Parameter is null.");
             }
 
             var secretCode = "fds6743129hvf89ry42bvfe29ggb59y4hbg948943bufr89b48ibg94";

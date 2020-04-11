@@ -51,7 +51,13 @@ namespace IpertechCompany.WebAPI.Controllers
         [Route("login")]
         public IActionResult LoginUser(UserLoginViewModel userLoginViewModel)
         {
-            return Ok(_userService.LoginUser(_mapper.Map<UserLogin>(userLoginViewModel)));
+            var user = _userService.GetByUserLogin(_mapper.Map<UserLogin>(userLoginViewModel));
+
+            if (!(user != null))
+            {
+                return BadRequest("User name or password is incorrect");
+            }
+            return Ok(_userService.AuthenticateUser(_mapper.Map<User>(user)));
         }
 
         [AllowAnonymous]

@@ -8,8 +8,9 @@ namespace IpertechCompany.IServices
     {
         IEnumerable<User> GetAllUsers();
         User GetByUserId(Guid userId);
+        User GetByUserLogin(UserLogin userLogin);
         User CreateUser(User user);
-        string LoginUser(UserLogin userLogin);
+        string AuthenticateUser(User user);
         void UpdateUser(User user);
         void UpdateUser(UserImage userImage);
         void UpdateUser(UserPassword userPassword);
