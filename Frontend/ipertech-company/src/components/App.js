@@ -8,12 +8,14 @@ import { Container, Row, Col } from "react-bootstrap";
 import LoginModal from "./UserEntryPages/LoginModal";
 import RegisterModal from "./UserEntryPages/RegisterModal";
 import BillModal from "./UserProfilePage/BillModal";
+import Notifications from "./Notifications";
 
 function App() {
   return (
     <div className="App">
       <Router>
         <Navigation />
+        <Notifications />
         <LoginModal />
         <RegisterModal />
         <BillModal />
