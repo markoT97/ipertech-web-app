@@ -75,9 +75,14 @@ namespace IpertechCompany.DbRepositories
             using (var connection = _dbContext.Connect())
             {
                 const string query = "SELECT *" +
-                                    " FROM useractions.[User] " +
+                                    " FROM useractions.[User] u" +
+                                    " INNER JOIN useractions.UserContract uc ON u.UserContractID = uc.UserContractID" +
                                     " WHERE Email = @Email AND Password = @Password";
-                return connection.QuerySingleOrDefault<User>(query, new { userLogin.Email, userLogin.Password });
+                return connection.Query<User, UserContract, User>(query, (user, userContract) =>
+                {
+                    user.UserContract = userContract;
+                    return user;
+                }, splitOn: "UserContractID", param: new { userLogin.Email, userLogin.Password }).SingleOrDefault();
             }
         }
 
