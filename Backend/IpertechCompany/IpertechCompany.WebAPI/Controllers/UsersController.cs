@@ -62,7 +62,7 @@ namespace IpertechCompany.WebAPI.Controllers
 
         [AllowAnonymous]
         [HttpPost]
-        public IActionResult RegisterUser(UserPasswordViewModel user)
+        public IActionResult RegisterUser(UserViewModel user)
         {
             User insertedUser = _userService.CreateUser(_mapper.Map<User>(user));
 
