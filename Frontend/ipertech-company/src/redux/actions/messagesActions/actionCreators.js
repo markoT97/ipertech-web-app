@@ -7,7 +7,11 @@ import {
 } from "./actionTypes";
 import axios from "axios";
 import { BACKEND_URL } from "../backendServerSettings";
-import { numberOfMessagesPerPage } from "../../../shared/constants";
+import {
+  numberOfMessagesPerPage,
+  notificationTypes
+} from "../../../shared/constants";
+import { addNotification } from "../notificationsActions/actionCreators";
 
 export function fetchMessages(offset, numberOfRows) {
   return dispatch => {
@@ -98,6 +102,15 @@ export function insertUserMessage(user, message) {
         if (response.status >= 400) {
           throw new Error("Bad response from server");
         }
+
+        dispatch(
+          addNotification({
+            type: notificationTypes.SUCCESS,
+            message: "Vaša poruka je dodata u ćaskanje",
+            duration: 5000
+          })
+        );
+
         return dispatch({
           type: INSERT_MESSAGE,
           newUserMessage: { user, message }
@@ -117,6 +130,15 @@ export function deleteMessage(messageId) {
         if (response.status >= 400) {
           throw new Error("Bad response from server");
         }
+
+        dispatch(
+          addNotification({
+            type: notificationTypes.INFO,
+            message: "Vaša poruka je izbrisana iz ćaskanja",
+            duration: 5000
+          })
+        );
+
         return dispatch(fetchMessages(0, numberOfMessagesPerPage));
       })
       .catch(error => {

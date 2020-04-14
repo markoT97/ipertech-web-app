@@ -38,7 +38,7 @@ namespace IpertechCompany.DbRepositories
             return (rowsAffected > 0);
         }
 
-        public User Get(Guid userId)
+        public User Get(Guid userContractId)
         {
             using (var connection = _dbContext.Connect())
             {
@@ -49,7 +49,7 @@ namespace IpertechCompany.DbRepositories
                                     " LEFT JOIN packets.TvPacket tp ON pc.TvPacketID = tp.TvPacketID" +
                                     " LEFT JOIN packets.PhonePacket pp ON pc.PhonePacketID = pp.PhonePacketID" +
                                     " LEFT JOIN useractions.Bill b ON uc.UserContractID = b.UserContractID" +
-                                    " WHERE u.UserID = @UserID AND b.IsPaid = 0" +
+                                    " WHERE uc.UserContractID = @UserContractID AND (b.IsPaid = 0 OR b.isPaid IS NULL)" +
                                     " ORDER BY b.StartDate DESC";
                 return connection.Query<User, UserContract, PacketCombination, InternetPacket, TvPacket, PhonePacket, Bill, User>(query, (user, userContract, packetCombination, internetPacket, tvPacket, phonePacket, bill) =>
                 {
@@ -61,7 +61,7 @@ namespace IpertechCompany.DbRepositories
                     user.Bills.Add(bill);
 
                     return user;
-                }, splitOn: "UserContractID, PacketCombinationID, InternetPacketID, TvPacketID, PhonePacketID, BillID", param: new { UserID = userId }).GroupBy(user => user.UserId).Select(group =>
+                }, splitOn: "UserContractID, PacketCombinationID, InternetPacketID, TvPacketID, PhonePacketID, BillID", param: new { UserContractID = userContractId }).GroupBy(user => user.UserId).Select(group =>
                 {
                     var userWithBills = group.First();
                     userWithBills.Bills = group.Select(user => user.Bills.Single()).ToList();

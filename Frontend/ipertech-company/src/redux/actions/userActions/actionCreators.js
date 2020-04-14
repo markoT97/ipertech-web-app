@@ -8,8 +8,10 @@ import {
   UPDATE_USER_IMAGE
 } from "./actionTypes";
 import { updateMessagesUserImage } from "./../messagesActions/actionCreators";
+import { addNotification } from "../notificationsActions/actionCreators";
+import { notificationTypes } from "../../../shared/constants";
 
-export function fetchUserById(id) {
+export function fetchUserByContractId(id) {
   return dispatch => {
     axios
       .get(BACKEND_URL + "api/users/" + id)
@@ -40,10 +42,44 @@ export function insertUser(user) {
           throw new Error("Bad response from server");
         }
 
-        const user = response.data;
-        console.log("Inserted user:");
-        console.log(user);
+        dispatch(
+          addNotification({
+            type: notificationTypes.SUCCESS,
+            message: "Uspešno ste se registrovali",
+            duration: 5000
+          })
+        );
+
         return dispatch({ type: INSERT_USER, insertedUser: user });
+      })
+      .catch(err => {
+        if (!err.response) {
+          return dispatch(
+            addNotification({
+              type: notificationTypes.ERROR,
+              message: "Imejl se već koristi",
+              duration: 5000
+            })
+          );
+        }
+
+        const { status } = err.response;
+        if (status === 404) {
+          return dispatch(
+            addNotification({
+              type: notificationTypes.ERROR,
+              message: "Broj ugovora je nevažeći",
+              duration: 5000
+            })
+          );
+        } else if (status === 409)
+          return dispatch(
+            addNotification({
+              type: notificationTypes.ERROR,
+              message: "Već postoji Korisnik sa tim brojem ugovora",
+              duration: 5000
+            })
+          );
       });
   };
 }
@@ -73,10 +109,15 @@ export function fetchPacketCombinationByInternetAndTvAndPhonePacketId(
         const foundedPacketCombination = response.data;
 
         if (!foundedPacketCombination) {
-          throw new Error("Packet combination does not exists");
+          return dispatch(
+            addNotification({
+              type: notificationTypes.ERROR,
+              message:
+                "Izabrana kombinacija paketa trenutno ne postoji u ponudi",
+              duration: 5000
+            })
+          );
         }
-
-        console.log(foundedPacketCombination);
 
         dispatch(
           updateUserContract({
@@ -108,16 +149,20 @@ function updateUserContract(userContract) {
         }
 
         const updatedUserContract = response.data;
-        console.log("Updated user contract: ");
-        console.log(updatedUserContract);
-        //return dispatch({ type: CHANGE_TV_PACKET, insertedUser: user });
+        return dispatch(
+          addNotification({
+            type: notificationTypes.SUCCESS,
+            message:
+              "Vaš paket je sada " + updatedUserContract.packetCombination.name,
+            duration: 5000
+          })
+        );
       });
   };
 }
 
 export function updateUserImage(userImage) {
   return dispatch => {
-    console.log(userImage.image);
     let data = new FormData();
     data.append("userId", userImage.userId);
     data.append("image", userImage.image);
@@ -131,6 +176,15 @@ export function updateUserImage(userImage) {
           throw new Error("Bad response from server");
         }
         const imageLocation = response.data + "?" + Date.now();
+
+        dispatch(
+          addNotification({
+            type: notificationTypes.SUCCESS,
+            message: "Vaša slika je uspešno ažurirana",
+            duration: 5000
+          })
+        );
+
         dispatch(updateMessagesUserImage(userImage.userId, imageLocation));
         return dispatch({
           type: UPDATE_USER_IMAGE,
@@ -151,10 +205,13 @@ export function updateUserPassword(newPassword) {
           throw new Error("Bad response from server");
         }
 
-        const updatedUserPassword = response.data;
-        console.log("Updated user password: ");
-        console.log(updatedUserPassword);
-        //return dispatch({ type: CHANGE_TV_PACKET, insertedUser: user });
+        return dispatch(
+          addNotification({
+            type: notificationTypes.SUCCESS,
+            message: "Vaša lozinka je uspešno ažurirana",
+            duration: 5000
+          })
+        );
       });
   };
 }

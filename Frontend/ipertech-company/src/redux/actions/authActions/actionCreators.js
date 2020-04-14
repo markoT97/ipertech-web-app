@@ -6,6 +6,8 @@ import { SET_CURRENT_USER, UNSET_CURRENT_USER } from "./actionTypes";
 import setAuthorizationToken from "./../../../utils/setAuthorizationToken";
 import jwtDecode from "jwt-decode";
 import { fromUnixTime } from "date-fns";
+import { addNotification } from "../notificationsActions/actionCreators";
+import { notificationTypes } from "../../../shared/constants";
 
 let axiosInterceptor = null;
 
@@ -18,10 +20,6 @@ export function loginUser(email, password) {
         password: password
       })
       .then(response => {
-        if (response.status >= 400) {
-          throw new Error("Bad response from server");
-        }
-
         const token = response.data;
         const decodedToken = jwtDecode(token);
 
@@ -47,7 +45,14 @@ export function loginUser(email, password) {
         });
       })
       .catch(err => {
-        console.error(err);
+        console.log(JSON.stringify(err.response.status));
+        dispatch(
+          addNotification({
+            type: notificationTypes.ERROR,
+            message: "Netačan imejl i lozinka",
+            duration: 5000
+          })
+        );
       });
   };
 }

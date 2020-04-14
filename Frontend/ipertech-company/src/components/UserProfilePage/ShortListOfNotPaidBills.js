@@ -4,7 +4,7 @@ import * as Icon from "react-bootstrap-icons";
 import { format } from "date-fns";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { fetchUserById } from "../../redux/actions/userActions/actionCreators";
+import { fetchUserByContractId } from "../../redux/actions/userActions/actionCreators";
 import { setTableOfBillsVisibility } from "../../redux/actions/tableOfBillsActions/actionCreators";
 import { numberOfBillsPerPage } from "../../shared/constants";
 import {
@@ -114,7 +114,12 @@ const mapStateToProps = state => {
 
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
-    { fetchUserById, fetchBills, fetchCountOfBills, setTableOfBillsVisibility },
+    {
+      fetchUserByContractId,
+      fetchBills,
+      fetchCountOfBills,
+      setTableOfBillsVisibility
+    },
     dispatch
   );
 };

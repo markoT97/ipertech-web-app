@@ -7,7 +7,7 @@ namespace IpertechCompany.IRepositories
     public interface IUserRepository
     {
         IEnumerable<User> GetAll();
-        User Get(Guid userId);
+        User Get(Guid userContractId);
         User Get(UserLogin userLogin);
         User Insert(User user);
         void Update(User user);

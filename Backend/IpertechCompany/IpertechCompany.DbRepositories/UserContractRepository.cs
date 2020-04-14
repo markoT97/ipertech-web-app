@@ -46,6 +46,16 @@ namespace IpertechCompany.DbRepositories
             }
         }
 
+        public UserContract GetById(Guid userContractId)
+        {
+            using (var connection = _dbContext.Connect())
+            {
+                const string query = "SELECT * FROM useractions.UserContract" +
+                                    " WHERE UserContractID = @UserContractID";
+                return connection.QuerySingleOrDefault<UserContract>(query, new { UserContractID = userContractId });
+            }
+        }
+
         public UserContract Insert(UserContract userContract)
         {
             var insertedUserContract = userContract;

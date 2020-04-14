@@ -4,7 +4,7 @@ import * as Icon from "react-bootstrap-icons";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import {
-  fetchUserById,
+  fetchUserByContractId,
   fetchPacketCombinationByInternetAndTvAndPhonePacketId
 } from "./../../redux/actions/userActions/actionCreators";
 import fetchInternetPackets from "./../../redux/actions/internetPacketsActions/actionCreators";
@@ -341,7 +341,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      fetchUserById,
+      fetchUserByContractId,
       fetchInternetPackets,
       fetchTvPackets,
       fetchPhonePackets,

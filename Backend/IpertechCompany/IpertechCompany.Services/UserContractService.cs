@@ -40,6 +40,11 @@ namespace IpertechCompany.Services
             return _userContractRepository.GetAll();
         }
 
+        public UserContract GetByUserContractId(Guid userContractId)
+        {
+            return _userContractRepository.GetById(userContractId);
+        }
+
         public void UpdateUserContract(UserContract userContract)
         {
             if (!(userContract != null))

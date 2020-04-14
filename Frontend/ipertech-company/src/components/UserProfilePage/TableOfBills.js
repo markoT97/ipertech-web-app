@@ -4,7 +4,7 @@ import calculatePaginationOffset from "./../../utils/calculatePaginationOffset";
 import { format } from "date-fns";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { fetchUserById } from "../../redux/actions/userActions/actionCreators";
+import { fetchUserByContractId } from "../../redux/actions/userActions/actionCreators";
 import {
   setTableOfBillsVisibility,
   setTableOfBillsCurrentPage
@@ -122,7 +122,7 @@ const mapStateToProps = state => {
 const mapDispatchToProps = dispatch => {
   return bindActionCreators(
     {
-      fetchUserById,
+      fetchUserByContractId,
       fetchBills,
       setTableOfBillsVisibility,
       setTableOfBillsCurrentPage,

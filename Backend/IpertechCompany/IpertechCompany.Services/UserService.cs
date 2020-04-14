@@ -53,9 +53,9 @@ namespace IpertechCompany.Services
             return _userRepository.GetAll();
         }
 
-        public User GetByUserId(Guid userId)
+        public User GetByUserContractId(Guid userContractId)
         {
-            return _userRepository.Get(userId);
+            return _userRepository.Get(userContractId);
         }
 
         public User GetByUserLogin(UserLogin userLogin)
@@ -80,6 +80,7 @@ namespace IpertechCompany.Services
             var claims = new List<Claim>()
             {
                 new Claim("userId", user.UserId.ToString()),
+                new Claim("userContractId", user.UserContract.UserContractId.ToString()),
                 new Claim("email", user.Email),
                 new Claim("role", user.Role),
                 new Claim("firstName", user.FirstName),

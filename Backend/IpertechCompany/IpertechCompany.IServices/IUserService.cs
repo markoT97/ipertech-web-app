@@ -7,7 +7,7 @@ namespace IpertechCompany.IServices
     public interface IUserService
     {
         IEnumerable<User> GetAllUsers();
-        User GetByUserId(Guid userId);
+        User GetByUserContractId(Guid userContractId);
         User GetByUserLogin(UserLogin userLogin);
         User CreateUser(User user);
         string AuthenticateUser(User user);

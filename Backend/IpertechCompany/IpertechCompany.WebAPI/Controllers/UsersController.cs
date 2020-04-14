@@ -21,13 +21,17 @@ namespace IpertechCompany.WebAPI.Controllers
     public class UsersController : ControllerBase
     {
         private readonly IUserRepository _userRepository;
+        private readonly IUserContractRepository _userContractRepository;
         private readonly IUserService _userService;
+        private readonly IUserContractService _userContractService;
         private readonly IMapper _mapper;
 
         public UsersController(IDbContext dbContext, IUserRepository userRepository, IUserService userService, IConfiguration configuration, IMapper mapper)
         {
             _userRepository = new UserRepository(dbContext);
+            _userContractRepository = new UserContractRepository(dbContext);
             _userService = new UserService(_userRepository, configuration);
+            _userContractService = new UserContractService(_userContractRepository);
             _mapper = mapper;
         }
 
@@ -43,7 +47,7 @@ namespace IpertechCompany.WebAPI.Controllers
         [Route("{id}")]
         public IActionResult GetUserById(Guid id)
         {
-            return Ok(_mapper.Map<UserViewModel>(_userService.GetByUserId(id)));
+            return Ok(_mapper.Map<UserViewModel>(_userService.GetByUserContractId(id)));
         }
 
         [AllowAnonymous]
@@ -64,6 +68,20 @@ namespace IpertechCompany.WebAPI.Controllers
         [HttpPost]
         public IActionResult RegisterUser(UserViewModel user)
         {
+            UserContract foundedUserContract = _userContractService.GetByUserContractId(user.UserContract.UserContractId);
+
+            if (!(foundedUserContract != null))
+            {
+                return NotFound("User contract ID does not exist");
+            }
+
+            User foundedUser = _userService.GetByUserContractId(user.UserContract.UserContractId);
+
+            if (!(foundedUser == null))
+            {
+                return Conflict("User with this contract id already exists");
+            }
+
             User insertedUser = _userService.CreateUser(_mapper.Map<User>(user));
 
             return CreatedAtAction(nameof(GetUserById), new { id = insertedUser.UserId }, insertedUser);

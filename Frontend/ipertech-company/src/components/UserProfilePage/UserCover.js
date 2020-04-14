@@ -5,14 +5,14 @@ import { BACKEND_URL } from "../../redux/actions/backendServerSettings";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import {
-  fetchUserById,
+  fetchUserByContractId,
   updateUserImage
 } from "./../../redux/actions/userActions/actionCreators";
 import { FilePicker } from "react-file-picker";
 
 export class UserCover extends Component {
   componentDidMount() {
-    this.props.fetchUserById(this.props.auth.user.userId);
+    this.props.fetchUserByContractId(this.props.auth.user.userContractId);
   }
   render() {
     const { user } = this.props;
@@ -77,7 +77,10 @@ const mapStateToProps = state => {
 };
 
 const mapDispatchToProps = dispatch => {
-  return bindActionCreators({ fetchUserById, updateUserImage }, dispatch);
+  return bindActionCreators(
+    { fetchUserByContractId, updateUserImage },
+    dispatch
+  );
 };
 
 export default connect(mapStateToProps, mapDispatchToProps)(UserCover);
