@@ -14,7 +14,7 @@ export class Notification extends Component {
   render() {
     const { notifications } = this.props;
     return (
-      <div style={{ position: "fixed", zIndex: 100, right: 0 }}>
+      <div style={{ position: "fixed", width: "20em", zIndex: 100, right: 0 }}>
         {notifications.map((n, i) => {
           return (
             <FadeIn key={i}>
