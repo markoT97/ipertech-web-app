@@ -7,7 +7,7 @@ import { format } from "date-fns";
 export class Bill extends Component {
   render() {
     const { selectedBill } = this.props.bills;
-    const vat = (selectedBill.price * 20) / 10;
+    const vat = ((selectedBill.price * 20) / 100).toFixed(2);
     return (
       <svg
         id="bill"
