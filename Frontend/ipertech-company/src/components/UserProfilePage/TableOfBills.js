@@ -16,6 +16,8 @@ import {
   fetchSelectedBill
 } from "./../../redux/actions/billsActions/actionCreators";
 
+const numberOfPageItemsInRow = 3;
+
 export class TableOfBills extends Component {
   handleOnBillClick = selectedBill => {
     this.props.fetchSelectedBill(selectedBill);
@@ -24,12 +26,24 @@ export class TableOfBills extends Component {
   render() {
     const { user, bills, tableOfBills } = this.props;
 
-    let numberOfPages =
+    let numberOfPages = Math.trunc(
       bills.totalCount / numberOfBillsPerPage +
-      (bills.totalCount % numberOfBillsPerPage > 0 ? 1 : 0);
+        (bills.totalCount % numberOfBillsPerPage > 0 ? 1 : 0)
+    );
 
     let paginationItems = [];
-    for (let number = 1; number <= numberOfPages; number++) {
+    for (
+      let number =
+        tableOfBills.currentPage + 1 < numberOfPages
+          ? tableOfBills.currentPage
+          : tableOfBills.currentPage - 2;
+      number <=
+        tableOfBills.currentPage +
+          numberOfPageItemsInRow -
+          (numberOfPages % 2 !== 0 ? 1 : 0) -
+          1 && number <= numberOfPages;
+      number++
+    ) {
       paginationItems.push(
         <Pagination.Item
           onClick={() => {
@@ -93,12 +107,107 @@ export class TableOfBills extends Component {
 
               {bills.totalCount > numberOfBillsPerPage && (
                 <Pagination className="justify-content-center">
-                  <Pagination.First />
-                  <Pagination.Prev />
+                  {tableOfBills.currentPage > 1 && (
+                    <Pagination.First
+                      onClick={() => {
+                        this.props.fetchBills(
+                          user.userContract.userContractId,
+                          calculatePaginationOffset(1, numberOfBillsPerPage),
+                          numberOfBillsPerPage
+                        );
+                        this.props.setTableOfBillsCurrentPage(1);
+                      }}
+                    />
+                  )}
+                  {tableOfBills.currentPage > 1 && (
+                    <Pagination.Prev
+                      onClick={() => {
+                        if (tableOfBills.currentPage !== 1) {
+                          this.props.fetchBills(
+                            user.userContract.userContractId,
+                            calculatePaginationOffset(
+                              tableOfBills.currentPage - 1,
+                              numberOfBillsPerPage
+                            ),
+                            numberOfBillsPerPage
+                          );
+                          this.props.setTableOfBillsCurrentPage(
+                            tableOfBills.currentPage - 1
+                          );
+                        }
+                      }}
+                    />
+                  )}
+                  {tableOfBills.currentPage - 1 >= 1 && (
+                    <Pagination.Ellipsis
+                      onClick={() => {
+                        this.props.fetchBills(
+                          user.userContract.userContractId,
+                          calculatePaginationOffset(
+                            paginationItems[0].props.children - 1,
+                            numberOfBillsPerPage
+                          ),
+                          numberOfBillsPerPage
+                        );
+                        this.props.setTableOfBillsCurrentPage(
+                          paginationItems[0].props.children - 1
+                        );
+                      }}
+                    />
+                  )}
                   {paginationItems}
-                  <Pagination.Ellipsis />
-                  <Pagination.Next />
-                  <Pagination.Last />
+                  {tableOfBills.currentPage + 1 < numberOfPages && (
+                    <Pagination.Ellipsis
+                      onClick={() => {
+                        this.props.fetchBills(
+                          user.userContract.userContractId,
+                          calculatePaginationOffset(
+                            tableOfBills.currentPage + numberOfPageItemsInRow,
+                            numberOfBillsPerPage
+                          ),
+                          numberOfBillsPerPage
+                        );
+                        this.props.setTableOfBillsCurrentPage(
+                          paginationItems[paginationItems.length - 1].props
+                            .children
+                        );
+                      }}
+                    />
+                  )}
+                  {tableOfBills.currentPage < numberOfPages && (
+                    <Pagination.Next
+                      onClick={() => {
+                        if (tableOfBills.currentPage < numberOfPages) {
+                          this.props.fetchBills(
+                            user.userContract.userContractId,
+                            calculatePaginationOffset(
+                              tableOfBills.currentPage + 1,
+                              numberOfBillsPerPage
+                            ),
+                            numberOfBillsPerPage
+                          );
+                          this.props.setTableOfBillsCurrentPage(
+                            tableOfBills.currentPage + 1
+                          );
+                        }
+                      }}
+                    />
+                  )}
+                  {tableOfBills.currentPage < numberOfPages && (
+                    <Pagination.Last
+                      onClick={() => {
+                        this.props.fetchBills(
+                          user.userContract.userContractId,
+                          calculatePaginationOffset(
+                            numberOfPages,
+                            numberOfBillsPerPage
+                          ),
+                          numberOfBillsPerPage
+                        );
+                        this.props.setTableOfBillsCurrentPage(numberOfPages);
+                      }}
+                    />
+                  )}
                 </Pagination>
               )}
             </Col>
