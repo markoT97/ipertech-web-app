@@ -17,7 +17,7 @@ export function fetchLatestPoll(userId) {
         dispatch({ type: FETCH_THE_LATEST_POLL, poll: response.data });
       })
       .catch(error => {
-        console.error(error);
+        //console.error(error);
       });
   };
 }
@@ -50,7 +50,7 @@ export function checkIsUserVotedOnPoll(pollId, userId) {
         });
       })
       .catch(error => {
-        console.error(error);
+        //console.error(error);
       });
   };
 }
@@ -66,7 +66,7 @@ export function fetchNumberOfVotersForPollOptionsByPollId(pollId) {
         });
       })
       .catch(error => {
-        console.error(error);
+        //console.error(error);
       });
   };
 }

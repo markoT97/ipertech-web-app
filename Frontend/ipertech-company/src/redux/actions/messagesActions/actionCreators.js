@@ -24,7 +24,7 @@ export function fetchMessages(offset, numberOfRows) {
         return dispatch({ type: FETCH_MESSAGES, userMessages: response.data });
       })
       .catch(error => {
-        console.error(error);
+        //console.error(error);
       });
   };
 }
@@ -43,7 +43,7 @@ export function fetchCountOfMessages() {
         });
       })
       .catch(error => {
-        console.error(error);
+        //console.error(error);
       });
   };
 }

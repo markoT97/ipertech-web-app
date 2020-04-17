@@ -22,7 +22,7 @@ export function fetchUserByContractId(id) {
         return dispatch({ type: FETCH_USER_BY_ID, user: response.data });
       })
       .catch(error => {
-        console.error(error);
+        //console.error(error);
       });
   };
 }
