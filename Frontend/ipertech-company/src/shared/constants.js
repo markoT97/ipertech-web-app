@@ -4,5 +4,9 @@ export const numberOfMessagesPerPage = 3;
 export const notificationTypes = {
   INFO: "info",
   SUCCESS: "success",
-  ERROR: "error"
+  ERROR: "error",
 };
+
+export const tokenName = "TOKEN";
+
+export const tokenType = "Bearer ";

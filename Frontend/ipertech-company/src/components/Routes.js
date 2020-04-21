@@ -6,8 +6,10 @@ import Internet from "./InternetPage/Internet";
 import Tv from "./TvPage/Tv";
 import Phone from "./PhonePage/Phone";
 import PacketCombinations from "./PacketCombinationsPage/PacketCombinations";
-import requireAuth from "./../utils/requireAuth";
+import AuthRoute from "./../utils/AuthRoute";
 import UserProfile from "./UserProfilePage/UserProfile";
+import { bindActionCreators } from "redux";
+import { connect } from "react-redux";
 
 export class Routes extends Component {
   render() {
@@ -19,13 +21,20 @@ export class Routes extends Component {
         <Route path="/tv" component={Tv}></Route>
         <Route path="/phone" component={Phone}></Route>
         <Route path="/packets" component={PacketCombinations}></Route>
-        <Route
-          path="/user-profile"
-          component={requireAuth(UserProfile)}
-        ></Route>
+        <AuthRoute path="/user-profile" component={UserProfile}></AuthRoute>
       </Switch>
     );
   }
 }
 
-export default Routes;
+const mapStateToProps = (state) => {
+  return {
+    user: state.user,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return bindActionCreators({}, dispatch);
+};
+
+export default connect(mapStateToProps, mapDispatchToProps)(Routes);
