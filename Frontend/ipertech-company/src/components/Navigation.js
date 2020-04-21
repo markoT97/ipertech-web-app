@@ -5,7 +5,7 @@ import logo from "./../logo.svg";
 import { Link } from "react-router-dom";
 import {
   setLoginModalVisibility,
-  setRegisterModalVisibility
+  setRegisterModalVisibility,
 } from "./../redux/actions/modalsActions/actionCreators";
 import { logoutUser } from "../redux/actions/authActions/actionCreators";
 import { bindActionCreators } from "redux";
@@ -14,6 +14,21 @@ import { connect } from "react-redux";
 export class Navigation extends Component {
   render() {
     const { auth } = this.props;
+
+    const adminLinks = (
+      <React.Fragment>
+        <Nav.Link as={Link} to="/admin-panel" className="text-success">
+          Admin Panel
+        </Nav.Link>
+
+        <Nav.Link
+          onClick={() => this.props.logoutUser()}
+          className="text-success"
+        >
+          Odjavi se
+        </Nav.Link>
+      </React.Fragment>
+    );
 
     const userLinks = (
       <React.Fragment>
@@ -74,7 +89,10 @@ export class Navigation extends Component {
               variant="outline-light"
               drop="left"
             >
-              {auth.isAuthenticated ? userLinks : guestLinks}
+              {auth.isAuthenticated
+                ? (auth.user.role === "User" && userLinks) ||
+                  (auth.user.role === "Admin" && adminLinks)
+                : guestLinks}
             </DropdownButton>
           </Dropdown>
         </div>
@@ -108,21 +126,24 @@ export class Navigation extends Component {
           </Nav>
         </Navbar.Collapse>
         <Nav className="d-none d-lg-flex">
-          {auth.isAuthenticated ? userLinks : guestLinks}
+          {auth.isAuthenticated
+            ? (auth.user.role === "User" && userLinks) ||
+              (auth.user.role === "Admin" && adminLinks)
+            : guestLinks}
         </Nav>
       </Navbar>
     );
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     modalsVisibility: state.modalsVisibility,
-    auth: state.auth
+    auth: state.auth,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     { setLoginModalVisibility, setRegisterModalVisibility, logoutUser },
     dispatch

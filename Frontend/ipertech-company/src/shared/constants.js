@@ -8,5 +8,9 @@ export const notificationTypes = {
 };
 
 export const tokenName = "TOKEN";
-
 export const tokenType = "Bearer ";
+
+export const userRoles = {
+  USER: "User",
+  ADMIN: "Admin",
+};

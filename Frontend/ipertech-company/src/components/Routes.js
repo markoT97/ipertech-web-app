@@ -10,6 +10,8 @@ import AuthRoute from "./../utils/AuthRoute";
 import UserProfile from "./UserProfilePage/UserProfile";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
+import { AdminPanel } from "./AdminProfilePage/AdminPanel";
+import { userRoles } from "../shared/constants";
 
 export class Routes extends Component {
   render() {
@@ -21,16 +23,23 @@ export class Routes extends Component {
         <Route path="/tv" component={Tv}></Route>
         <Route path="/phone" component={Phone}></Route>
         <Route path="/packets" component={PacketCombinations}></Route>
-        <AuthRoute path="/user-profile" component={UserProfile}></AuthRoute>
+        <AuthRoute
+          path="/user-profile"
+          component={UserProfile}
+          allowedRole={userRoles.USER}
+        ></AuthRoute>
+        <AuthRoute
+          path="/admin-panel"
+          component={AdminPanel}
+          allowedRole={userRoles.ADMIN}
+        ></AuthRoute>
       </Switch>
     );
   }
 }
 
 const mapStateToProps = (state) => {
-  return {
-    user: state.user,
-  };
+  return {};
 };
 
 const mapDispatchToProps = (dispatch) => {

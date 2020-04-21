@@ -76,7 +76,7 @@ namespace IpertechCompany.DbRepositories
             {
                 const string query = "SELECT *" +
                                     " FROM useractions.[User] u" +
-                                    " INNER JOIN useractions.UserContract uc ON u.UserContractID = uc.UserContractID" +
+                                    " LEFT JOIN useractions.UserContract uc ON u.UserContractID = uc.UserContractID" +
                                     " WHERE Email = @Email AND Password = @Password";
                 return connection.Query<User, UserContract, User>(query, (user, userContract) =>
                 {

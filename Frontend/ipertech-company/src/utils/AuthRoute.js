@@ -8,12 +8,17 @@ import { Route, Redirect } from "react-router-dom";
 
 class AuthRoute extends Component {
   render() {
-    const { isAuthenticated, component: ForwardedComponent } = this.props;
+    const {
+      isAuthenticated,
+      component: ForwardedComponent,
+      currentRole,
+      allowedRole,
+    } = this.props;
 
     return (
       <Route
         render={(props) =>
-          isAuthenticated ? (
+          isAuthenticated && currentRole === allowedRole ? (
             <ForwardedComponent />
           ) : (
             <Redirect
@@ -31,6 +36,7 @@ class AuthRoute extends Component {
 
 const mapStateToProps = (state) => ({
   isAuthenticated: state.auth.isAuthenticated,
+  currentRole: state.auth.user.role,
 });
 
 const mapDispatchToProps = (dispatch) => {
