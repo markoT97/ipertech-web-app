@@ -48,9 +48,11 @@ namespace IpertechCompany.WebAPI.Controllers
         [HttpPost]
         public IActionResult InsertPacketCombination(PacketCombinationViewModel packetCombination)
         {
-            PacketCombinationViewModel insertedPacketCombination = _mapper.Map<PacketCombinationViewModel>(_packetCombinationService.CreatePacketCombination(_mapper.Map<PacketCombination>(packetCombination)));
+            PacketCombinationViewModel insertedPacketCombinationIncomplete = _mapper.Map<PacketCombinationViewModel>(_packetCombinationService.CreatePacketCombination(_mapper.Map<PacketCombination>(packetCombination)));
 
-            return CreatedAtAction(nameof(GetAllPacketCombinations), new { id = insertedPacketCombination.PacketCombinationId }, insertedPacketCombination);
+            PacketCombinationViewModel insertedPacketCombinationComplete = _mapper.Map<PacketCombinationViewModel>(_packetCombinationService.GetPacketCombinationByInternetAndTvAndPhonePacketId(insertedPacketCombinationIncomplete.InternetPacket.InternetPacketId, insertedPacketCombinationIncomplete?.TvPacket?.TvPacketId, insertedPacketCombinationIncomplete?.PhonePacket?.PhonePacketId));
+
+            return CreatedAtAction(nameof(GetAllPacketCombinations), new { id = insertedPacketCombinationComplete.PacketCombinationId }, insertedPacketCombinationComplete);
         }
 
         [Authorize(Roles = "Admin")]

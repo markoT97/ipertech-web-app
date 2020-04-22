@@ -4,7 +4,7 @@ import { BACKEND_URL } from "../../redux/actions/backendServerSettings";
 import "./../App.scss";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import fetchPacketCombinations from "../../redux/actions/packetCombinationsActions/actionCreators";
+import { fetchPacketCombinations } from "../../redux/actions/packetCombinationsActions/actionCreators";
 
 export class Phone extends Component {
   componentDidMount() {
@@ -62,13 +62,13 @@ export class Phone extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    packetCombinations: state.packetCombinations
+    packetCombinations: state.packetCombinations,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ fetchPacketCombinations }, dispatch);
 };
 

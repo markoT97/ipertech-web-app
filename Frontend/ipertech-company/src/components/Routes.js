@@ -10,7 +10,7 @@ import AuthRoute from "./../utils/AuthRoute";
 import UserProfile from "./UserProfilePage/UserProfile";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-import { AdminPanel } from "./AdminProfilePage/AdminPanel";
+import { AdminPanel } from "./AdminPanelPage/AdminPanel";
 import { userRoles } from "../shared/constants";
 
 export class Routes extends Component {
