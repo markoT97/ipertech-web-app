@@ -5,21 +5,21 @@ import { connect } from "react-redux";
 import { setInsertMessageModalVisibility } from "./../../redux/actions/modalsActions/actionCreators";
 import {
   insertMessage,
-  fetchMessages
+  fetchMessages,
 } from "./../../redux/actions/messagesActions/actionCreators";
 import { Formik } from "formik";
-import { insertMessageValidationSchema as schema } from "./../../shared/validation";
+import { insertMessageValidationSchema as schema } from "./../../shared/validation-schemas";
 
 export class InsertMessageForm extends Component {
-  handleOnSubmitMessageForm = form => {
+  handleOnSubmitMessageForm = (form) => {
     this.props.insertMessage(
       {
         userId: this.props.user.userId,
-        imageLocation: this.props.user.imageLocation
+        imageLocation: this.props.user.imageLocation,
       },
       {
         title: form.title,
-        content: form.content
+        content: form.content,
       }
     );
     this.props.setInsertMessageModalVisibility(false);
@@ -51,7 +51,7 @@ export class InsertMessageForm extends Component {
               touched,
               isValid,
               errors,
-              dirty
+              dirty,
             }) => (
               <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="formMessageTitle">
@@ -119,20 +119,20 @@ export class InsertMessageForm extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     modalsVisibility: state.modalsVisibility,
     userMessages: state.userMessages,
-    user: state.user
+    user: state.user,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       setInsertMessageModalVisibility,
       insertMessage,
-      fetchMessages
+      fetchMessages,
     },
     dispatch
   );

@@ -7,16 +7,16 @@ import { setRegisterModalVisibility } from "../../redux/actions/modalsActions/ac
 import { insertUser } from "../../redux/actions/userActions/actionCreators";
 import { BACKEND_URL } from "../../redux/actions/backendServerSettings";
 import { Formik } from "formik";
-import { registerValidationSchema as schema } from "./../../shared/validation";
+import { registerValidationSchema as schema } from "./../../shared/validation-schemas";
 
 export class RegisterModal extends Component {
   state = {
-    showBillExample: false
+    showBillExample: false,
   };
-  handleOnSubmitRegisterForm = form => {
+  handleOnSubmitRegisterForm = (form) => {
     this.props.insertUser({
       userContract: {
-        userContractId: form.userContractId
+        userContractId: form.userContractId,
       },
       firstName: form.firstName,
       lastName: form.lastName,
@@ -24,7 +24,7 @@ export class RegisterModal extends Component {
       email: form.email,
       phoneNumber: form.phoneNumber,
       password: form.password,
-      passwordConfirm: form.passwordConfirm
+      passwordConfirm: form.passwordConfirm,
     });
     this.props.setRegisterModalVisibility(false);
   };
@@ -54,7 +54,7 @@ export class RegisterModal extends Component {
               email: "",
               phoneNumber: "",
               password: "",
-              passwordConfirm: ""
+              passwordConfirm: "",
             }}
           >
             {({
@@ -65,7 +65,7 @@ export class RegisterModal extends Component {
               touched,
               isValid,
               errors,
-              dirty
+              dirty,
             }) => (
               <Form onSubmit={handleSubmit}>
                 <Form.Group controlId="formRegisterContractID">
@@ -317,13 +317,13 @@ export class RegisterModal extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    modalsVisibility: state.modalsVisibility
+    modalsVisibility: state.modalsVisibility,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     { setRegisterModalVisibility, insertUser },
     dispatch

@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { setInsertUserContractModalVisibility } from "../../redux/actions/modalsActions/actionCreators";
 import { insertUserContract } from "../../redux/actions/userContractsActions/actionCreators";
 import { Formik } from "formik";
-import { insertUserContractValidationSchema as schema } from "../../shared/validation";
+import { insertUserContractValidationSchema as schema } from "../../shared/validation-schemas";
 import { fetchPacketCombinations } from "./../../redux/actions/packetCombinationsActions/actionCreators";
 import { userContractDurations } from "../../shared/constants";
 
@@ -106,7 +106,11 @@ export class InsertUserContractModal extends Component {
                     />
                     {userContractDurations.map((duration, i) => {
                       return (
-                        <option key={i} value={duration} label={duration} />
+                        <option
+                          key={i}
+                          value={duration}
+                          label={duration + " meseci/a"}
+                        />
                       );
                     })}
                   </Form.Control>

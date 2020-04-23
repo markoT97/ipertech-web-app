@@ -6,7 +6,7 @@ import { connect } from "react-redux";
 import { setInsertPacketCombinationModalVisibility } from "../../redux/actions/modalsActions/actionCreators";
 import { insertPacketCombination } from "../../redux/actions/packetCombinationsActions/actionCreators";
 import { Formik } from "formik";
-import { insertPacketCombinationValidationSchema as schema } from "../../shared/validation";
+import { insertPacketCombinationValidationSchema as schema } from "../../shared/validation-schemas";
 import fetchInternetPackets from "./../../redux/actions/internetPacketsActions/actionCreators";
 import fetchTvPackets from "./../../redux/actions/tvPacketsActions/actionCreators";
 import fetchPhonePackets from "./../../redux/actions/phonePacketsActions/actionCreators";

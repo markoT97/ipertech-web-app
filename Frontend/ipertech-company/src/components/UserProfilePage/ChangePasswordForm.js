@@ -6,13 +6,13 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { updateUserPassword } from "./../../redux/actions/userActions/actionCreators";
 import { Formik } from "formik";
-import { changePasswordValidationSchema as schema } from "./../../shared/validation";
+import { changePasswordValidationSchema as schema } from "./../../shared/validation-schemas";
 
 export class ChangePasswordForm extends Component {
   handleOnSubmitChangePasswordForm = (values, { resetForm }) => {
     this.props.updateUserPassword({
       userId: this.props.user.userId,
-      password: values.password
+      password: values.password,
     });
     resetForm({});
   };
@@ -46,7 +46,7 @@ export class ChangePasswordForm extends Component {
                   isValid,
                   errors,
                   dirty,
-                  status
+                  status,
                 }) => (
                   <Form onSubmit={handleSubmit}>
                     <Form.Group controlId="formBasicResetPasswordOld">
@@ -105,13 +105,13 @@ export class ChangePasswordForm extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    user: state.user
+    user: state.user,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ updateUserPassword }, dispatch);
 };
 

@@ -6,10 +6,10 @@ import { connect } from "react-redux";
 import { setLoginModalVisibility } from "../../redux/actions/modalsActions/actionCreators";
 import { loginUser } from "../../redux/actions/authActions/actionCreators";
 import { Formik } from "formik";
-import { loginValidationSchema as schema } from "./../../shared/validation";
+import { loginValidationSchema as schema } from "./../../shared/validation-schemas";
 
 export class LoginModal extends Component {
-  handleOnSubmitLoginForm = form => {
+  handleOnSubmitLoginForm = (form) => {
     this.props.loginUser(form.email, form.password);
     this.props.setLoginModalVisibility(false);
   };
@@ -38,7 +38,7 @@ export class LoginModal extends Component {
               touched,
               isValid,
               errors,
-              dirty
+              dirty,
             }) => (
               <Form noValidate onSubmit={handleSubmit}>
                 <Form.Group controlId="formLoginEmail">
@@ -120,13 +120,13 @@ export class LoginModal extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    modalsVisibility: state.modalsVisibility
+    modalsVisibility: state.modalsVisibility,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ setLoginModalVisibility, loginUser }, dispatch);
 };
 

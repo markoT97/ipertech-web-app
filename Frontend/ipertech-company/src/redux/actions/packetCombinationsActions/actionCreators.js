@@ -3,7 +3,7 @@ import { BACKEND_URL } from "../backendServerSettings";
 
 import {
   FETCH_PACKET_COMBINATIONS,
-  INSERT_PACKET_COMBINATIONS,
+  INSERT_PACKET_COMBINATION,
   DELETE_PACKET_COMBINATION,
 } from "./actionTypes";
 import axios from "axios";
@@ -53,7 +53,7 @@ export function insertPacketCombination(packetCombination) {
         const newPacketCombination = response.data;
 
         dispatch({
-          type: INSERT_PACKET_COMBINATIONS,
+          type: INSERT_PACKET_COMBINATION,
           newPacketCombination,
         });
 
