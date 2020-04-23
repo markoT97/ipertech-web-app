@@ -6,6 +6,7 @@ using System;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
+using System.Linq;
 
 namespace IpertechCompany.DbRepositories
 {
@@ -55,9 +56,14 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT * FROM useractions.UserContract" +
+                const string query = "SELECT * FROM useractions.UserContract uc" +
+                                    " INNER JOIN packets.PacketCombination pc ON uc.PacketCombinationID = pc.PacketCombinationID" +
                                     " WHERE UserContractID = @UserContractID";
-                return connection.QuerySingleOrDefault<UserContract>(query, new { UserContractID = userContractId });
+                return connection.Query<UserContract, PacketCombination, UserContract>(query, (userContract, packetCombination) =>
+                {
+                    userContract.PacketCombination = packetCombination;
+                    return userContract;
+                }, splitOn: "PacketCombinationID", param: new { UserContractID = userContractId }).SingleOrDefault();
             }
         }
 

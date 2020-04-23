@@ -38,9 +38,11 @@ namespace IpertechCompany.WebAPI.Models
         [HttpPost]
         public IActionResult InsertUserContract(UserContractViewModel userContract)
         {
-            UserContractViewModel insertedUserContract = _mapper.Map<UserContractViewModel>(_userContractService.CreateUserContract(_mapper.Map<UserContract>(userContract)));
+            UserContractViewModel insertedUserContractIncomplete = _mapper.Map<UserContractViewModel>(_userContractService.CreateUserContract(_mapper.Map<UserContract>(userContract)));
 
-            return CreatedAtAction(nameof(GetAllUserContracts), new { id = insertedUserContract.UserContractId }, insertedUserContract);
+            UserContractViewModel insertedUserContractComplete = _mapper.Map<UserContractViewModel>(_userContractService.GetByUserContractId(insertedUserContractIncomplete.UserContractId));
+
+            return CreatedAtAction(nameof(GetAllUserContracts), new { id = insertedUserContractComplete.UserContractId }, insertedUserContractComplete);
         }
 
         [Authorize(Roles = "User")]
