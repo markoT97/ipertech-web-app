@@ -41,8 +41,13 @@ namespace IpertechCompany.DbRepositories
         {
             using (var connection = _dbContext.Connect())
             {
-                const string query = "SELECT * FROM useractions.UserContract";
-                return connection.Query<UserContract>(query);
+                const string query = "SELECT * FROM useractions.UserContract uc" +
+                                    " INNER JOIN packets.PacketCombination pc ON uc.PacketCombinationID = pc.PacketCombinationID";
+                return connection.Query<UserContract, PacketCombination, UserContract>(query, (userContract, packetCombination) =>
+                {
+                    userContract.PacketCombination = packetCombination;
+                    return userContract;
+                }, splitOn: "PacketCombinationID");
             }
         }
 

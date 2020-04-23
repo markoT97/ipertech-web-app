@@ -1,4 +1,5 @@
 import * as yup from "yup";
+import { userContractDurations } from "./constants";
 
 yup.setLocale({
   mixed: {
@@ -14,6 +15,7 @@ yup.setLocale({
       `Vrednost nije validna (mora biti manja ili jednaka ${min})`,
     max: ({ max }) =>
       `Vrednost nije validna (mora biti veća ili jednaka ${max})`,
+    integer: () => "Vrednost mora biti broj",
   },
 });
 
@@ -51,4 +53,15 @@ export const insertPacketCombinationValidationSchema = yup.object({
   internetPacket: yup.string().required(),
   tvPacket: yup.string(),
   phonePacket: yup.string(),
+});
+
+export const insertUserContractValidationSchema = yup.object({
+  packetCombination: yup.string().min(5).max(50).required(),
+  duration: yup
+    .number()
+    .oneOf(
+      userContractDurations,
+      `Trajanje ugovora može biti ${userContractDurations}`
+    )
+    .required(),
 });

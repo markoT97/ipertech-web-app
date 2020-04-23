@@ -14,3 +14,5 @@ export const userRoles = {
   USER: "User",
   ADMIN: "Admin",
 };
+
+export const userContractDurations = [12, 24];

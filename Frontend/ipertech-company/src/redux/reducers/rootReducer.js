@@ -13,6 +13,7 @@ import billsReducer from "./billsReducer";
 import tableOfBillsReducer from "./tableOfBillsReducer";
 import messagesReducer from "./messagesReducer";
 import notificationsReducer from "./notificationsReducer";
+import userContractsReducer from "./userContractsReducer";
 
 const rootReducer = combineReducers({
   promotions: promotionsReducer,
@@ -28,7 +29,8 @@ const rootReducer = combineReducers({
   bills: billsReducer,
   tableOfBills: tableOfBillsReducer,
   userMessages: messagesReducer,
-  notifications: notificationsReducer
+  notifications: notificationsReducer,
+  userContracts: userContractsReducer,
 });
 
 export default rootReducer;
