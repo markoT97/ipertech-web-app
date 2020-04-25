@@ -31,24 +31,26 @@ export function insertUser(user) {
   return (dispatch) => {
     postUser(user).then((data) => {
       if (data.error) {
+        const { message } = data.error;
         return dispatch(
           addNotification({
             type: notificationTypes.ERROR,
-            message: data.error,
+            message,
             duration: 5000,
           })
         );
       }
+      const { insertedUser, message } = data.success;
       dispatch(
         addNotification({
           type: notificationTypes.SUCCESS,
-          message: data.success.message,
+          message,
           duration: 5000,
         })
       );
       return dispatch({
         type: INSERT_USER,
-        insertedUser: data.success.insertedUser,
+        insertedUser: insertedUser,
       });
     });
   };

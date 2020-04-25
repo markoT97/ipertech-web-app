@@ -2,6 +2,7 @@ import {
   FETCH_THE_LATEST_POLL,
   CHECK_IS_USER_VOTED_ON_POLL,
   FETCH_NUMBER_OF_VOTERS_FOR_POLL_OPTIONS,
+  INCREASE_NUMBER_OF_VOTERS_FOR_POLL,
 } from "./actionTypes";
 import { getLatestPoll } from "../../../services/pollService";
 import {
@@ -26,6 +27,8 @@ export function voteInPoll(optionVoter) {
   return (dispatch) => {
     postVote(optionVoter).then((data) => {
       dispatch(checkIsUserVotedOnPoll(optionVoter.pollId, optionVoter.userId));
+      dispatch(fetchNumberOfVotersForPollOptionsByPollId(optionVoter.pollId));
+      dispatch(increaseNumberOfVoters(optionVoter.pollId));
     });
   };
 }
@@ -53,5 +56,12 @@ export function fetchNumberOfVotersForPollOptionsByPollId(pollId) {
         results,
       });
     });
+  };
+}
+
+export function increaseNumberOfVoters(pollId) {
+  return {
+    type: INCREASE_NUMBER_OF_VOTERS_FOR_POLL,
+    pollId,
   };
 }

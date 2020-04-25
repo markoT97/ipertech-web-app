@@ -35,35 +35,39 @@ export async function authenticateUser(email, password) {
 }
 
 export async function postUser(user) {
-  try {
-    const response = await axios.post(
+  return axios
+    .post(
       BACKEND_URL + "api/users",
       { ...user, role: "User" },
       {
         headers: { "Content-Type": "application/json" },
       }
-    );
-    if (response.status >= 400) {
-      throw new Error("Bad response from server");
-    }
-    return {
-      success: {
-        insertedUser: response.data,
-        message: "Uspešno ste se registrovali",
-      },
-    };
-  } catch (err) {
-    if (!err.response) {
-      return { error: "Imejl se već koristi" };
-    }
-    const { status } = err.response;
-    if (status === 404) {
+    )
+    .then((response) => {
+      if (response.status >= 400) {
+        throw new Error("Bad response from server");
+      }
       return {
-        error: "Broj ugovora je nevažeći",
+        success: {
+          insertedUser: response.data,
+          message: "Uspešno ste se registrovali",
+        },
       };
-    } else if (status === 409)
-      return { error: "Već postoji Korisnik sa tim brojem ugovora" };
-  }
+    })
+    .catch((err) => {
+      if (!err.response) {
+        return { error: { message: "Imejl ili broj telefona se već koriste" } };
+      }
+      const { status } = err.response;
+      if (status === 404) {
+        return {
+          error: { message: "Broj ugovora je nevažeći" },
+        };
+      } else if (status === 409)
+        return {
+          error: { message: "Već postoji Korisnik sa tim brojem ugovora" },
+        };
+    });
 }
 
 export async function patchUserImage(userImage) {
