@@ -3,12 +3,12 @@ import { Carousel, Image } from "react-bootstrap";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import fetchPromotions from "../../redux/actions/promotionsActions/actionCreators";
-import { BACKEND_URL } from "../../redux/actions/backendServerSettings";
+import { BACKEND_URL } from "../../shared/constants";
 
 export class Promotions extends Component {
   state = {
     index: 0,
-    direction: null
+    direction: null,
   };
 
   componentDidMount() {
@@ -45,13 +45,13 @@ export class Promotions extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    promotions: state.promotions
+    promotions: state.promotions,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ fetchPromotions }, dispatch);
 };
 

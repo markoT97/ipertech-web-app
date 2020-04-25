@@ -3,7 +3,7 @@ import { Toast, Image, Button, Row, Col } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
 import { formatDistanceToNow } from "date-fns";
 import { sr } from "date-fns/locale";
-import { BACKEND_URL } from "../../redux/actions/backendServerSettings";
+import { BACKEND_URL } from "../../shared/constants";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { setMessagesCurrentPage } from "../../redux/actions/messagesActions/actionCreators";
@@ -11,7 +11,7 @@ import { numberOfMessagesPerPage } from "../../shared/constants";
 import {
   fetchMessages,
   fetchCountOfMessages,
-  deleteMessage
+  deleteMessage,
 } from "./../../redux/actions/messagesActions/actionCreators";
 import { setInsertMessageModalVisibility } from "./../../redux/actions/modalsActions/actionCreators";
 
@@ -45,7 +45,7 @@ export class Messages extends Component {
                 <small>
                   {formatDistanceToNow(new Date(um.message.createdAt), {
                     locale: sr,
-                    addSuffix: true
+                    addSuffix: true,
                   })}
                 </small>
               </Toast.Header>
@@ -74,22 +74,22 @@ export class Messages extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     auth: state,
     userMessages: state.userMessages,
-    modalsVisibility: state.modalsVisibility
+    modalsVisibility: state.modalsVisibility,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       fetchMessages,
       fetchCountOfMessages,
       deleteMessage,
       setMessagesCurrentPage,
-      setInsertMessageModalVisibility
+      setInsertMessageModalVisibility,
     },
     dispatch
   );

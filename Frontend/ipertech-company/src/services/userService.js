@@ -1,5 +1,5 @@
 import axios from "axios";
-import { BACKEND_URL } from "../redux/actions/backendServerSettings";
+import { BACKEND_URL } from "../shared/constants";
 import {
   decodeToken,
   setAuthorizationToken,

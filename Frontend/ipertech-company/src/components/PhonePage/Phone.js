@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Image, Table } from "react-bootstrap";
-import { BACKEND_URL } from "../../redux/actions/backendServerSettings";
+import { BACKEND_URL } from "../../shared/constants";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
 import fetchPhonePackets from "../../redux/actions/phonePacketsActions/actionCreators";
@@ -47,13 +47,13 @@ export class Phone extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    phonePackets: state.phonePackets
+    phonePackets: state.phonePackets,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ fetchPhonePackets }, dispatch);
 };
 

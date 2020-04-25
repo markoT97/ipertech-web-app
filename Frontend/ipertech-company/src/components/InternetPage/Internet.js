@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Image, Table } from "react-bootstrap";
-import { BACKEND_URL } from "../../redux/actions/backendServerSettings";
+import { BACKEND_URL } from "../../shared/constants";
 import "./../App.scss";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
@@ -57,13 +57,13 @@ export class Internet extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    internetPackets: state.internetPackets
+    internetPackets: state.internetPackets,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ fetchInternetPackets }, dispatch);
 };
 

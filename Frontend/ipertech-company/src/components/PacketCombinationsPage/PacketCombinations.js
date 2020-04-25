@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Image, Table } from "react-bootstrap";
-import { BACKEND_URL } from "../../redux/actions/backendServerSettings";
+import { BACKEND_URL } from "../../shared/constants";
 import "./../App.scss";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";

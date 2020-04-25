@@ -1,12 +1,12 @@
 import React, { Component } from "react";
 import { Jumbotron, Image, Spinner, Button } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
-import { BACKEND_URL } from "../../redux/actions/backendServerSettings";
+import { BACKEND_URL } from "../../shared/constants";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import {
   fetchUserByContractId,
-  updateUserImage
+  updateUserImage,
 } from "./../../redux/actions/userActions/actionCreators";
 import { FilePicker } from "react-file-picker";
 
@@ -21,7 +21,7 @@ export class UserCover extends Component {
       <Jumbotron
         fluid
         style={{
-          backgroundImage: `url(${BACKEND_URL}account/cover-photo.jpg)`
+          backgroundImage: `url(${BACKEND_URL}account/cover-photo.jpg)`,
         }}
       >
         <p className="text-center">
@@ -48,15 +48,15 @@ export class UserCover extends Component {
               minWidth: 100,
               maxWidth: 500,
               minHeight: 100,
-              maxHeight: 500
+              maxHeight: 500,
             }}
-            onChange={fileObject =>
+            onChange={(fileObject) =>
               this.props.updateUserImage({
                 userId: this.props.auth.user.userId,
-                image: fileObject
+                image: fileObject,
               })
             }
-            onError={errMsg => console.error(errMsg)}
+            onError={(errMsg) => console.error(errMsg)}
           >
             <Button variant="light" size="sm">
               <Icon.Camera size={25} />
@@ -69,14 +69,14 @@ export class UserCover extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     auth: state.auth,
-    user: state.user
+    user: state.user,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     { fetchUserByContractId, updateUserImage },
     dispatch

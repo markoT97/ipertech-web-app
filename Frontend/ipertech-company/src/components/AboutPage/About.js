@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Image } from "react-bootstrap";
-import { BACKEND_URL } from "../../redux/actions/backendServerSettings";
+import { BACKEND_URL } from "../../shared/constants";
 
 export class About extends Component {
   render() {

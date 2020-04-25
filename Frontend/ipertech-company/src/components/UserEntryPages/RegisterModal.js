@@ -5,7 +5,7 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import { setRegisterModalVisibility } from "../../redux/actions/modalsActions/actionCreators";
 import { insertUser } from "../../redux/actions/userActions/actionCreators";
-import { BACKEND_URL } from "../../redux/actions/backendServerSettings";
+import { BACKEND_URL } from "../../shared/constants";
 import { Formik } from "formik";
 import { registerValidationSchema as schema } from "./../../shared/validation-schemas";
 
