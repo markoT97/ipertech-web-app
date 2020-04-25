@@ -1,26 +1,16 @@
-import fetch from "cross-fetch";
-import { BACKEND_URL } from "../backendServerSettings";
-
 import { FETCH_TV_PACKETS } from "./actionTypes";
+import { getTvPackets } from "../../../services/tvPacketService";
 
 function fetchTvPackets() {
-  return dispatch => {
-    fetch(BACKEND_URL + "api/tvPackets")
-      .then(res => {
-        if (res.status >= 400) {
-          throw new Error("Bad response from server");
-        }
-        return res.json();
-      })
-      .then(tvPackets => {
-        dispatch({
-          type: FETCH_TV_PACKETS,
-          tvPackets
-        });
-      })
-      .catch(err => {
-        console.error(err);
+  return (dispatch) => {
+    getTvPackets().then((data) => {
+      const { tvPackets } = data.success;
+
+      dispatch({
+        type: FETCH_TV_PACKETS,
+        tvPackets,
       });
+    });
   };
 }
 export default fetchTvPackets;
