@@ -6,9 +6,11 @@ using IpertechCompany.IServices;
 using IpertechCompany.Models;
 using IpertechCompany.Services;
 using IpertechCompany.WebAPI.Models;
+using IpertechCompany.WebAPI.Utils;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 using System;
+using System.IO;
 using System.Linq;
 
 namespace IpertechCompany.WebAPI.Controllers
@@ -53,11 +55,27 @@ namespace IpertechCompany.WebAPI.Controllers
 
         [Authorize(Roles = "Admin")]
         [HttpPost]
-        public IActionResult InsertNotification(NotificationViewModel notification)
+        public IActionResult InsertNotification([FromForm] NotificationViewModel notification)
         {
+            string fileName = notification.NotificationTypeId.ToString() + notification.Title;
+            string fileExtension = Path.GetExtension(notification.Image.FileName);
+            string imagesFolder = "wwwroot\\";
+            string relativeImagePath = "news\\" + fileName + fileExtension;
+            string fullImagePath = imagesFolder + relativeImagePath;
+
+            string imageLocationForDb = relativeImagePath.Replace("\\", "/");
+
+            string locationPath = Path.Combine(Directory.GetCurrentDirectory(), fullImagePath);
+
+            if (!FilesManagement.SaveFile(notification.Image, locationPath))
+            {
+                return BadRequest();
+            }
+
+            notification.ImageLocation = imageLocationForDb;
             NotificationViewModel insertedNotification = _mapper.Map<NotificationViewModel>(_notificationService.CreateNotification(_mapper.Map<Notification>(notification)));
 
-            return CreatedAtAction(nameof(GetNotificationsByNotificationTypeName), new { name = insertedNotification.NotificationType.Name }, insertedNotification);
+            return CreatedAtAction(nameof(GetNotificationsByNotificationTypeName), new { name = "Novosti", numberOfNewestNotifications = 1 }, insertedNotification);
         }
 
         [Authorize(Roles = "Admin")]

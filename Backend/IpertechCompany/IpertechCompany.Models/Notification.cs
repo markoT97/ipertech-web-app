@@ -7,6 +7,8 @@ namespace IpertechCompany.Models
     {
         public Guid NotificationId { get; set; }
         public NotificationType NotificationType { get; set; }
+        public Guid NotificationTypeId { get; set; }
+        public string NotificationTypeName { get; set; }
         public string Title { get; set; }
         public string Content { get; set; }
         public DateTime CreatedAt { get; set; }
@@ -34,8 +36,8 @@ namespace IpertechCompany.Models
 
         public bool IsValid()
         {
-            if (!(!NotificationId.Equals(Guid.Empty) && !NotificationType.Equals(null) && Title != null &&
-                  ImageLocation != null))
+            if (!(!NotificationId.Equals(Guid.Empty) && !NotificationTypeId.Equals(Guid.Empty) && Title != null
+                  ))
             {
                 return false;
             }

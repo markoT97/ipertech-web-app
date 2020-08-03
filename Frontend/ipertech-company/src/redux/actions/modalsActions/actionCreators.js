@@ -5,6 +5,7 @@ import {
   SET_INSERT_MESSAGE_FORM_VISIBILITY,
   SET_INSERT_PACKET_COMBINATION_FORM_VISIBILITY,
   SET_INSERT_USER_CONTRACT_FORM_VISIBILITY,
+  SET_INSERT_NEWS_FORM_VISIBILITY,
 } from "./actionTypes";
 
 export function setLoginModalVisibility(visibility) {
@@ -45,6 +46,13 @@ export function setInsertPacketCombinationModalVisibility(visibility) {
 export function setInsertUserContractModalVisibility(visibility) {
   return {
     type: SET_INSERT_USER_CONTRACT_FORM_VISIBILITY,
+    visibility,
+  };
+}
+
+export function setInsertNewsModalVisibility(visibility) {
+  return {
+    type: SET_INSERT_NEWS_FORM_VISIBILITY,
     visibility,
   };
 }

@@ -65,3 +65,16 @@ export const insertUserContractValidationSchema = yup.object({
     )
     .required(),
 });
+
+export const insertNewsValidationSchema = yup.object({
+  title: yup.string().min(10).max(15).required(),
+  content: yup.string().min(30).max(100).required(),
+  image: yup
+    .mixed()
+    .required()
+    .test("imageFormat", "Izaberite sliku formata .png ili .jpeg", (value) => {
+      return (
+        value && (value.type === "image/jpeg" || value.type === "image/png")
+      );
+    }),
+});

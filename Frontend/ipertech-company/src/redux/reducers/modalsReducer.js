@@ -5,6 +5,7 @@ import {
   SET_INSERT_MESSAGE_FORM_VISIBILITY,
   SET_INSERT_PACKET_COMBINATION_FORM_VISIBILITY,
   SET_INSERT_USER_CONTRACT_FORM_VISIBILITY,
+  SET_INSERT_NEWS_FORM_VISIBILITY,
 } from "../actions/modalsActions/actionTypes";
 
 const initialModalsVisibility = {
@@ -46,6 +47,11 @@ function modalsVisibilityReducer(
       return {
         ...modalsVisibility,
         insertUserContractModalVisibility: action.visibility,
+      };
+    case SET_INSERT_NEWS_FORM_VISIBILITY:
+      return {
+        ...modalsVisibility,
+        insertNewsModalVisibility: action.visibility,
       };
     default:
       return modalsVisibility;

@@ -5,6 +5,8 @@ import { bindActionCreators } from "redux";
 import InsertPacketCombinationModal from "./InsertPacketCombinationModal";
 import ContractsTable from "./ContractsTable";
 import InsertUserContractModal from "./InsertUserContractModal";
+import NewsTable from "./NewsTable";
+import InsertNewsModal from "./InsertNewsModal";
 
 export class AdminPanel extends Component {
   render() {
@@ -19,6 +21,10 @@ export class AdminPanel extends Component {
         </h5>
         <ContractsTable />
         <InsertUserContractModal />
+
+        <h5 className="text-danger text-uppercase">Upravljanje novostima</h5>
+        <NewsTable />
+        <InsertNewsModal />
       </div>
     );
   }

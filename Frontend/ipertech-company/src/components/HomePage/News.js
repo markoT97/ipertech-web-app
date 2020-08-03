@@ -3,7 +3,7 @@ import { CardDeck } from "react-bootstrap";
 import PeaceOfNews from "./PeaceOfNews";
 import { connect } from "react-redux";
 import { bindActionCreators } from "redux";
-import fetchNews from "../../redux/actions/newsActions/actionCreators";
+import { fetchNews } from "../../redux/actions/newsActions/actionCreators";
 
 export class Notification extends Component {
   componentDidMount() {
@@ -24,13 +24,13 @@ export class Notification extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
-    news: state.news
+    news: state.news,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({ fetchNews }, dispatch);
 };
 

@@ -92,7 +92,7 @@ namespace IpertechCompany.DbRepositories
             {
                 const string query = "SELECT TOP (@numberOfNewestRows) * FROM notifications.Notification n" +
                                      " INNER JOIN notifications.NotificationType nt ON n.NotificationTypeID = nt.NotificationTypeID" +
-                                     " WHERE nt.Name = @Name" +
+                                     " WHERE nt.Name LIKE @Name" +
                                      " ORDER BY n.CreatedAt DESC";
                 return connection.Query<Notification, NotificationType, Notification>(query, (notification, notificationType) =>
                 {
@@ -114,7 +114,7 @@ namespace IpertechCompany.DbRepositories
                                          " VALUES(@NotificationID, @NotificationTypeID, @Title, @Content, @CreatedAt, @ImageLocation)";
                     command.CommandText = query;
                     command.Parameters.Add("@NotificationID", SqlDbType.UniqueIdentifier).Value = notification.NotificationId;
-                    command.Parameters.Add("@NotificationTypeID", SqlDbType.UniqueIdentifier).Value = notification.NotificationType.NotificationTypeId;
+                    command.Parameters.Add("@NotificationTypeID", SqlDbType.UniqueIdentifier).Value = notification.NotificationTypeId;
                     command.Parameters.Add("@Title", SqlDbType.NVarChar, 50).Value = notification.Title;
                     command.Parameters.Add("@Content", SqlDbType.NVarChar, 500).Value = (object)notification.Content ?? DBNull.Value;
                     command.Parameters.Add("@CreatedAt", SqlDbType.DateTime).Value = notification.CreatedAt;
