@@ -1,4 +1,4 @@
-export const BACKEND_URL = "https://localhost:44309/";
+export const BACKEND_URL = "https://localhost:5001/";
 
 export const numberOfBillsPerPage = 4;
 export const numberOfMessagesPerPage = 3;
