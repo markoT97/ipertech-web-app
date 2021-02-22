@@ -5,7 +5,8 @@ import { addNotification } from "../notificationsActions/actionCreators";
 import { notificationTypes } from "../../../shared/constants";
 import { authenticateUser } from "../../../services/userService";
 
-export function loginUser(email, password) {
+export function loginUser(userLogin) {
+  const { email, password } = userLogin;
   console.log("LOGIN USER");
   return (dispatch) => {
     authenticateUser(email, password).then((data) => {

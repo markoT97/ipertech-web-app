@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 import {
   setLoginModalVisibility,
   setRegisterModalVisibility,
-} from "./../redux/actions/modalsActions/actionCreators";
+} from "../redux/actions/modalsActions/actionCreators";
 import { logoutUser } from "../redux/actions/authActions/actionCreators";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";

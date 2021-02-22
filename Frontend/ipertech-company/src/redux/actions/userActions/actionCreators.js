@@ -28,6 +28,9 @@ export function fetchUserByContractId(id) {
 }
 
 export function insertUser(user) {
+  // Put userContractId into userContract object
+  user = { ...user, userContract: { userContractId: user.userContractId } };
+
   return (dispatch) => {
     postUser(user).then((data) => {
       if (data.error) {

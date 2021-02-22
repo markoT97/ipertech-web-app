@@ -55,15 +55,18 @@ export const insertPacketCombinationValidationSchema = yup.object({
   phonePacket: yup.string(),
 });
 
+const contractDurations = userContractDurations.map(
+  (contract) => contract.contractDurationMonths
+);
+
 export const insertUserContractValidationSchema = yup.object({
-  packetCombination: yup.string().min(5).max(50).required(),
+  packetCombination: yup.string().required(),
   duration: yup
     .number()
     .oneOf(
-      userContractDurations,
-      `Trajanje ugovora može biti ${userContractDurations}`
-    )
-    .required(),
+      contractDurations,
+      `Trajanje ugovora može biti ${contractDurations}`
+    ),
 });
 
 export const insertNewsValidationSchema = yup.object({

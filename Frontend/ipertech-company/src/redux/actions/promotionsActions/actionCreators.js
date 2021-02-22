@@ -1,7 +1,7 @@
 import { FETCH_PROMOTIONS } from "./actionTypes";
 import { getPromotions } from "../../../services/promotionService";
 
-function fetchPromotions() {
+export function fetchPromotions() {
   return (dispatch) => {
     getPromotions().then((data) => {
       const { promotions } = data.success;
@@ -13,4 +13,3 @@ function fetchPromotions() {
     });
   };
 }
-export default fetchPromotions;

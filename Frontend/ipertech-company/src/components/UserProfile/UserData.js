@@ -5,11 +5,11 @@ import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
 import {
   fetchUserByContractId,
-  fetchPacketCombinationByInternetAndTvAndPhonePacketId
-} from "./../../redux/actions/userActions/actionCreators";
-import fetchInternetPackets from "./../../redux/actions/internetPacketsActions/actionCreators";
-import fetchTvPackets from "./../../redux/actions/tvPacketsActions/actionCreators";
-import fetchPhonePackets from "./../../redux/actions/phonePacketsActions/actionCreators";
+  fetchPacketCombinationByInternetAndTvAndPhonePacketId,
+} from "../../redux/actions/userActions/actionCreators";
+import fetchInternetPackets from "../../redux/actions/internetPacketsActions/actionCreators";
+import fetchTvPackets from "../../redux/actions/tvPacketsActions/actionCreators";
+import fetchPhonePackets from "../../redux/actions/phonePacketsActions/actionCreators";
 
 export class UserData extends Component {
   state = {
@@ -19,14 +19,14 @@ export class UserData extends Component {
 
     selectedInternetPacket: { internetPacketId: null, name: "" },
     selectedTvPacket: { tvPacketId: null, name: "" },
-    selectedPhonePacket: { phonePacketId: null, name: "" }
+    selectedPhonePacket: { phonePacketId: null, name: "" },
   };
   render() {
     const { user, internetPackets, tvPackets, phonePackets } = this.props;
     const {
       internetPacket,
       tvPacket,
-      phonePacket
+      phonePacket,
     } = user.userContract.packetCombination;
     return (
       <Table striped responsive className="text-center">
@@ -102,7 +102,7 @@ export class UserData extends Component {
                           tvPacketId: tvPacket ? tvPacket.tvPacketId : null,
                           phonePacketId: phonePacket
                             ? phonePacket.phonePacketId
-                            : null
+                            : null,
                         },
                         user.userContract
                       );
@@ -111,8 +111,8 @@ export class UserData extends Component {
                       isChangeInternetPacketActive: false,
                       selectedInternetPacket: {
                         internetPacketId: null,
-                        name: ""
-                      }
+                        name: "",
+                      },
                     });
                   }}
                   variant="outline-warning mb-2"
@@ -125,7 +125,7 @@ export class UserData extends Component {
                     this.props.fetchInternetPackets();
                     this.setState({
                       isChangeInternetPacketActive: true,
-                      selectedInternetPacket: internetPacket
+                      selectedInternetPacket: internetPacket,
                     });
                   }}
                   variant="outline-primary mb-2"
@@ -178,13 +178,13 @@ export class UserData extends Component {
                           tvPacketId: this.state.selectedTvPacket.tvPacketId,
                           phonePacketId: phonePacket
                             ? phonePacket.phonePacketId
-                            : null
+                            : null,
                         },
                         user.userContract
                       );
                     this.setState({
                       tvPacketId: tvPacket ? tvPacket.tvPacketId : null,
-                      isChangeTvPacketActive: false
+                      isChangeTvPacketActive: false,
                     });
                   }}
                   variant="outline-warning mb-2"
@@ -199,7 +199,7 @@ export class UserData extends Component {
                       isChangeTvPacketActive: true,
                       selectedTvPacket: tvPacket
                         ? tvPacket
-                        : { tvPacketId: null, name: "" }
+                        : { tvPacketId: null, name: "" },
                     });
                   }}
                   variant="outline-primary mb-2 mr-1"
@@ -217,7 +217,7 @@ export class UserData extends Component {
                         tvPacketId: null,
                         phonePacketId: phonePacket
                           ? phonePacket.phonePacketId
-                          : null
+                          : null,
                       },
                       user.userContract
                     );
@@ -225,7 +225,7 @@ export class UserData extends Component {
                     this.setState({
                       tvPacketId: tvPacket ? tvPacket.tvPacketId : "",
                       isChangeTvPacketActive: false,
-                      selectedTvPacket: { tvPacketId: null, name: "" }
+                      selectedTvPacket: { tvPacketId: null, name: "" },
                     });
                   }}
                   variant="outline-danger mb-2"
@@ -283,14 +283,14 @@ export class UserData extends Component {
                           internetPacketId: internetPacket.internetPacketId,
                           tvPacketId: tvPacket ? tvPacket.tvPacketId : null,
                           phonePacketId: this.state.selectedPhonePacket
-                            .phonePacketId
+                            .phonePacketId,
                         },
                         user.userContract
                       );
                     this.setState({
                       phonePacketId: phonePacket,
                       isChangePhonePacketActive: false,
-                      selectedPhonePacket: { phonePacketId: null, name: "" }
+                      selectedPhonePacket: { phonePacketId: null, name: "" },
                     });
                   }}
                   variant="outline-warning mb-2"
@@ -305,7 +305,7 @@ export class UserData extends Component {
                       isChangePhonePacketActive: true,
                       selectedPhonePacket: phonePacket
                         ? phonePacket
-                        : { phonePacketId: null, name: "" }
+                        : { phonePacketId: null, name: "" },
                     });
                   }}
                   variant="outline-primary mb-2 mr-1"
@@ -328,24 +328,24 @@ export class UserData extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {
     auth: state.auth,
     user: state.user,
     internetPackets: state.internetPackets,
     tvPackets: state.tvPackets,
-    phonePackets: state.phonePackets
+    phonePackets: state.phonePackets,
   };
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators(
     {
       fetchUserByContractId,
       fetchInternetPackets,
       fetchTvPackets,
       fetchPhonePackets,
-      fetchPacketCombinationByInternetAndTvAndPhonePacketId
+      fetchPacketCombinationByInternetAndTvAndPhonePacketId,
     },
     dispatch
   );

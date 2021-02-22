@@ -1,19 +1,18 @@
 import React, { Component } from "react";
 import { Row, Col } from "react-bootstrap";
 import * as Icon from "react-bootstrap-icons";
-import "./../App.scss";
-import UserCover from "./UserCover";
-import UserData from "./UserData";
-import ShortListOfNotPaidBills from "./ShortListOfNotPaidBills";
-import ChangePasswordForm from "./ChangePasswordForm";
-import TableOfBills from "./TableOfBills";
-import Messages from "./Messages";
-import PollForm from "./PollForm";
+import UserCover from "../components/UserProfile/UserCover";
+import UserData from "../components/UserProfile/UserData";
+import ShortListOfNotPaidBills from "../components/UserProfile/ShortListOfNotPaidBills";
+import ChangePasswordForm from "../components/UserProfile/ChangePasswordForm";
+import TableOfBills from "../components/UserProfile/TableOfBills";
+import Messages from "../components/UserProfile/Messages";
+import PollForm from "../components/UserProfile/PollForm";
 import { bindActionCreators } from "redux";
 import { connect } from "react-redux";
-
-import InsertMessageForm from "./InsertMessageForm";
+import InsertMessageForm from "../components/UserProfile/InsertMessageForm";
 import { Element } from "react-scroll";
+import BillModal from "../components/UserProfile/BillModal";
 
 export class UserProfile extends Component {
   render() {
@@ -22,6 +21,8 @@ export class UserProfile extends Component {
         <h5 className="text-danger text-uppercase">Moj nalog</h5>
 
         <UserCover />
+
+        <BillModal />
 
         <Row>
           <Col lg={6}>
@@ -62,11 +63,11 @@ export class UserProfile extends Component {
   }
 }
 
-const mapStateToProps = state => {
+const mapStateToProps = (state) => {
   return {};
 };
 
-const mapDispatchToProps = dispatch => {
+const mapDispatchToProps = (dispatch) => {
   return bindActionCreators({}, dispatch);
 };
 

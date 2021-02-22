@@ -1,6 +1,6 @@
 import React, { Component } from "react";
 import { Image } from "react-bootstrap";
-import animation from "../../assets/images/animation.gif";
+import animation from "../assets/images/animation.gif";
 
 export class Advert extends Component {
   render() {
